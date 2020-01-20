@@ -3,11 +3,11 @@ USE ieee.std_logic_1164.ALL;
 
 ENTITY register8 IS
   PORT (
-    D:   IN  STD_LOGIC_VECTOR(7 downto 0);
-    Q:   OUT STD_LOGIC_VECTOR(7 downto 0);
-    ld:  IN  STD_LOGIC := '0';
-    clr: IN  STD_LOGIC := '0';
-    clk: IN  STD_LOGIC := '0'
+    D:   IN     STD_LOGIC_VECTOR(7 downto 0);
+    Q:   BUFFER STD_LOGIC_VECTOR(7 downto 0);
+    ld:  IN     STD_LOGIC := '0';
+    clr: IN     STD_LOGIC := '0';
+    clk: IN     STD_LOGIC := '0'
   );
 END register8;
 
