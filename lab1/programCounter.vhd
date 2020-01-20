@@ -33,9 +33,9 @@ BEGIN
   Y <= addr WHEN ( inc = '1' ) ELSE pc + 1;
 
   u1: register8 PORT MAP ( clk => clock,
-                          clr => clear,
-                          ld  => load,
-                          Q   => pc,
-                          D   => Y);
+                           clr => clear,
+                           ld  => load,
+                           Q   => pc,
+                           D   => Y );
 
 END LogicFunction;
