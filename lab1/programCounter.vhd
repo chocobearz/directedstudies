@@ -26,20 +26,16 @@ COMPONENT register8
   );
 END COMPONENT;
 
-SIGNAL Y: STD_LOGIC_VECTOR( 7 downto 0 );
+SIGNAL Y: STD_LOGIC_VECTOR( 7 downto 0 ) := "00000000";
 
 BEGIN
-  PROCESS( inc )
-  BEGIN
-    IF ( inc = '0' ) THEN
-      Y <= addr;
-    ELSE
-      Y <= pc + 1;
-    END IF;
-  END PROCESS;
+
+  Y <= addr WHEN ( inc = '1' ) ELSE pc + 1;
+
   u1: register8 PORT MAP ( clk => clock,
                           clr => clear,
                           ld  => load,
                           Q   => pc,
                           D   => Y);
+
 END LogicFunction;
