@@ -5,12 +5,12 @@ USE ieee.std_logic_unsigned.ALL;
 
 ENTITY programCounter IS
   PORT (
-    addr:  IN     STD_LOGIC_VECTOR(7 downto 0);
-    pc:    BUFFER STD_LOGIC_VECTOR(7 downto 0);
-    load:  IN     STD_LOGIC := '0';
-    clear: IN     STD_LOGIC := '0';
-    inc:   IN     STD_LOGIC := '0';
-    clock: IN     STD_LOGIC := '0'
+    addr: IN     STD_LOGIC_VECTOR( 7 downto 0 );
+    pc:   BUFFER STD_LOGIC_VECTOR( 7 downto 0 );
+    ld:   IN     STD_LOGIC := '0';
+    clr:  IN     STD_LOGIC := '0';
+    inc:  IN     STD_LOGIC := '0';
+    clk:  IN     STD_LOGIC := '0'
   );
 END programCounter;
 
@@ -20,21 +20,21 @@ COMPONENT register8
   PORT (
     D:   IN     STD_LOGIC_VECTOR( 7 downto 0 );
     Q:   BUFFER STD_LOGIC_VECTOR( 7 downto 0 );
-    ld:  IN     STD_LOGIC := '0';
-    clr: IN     STD_LOGIC := '0';
-    clk: IN     STD_LOGIC := '0'
+    Ld:  IN     STD_LOGIC := '0';
+    Clr: IN     STD_LOGIC := '0';
+    Clk: IN     STD_LOGIC := '0'
   );
 END COMPONENT;
 
-SIGNAL Y: STD_LOGIC_VECTOR( 7 downto 0 ) := "00000000";
+SIGNAL Y : STD_LOGIC_VECTOR ( 7 downto 0 ) := "00000000";
 
 BEGIN
 
   Y <= addr WHEN ( inc = '1' ) ELSE pc + 1;
 
-  u1: register8 PORT MAP ( clk => clock,
-                           clr => clear,
-                           ld  => load,
+  u1: register8 PORT MAP ( Clk => clk,
+                           Clr => clr,
+                           Ld  => ld,
                            Q   => pc,
                            D   => Y );
 
