@@ -1,0 +1,52 @@
+LIBRARY ieee ;
+USE ieee.std_logic_1164.ALL;
+
+ENTITY instruction_fetch IS
+  PORT (
+    addr: IN  STD_LOGIC_VECTOR(7 downto 0);
+    inst: OUT STD_LOGIC_VECTOR(31 downto 0);
+    ld:   IN  STD_LOGIC := '0';
+    clr:  IN  STD_LOGIC := '0';
+    inc:  IN  STD_LOGIC := '0';
+    clk:  IN  STD_LOGIC := '0'
+  );
+END instruction_fetch;
+
+ARCHITECTURE LogicFunction OF instruction_fetch IS
+  COMPONENT programCounter
+    PORT (
+      addr: IN     STD_LOGIC_VECTOR(7 downto 0);
+      pc:   BUFFER STD_LOGIC_VECTOR(7 downto 0);
+      ld:   IN     STD_LOGIC := '0';
+      clr:  IN     STD_LOGIC := '0';
+      inc:  IN     STD_LOGIC := '0';
+      clk:  IN     STD_LOGIC := '0'
+    );
+  END COMPONENT;
+  COMPONENT inst_mem
+    PORT(
+      address: IN  STD_LOGIC_VECTOR ( 7 DOWNTO 0 );
+       clock:  IN  STD_LOGIC  := '1';
+       data:   IN  STD_LOGIC_VECTOR ( 31 DOWNTO 0 );
+       wren:   IN  STD_LOGIC ;
+       q:      OUT STD_LOGIC_VECTOR ( 31 DOWNTO 0 )
+    );
+  END COMPONENT;
+  SIGNAL lily:    STD_LOGIC_VECTOR ( 31 downto 0 ) := "00000000000000000000000000000000";
+  SIGNAL simon:   STD_LOGIC                        := '0';
+  SIGNAL rd_addr: STD_LOGIC_VECTOR( 7 downto 0 )   :="00000000";
+  SIGNAL K:       STD_LOGIC_VECTOR( 7 downto 0 )   :="00000000";     
+BEGIN
+  u1: programCounter PORT MAP ( addr => addr,
+                                 pc   => K,
+                                 ld   => ld,
+                                 clr  => clr,
+                                 inc  => inc,
+                                 clk  => clk );
+  u2: inst_mem PORT MAP ( address => rd_addr,
+                          clock   => clk,
+                          data    => lily,
+                          wren    => simon,
+                          q       => inst );
+rd_addr <= K;
+END LogicFunction;
