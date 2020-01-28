@@ -5,9 +5,9 @@ ENTITY register8 IS
   PORT (
     D:   IN     STD_LOGIC_VECTOR( 7 downto 0 );
     Q:   BUFFER STD_LOGIC_VECTOR( 7 downto 0 );
-    Ld:  IN     STD_LOGIC := '0';
-    Clr: IN     STD_LOGIC := '0';
-    Clk: IN     STD_LOGIC := '0'
+    Ld:  IN     STD_LOGIC;
+    Clr: IN     STD_LOGIC;
+    Clk: IN     STD_LOGIC
   );
 END register8;
 
@@ -18,7 +18,6 @@ BEGIN
     IF ( Clr = '1' ) THEN
       Q <= "00000000";
 	 ELSIF rising_edge(clk) THEN
-	 --do I need a second process here?
       IF ( ld = '1' ) THEN
         Q <= D;
 		END IF;

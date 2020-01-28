@@ -1,3 +1,46 @@
+/*<simulation_settings>
+<ftestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off register8 -c register8 --vector_source="C:/Users/Correy/Desktop/directedStudies/lab1/Waveform.vwf" --testbench_file="C:/Users/Correy/Desktop/directedStudies/lab1/simulation/qsim/Waveform.vwf.vht"</ftestbench_cmd>
+<ttestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off register8 -c register8 --vector_source="C:/Users/Correy/Desktop/directedStudies/lab1/Waveform.vwf" --testbench_file="C:/Users/Correy/Desktop/directedStudies/lab1/simulation/qsim/Waveform.vwf.vht"</ttestbench_cmd>
+<fnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=on --flatten_buses=off --tool=modelsim_oem --format=vhdl --output_directory="C:/Users/Correy/Desktop/directedStudies/lab1/simulation/qsim/" register8 -c register8</fnetlist_cmd>
+<tnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=off --flatten_buses=off --timescale=1ps --tool=modelsim_oem --format=vhdl --output_directory="C:/Users/Correy/Desktop/directedStudies/lab1/simulation/qsim/" register8 -c register8</tnetlist_cmd>
+<modelsim_script>onerror {exit -code 1}
+vlib work
+vcom -work work register8.vho
+vcom -work work Waveform.vwf.vht
+vsim -novopt -c -t 1ps -L cycloneive -L altera -L altera_mf -L 220model -L sgate -L altera_lnsim work.register8_vhd_vec_tst
+vcd file -direction register8.msim.vcd
+vcd add -internal register8_vhd_vec_tst/*
+vcd add -internal register8_vhd_vec_tst/i1/*
+proc simTimestamp {} {
+    echo "Simulation time: $::now ps"
+    if { [string equal running [runStatus]] } {
+        after 2500 simTimestamp
+    }
+}
+after 2500 simTimestamp
+run -all
+quit -f
+</modelsim_script>
+<modelsim_script_timing>onerror {exit -code 1}
+vlib work
+vcom -work work register8.vho
+vcom -work work Waveform.vwf.vht
+vsim -novopt -c -t 1ps -sdfmax register8_vhd_vec_tst/i1=register8_vhd.sdo -L cycloneive -L altera -L altera_mf -L 220model -L sgate -L altera_lnsim work.register8_vhd_vec_tst
+vcd file -direction register8.msim.vcd
+vcd add -internal register8_vhd_vec_tst/*
+vcd add -internal register8_vhd_vec_tst/i1/*
+proc simTimestamp {} {
+    echo "Simulation time: $::now ps"
+    if { [string equal running [runStatus]] } {
+        after 2500 simTimestamp
+    }
+}
+after 2500 simTimestamp
+run -all
+quit -f
+</modelsim_script_timing>
+<hdl_lang>vhdl</hdl_lang>
+</simulation_settings>*/
 /*
 WARNING: Do NOT edit the input and output ports in this file in a text
 editor if you plan to continue editing the block that represents it in
@@ -5,20 +48,19 @@ the Block Editor! File corruption is VERY likely to occur.
 */
 
 /*
-Copyright (C) 1991-2015 Altera Corporation. All rights reserved.
-Your use of Altera Corporation's design tools, logic functions 
+Copyright (C) 2018  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
 and other software and tools, and its AMPP partner logic 
 functions, and any output files from any of the foregoing 
 (including device programming or simulation files), and any 
 associated documentation or information are expressly subject 
-to the terms and conditions of the Altera Program License 
-Subscription Agreement, the Altera Quartus II License Agreement,
-the Altera MegaCore Function License Agreement, or other 
-applicable license agreement, including, without limitation, 
-that your use is for the sole purpose of programming logic 
-devices manufactured by Altera and sold by Altera or its 
-authorized distributors.  Please refer to the applicable 
-agreement for further details.
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
 */
 
 HEADER
@@ -44,6 +86,16 @@ SIGNAL("Clk")
 }
 
 SIGNAL("Clr")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = INPUT;
+	PARENT = "";
+}
+
+SIGNAL("Ld")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
@@ -233,16 +285,6 @@ SIGNAL("Q[0]")
 	PARENT = "Q";
 }
 
-SIGNAL("Ld")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = SINGLE_BIT;
-	WIDTH = 1;
-	LSB_INDEX = -1;
-	DIRECTION = INPUT;
-	PARENT = "";
-}
-
 TRANSITION_LIST("Clk")
 {
 	NODE
@@ -250,9 +292,9 @@ TRANSITION_LIST("Clk")
 		REPEAT = 1;
 		NODE
 		{
-			REPEAT = 10;
-			LEVEL 0 FOR 40.0;
-			LEVEL 1 FOR 40.0;
+			REPEAT = 20;
+			LEVEL 0 FOR 20.0;
+			LEVEL 1 FOR 20.0;
 		}
 	}
 }
@@ -262,9 +304,22 @@ TRANSITION_LIST("Clr")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 0 FOR 540.0;
-		LEVEL 1 FOR 80.0;
-		LEVEL 0 FOR 180.0;
+		LEVEL 0 FOR 370.0;
+		LEVEL 1 FOR 40.0;
+		LEVEL 0 FOR 260.0;
+		LEVEL 1 FOR 40.0;
+		LEVEL 0 FOR 90.0;
+	}
+}
+
+TRANSITION_LIST("Ld")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL 0 FOR 150.0;
+		LEVEL 1 FOR 450.0;
+		LEVEL 0 FOR 200.0;
 	}
 }
 
@@ -273,12 +328,12 @@ TRANSITION_LIST("D[7]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 180.0;
-		LEVEL 0 FOR 135.0;
-		LEVEL 1 FOR 45.0;
-		LEVEL 0 FOR 90.0;
-		LEVEL 1 FOR 45.0;
-		LEVEL 0 FOR 305.0;
+		LEVEL 1 FOR 50.0;
+		LEVEL 0 FOR 100.0;
+		LEVEL 1 FOR 350.0;
+		LEVEL 0 FOR 100.0;
+		LEVEL 1 FOR 150.0;
+		LEVEL 0 FOR 50.0;
 	}
 }
 
@@ -287,15 +342,18 @@ TRANSITION_LIST("D[6]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 0 FOR 45.0;
-		LEVEL 1 FOR 90.0;
-		LEVEL 0 FOR 90.0;
-		LEVEL 1 FOR 90.0;
-		LEVEL 0 FOR 45.0;
-		LEVEL 1 FOR 45.0;
-		LEVEL 0 FOR 180.0;
-		LEVEL 1 FOR 90.0;
-		LEVEL 0 FOR 125.0;
+		LEVEL 1 FOR 50.0;
+		LEVEL 0 FOR 50.0;
+		LEVEL 1 FOR 50.0;
+		LEVEL 0 FOR 50.0;
+		LEVEL 1 FOR 50.0;
+		LEVEL 0 FOR 50.0;
+		LEVEL 1 FOR 150.0;
+		LEVEL 0 FOR 100.0;
+		LEVEL 1 FOR 100.0;
+		LEVEL 0 FOR 50.0;
+		LEVEL 1 FOR 50.0;
+		LEVEL 0 FOR 50.0;
 	}
 }
 
@@ -304,17 +362,14 @@ TRANSITION_LIST("D[5]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 45.0;
-		LEVEL 0 FOR 45.0;
-		LEVEL 1 FOR 45.0;
-		LEVEL 0 FOR 90.0;
-		LEVEL 1 FOR 45.0;
-		LEVEL 0 FOR 90.0;
-		LEVEL 1 FOR 180.0;
-		LEVEL 0 FOR 45.0;
-		LEVEL 1 FOR 45.0;
-		LEVEL 0 FOR 90.0;
-		LEVEL 1 FOR 80.0;
+		LEVEL 1 FOR 150.0;
+		LEVEL 0 FOR 50.0;
+		LEVEL 1 FOR 50.0;
+		LEVEL 0 FOR 50.0;
+		LEVEL 1 FOR 200.0;
+		LEVEL 0 FOR 50.0;
+		LEVEL 1 FOR 150.0;
+		LEVEL 0 FOR 100.0;
 	}
 }
 
@@ -323,18 +378,15 @@ TRANSITION_LIST("D[4]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 225.0;
-		LEVEL 0 FOR 45.0;
-		LEVEL 1 FOR 45.0;
-		LEVEL 0 FOR 45.0;
-		LEVEL 1 FOR 45.0;
-		LEVEL 0 FOR 45.0;
-		LEVEL 1 FOR 90.0;
-		LEVEL 0 FOR 45.0;
-		LEVEL 1 FOR 45.0;
-		LEVEL 0 FOR 45.0;
-		LEVEL 1 FOR 90.0;
-		LEVEL 0 FOR 35.0;
+		LEVEL 0 FOR 100.0;
+		LEVEL 1 FOR 50.0;
+		LEVEL 0 FOR 50.0;
+		LEVEL 1 FOR 100.0;
+		LEVEL 0 FOR 100.0;
+		LEVEL 1 FOR 100.0;
+		LEVEL 0 FOR 50.0;
+		LEVEL 1 FOR 150.0;
+		LEVEL 0 FOR 100.0;
 	}
 }
 
@@ -343,17 +395,15 @@ TRANSITION_LIST("D[3]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 0 FOR 45.0;
-		LEVEL 1 FOR 45.0;
-		LEVEL 0 FOR 45.0;
-		LEVEL 1 FOR 45.0;
-		LEVEL 0 FOR 45.0;
-		LEVEL 1 FOR 45.0;
-		LEVEL 0 FOR 45.0;
-		LEVEL 1 FOR 135.0;
-		LEVEL 0 FOR 90.0;
-		LEVEL 1 FOR 90.0;
-		LEVEL 0 FOR 170.0;
+		LEVEL 1 FOR 100.0;
+		LEVEL 0 FOR 150.0;
+		LEVEL 1 FOR 50.0;
+		LEVEL 0 FOR 50.0;
+		LEVEL 1 FOR 50.0;
+		LEVEL 0 FOR 50.0;
+		LEVEL 1 FOR 150.0;
+		LEVEL 0 FOR 100.0;
+		LEVEL 1 FOR 100.0;
 	}
 }
 
@@ -362,17 +412,16 @@ TRANSITION_LIST("D[2]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 45.0;
-		LEVEL 0 FOR 90.0;
-		LEVEL 1 FOR 45.0;
-		LEVEL 0 FOR 90.0;
-		LEVEL 1 FOR 135.0;
-		LEVEL 0 FOR 45.0;
-		LEVEL 1 FOR 45.0;
-		LEVEL 0 FOR 45.0;
-		LEVEL 1 FOR 45.0;
-		LEVEL 0 FOR 135.0;
-		LEVEL 1 FOR 80.0;
+		LEVEL 0 FOR 150.0;
+		LEVEL 1 FOR 50.0;
+		LEVEL 0 FOR 50.0;
+		LEVEL 1 FOR 200.0;
+		LEVEL 0 FOR 50.0;
+		LEVEL 1 FOR 50.0;
+		LEVEL 0 FOR 100.0;
+		LEVEL 1 FOR 50.0;
+		LEVEL 0 FOR 50.0;
+		LEVEL 1 FOR 50.0;
 	}
 }
 
@@ -381,20 +430,15 @@ TRANSITION_LIST("D[1]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 0 FOR 45.0;
-		LEVEL 1 FOR 45.0;
-		LEVEL 0 FOR 90.0;
-		LEVEL 1 FOR 135.0;
-		LEVEL 0 FOR 45.0;
-		LEVEL 1 FOR 90.0;
-		LEVEL 0 FOR 45.0;
-		LEVEL 1 FOR 45.0;
-		LEVEL 0 FOR 45.0;
-		LEVEL 1 FOR 45.0;
-		LEVEL 0 FOR 45.0;
-		LEVEL 1 FOR 45.0;
-		LEVEL 0 FOR 45.0;
-		LEVEL 1 FOR 35.0;
+		LEVEL 1 FOR 50.0;
+		LEVEL 0 FOR 50.0;
+		LEVEL 1 FOR 50.0;
+		LEVEL 0 FOR 100.0;
+		LEVEL 1 FOR 200.0;
+		LEVEL 0 FOR 100.0;
+		LEVEL 1 FOR 150.0;
+		LEVEL 0 FOR 50.0;
+		LEVEL 1 FOR 50.0;
 	}
 }
 
@@ -403,13 +447,15 @@ TRANSITION_LIST("D[0]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 45.0;
-		LEVEL 0 FOR 45.0;
-		LEVEL 1 FOR 45.0;
-		LEVEL 0 FOR 180.0;
-		LEVEL 1 FOR 90.0;
-		LEVEL 0 FOR 180.0;
-		LEVEL 1 FOR 215.0;
+		LEVEL 0 FOR 150.0;
+		LEVEL 1 FOR 50.0;
+		LEVEL 0 FOR 200.0;
+		LEVEL 1 FOR 50.0;
+		LEVEL 0 FOR 50.0;
+		LEVEL 1 FOR 50.0;
+		LEVEL 0 FOR 100.0;
+		LEVEL 1 FOR 100.0;
+		LEVEL 0 FOR 50.0;
 	}
 }
 
@@ -485,16 +531,6 @@ TRANSITION_LIST("Q[0]")
 	}
 }
 
-TRANSITION_LIST("Ld")
-{
-	NODE
-	{
-		REPEAT = 1;
-		LEVEL 0 FOR 390.0;
-		LEVEL 1 FOR 410.0;
-	}
-}
-
 DISPLAY_LINE
 {
 	CHANNEL = "Clk";
@@ -515,12 +551,21 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "D";
+	CHANNEL = "Ld";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 2;
 	TREE_LEVEL = 0;
-	CHILDREN = 3, 4, 5, 6, 7, 8, 9, 10;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "D";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 3;
+	TREE_LEVEL = 0;
+	CHILDREN = 4, 5, 6, 7, 8, 9, 10, 11;
 }
 
 DISPLAY_LINE
@@ -528,9 +573,9 @@ DISPLAY_LINE
 	CHANNEL = "D[7]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 3;
+	TREE_INDEX = 4;
 	TREE_LEVEL = 1;
-	PARENT = 2;
+	PARENT = 3;
 }
 
 DISPLAY_LINE
@@ -538,9 +583,9 @@ DISPLAY_LINE
 	CHANNEL = "D[6]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 4;
+	TREE_INDEX = 5;
 	TREE_LEVEL = 1;
-	PARENT = 2;
+	PARENT = 3;
 }
 
 DISPLAY_LINE
@@ -548,9 +593,9 @@ DISPLAY_LINE
 	CHANNEL = "D[5]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 5;
+	TREE_INDEX = 6;
 	TREE_LEVEL = 1;
-	PARENT = 2;
+	PARENT = 3;
 }
 
 DISPLAY_LINE
@@ -558,9 +603,9 @@ DISPLAY_LINE
 	CHANNEL = "D[4]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 6;
+	TREE_INDEX = 7;
 	TREE_LEVEL = 1;
-	PARENT = 2;
+	PARENT = 3;
 }
 
 DISPLAY_LINE
@@ -568,9 +613,9 @@ DISPLAY_LINE
 	CHANNEL = "D[3]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 7;
+	TREE_INDEX = 8;
 	TREE_LEVEL = 1;
-	PARENT = 2;
+	PARENT = 3;
 }
 
 DISPLAY_LINE
@@ -578,9 +623,9 @@ DISPLAY_LINE
 	CHANNEL = "D[2]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 8;
+	TREE_INDEX = 9;
 	TREE_LEVEL = 1;
-	PARENT = 2;
+	PARENT = 3;
 }
 
 DISPLAY_LINE
@@ -588,9 +633,9 @@ DISPLAY_LINE
 	CHANNEL = "D[1]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 9;
+	TREE_INDEX = 10;
 	TREE_LEVEL = 1;
-	PARENT = 2;
+	PARENT = 3;
 }
 
 DISPLAY_LINE
@@ -598,9 +643,9 @@ DISPLAY_LINE
 	CHANNEL = "D[0]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 10;
+	TREE_INDEX = 11;
 	TREE_LEVEL = 1;
-	PARENT = 2;
+	PARENT = 3;
 }
 
 DISPLAY_LINE
@@ -608,9 +653,9 @@ DISPLAY_LINE
 	CHANNEL = "Q";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 11;
+	TREE_INDEX = 12;
 	TREE_LEVEL = 0;
-	CHILDREN = 12, 13, 14, 15, 16, 17, 18, 19;
+	CHILDREN = 13, 14, 15, 16, 17, 18, 19, 20;
 }
 
 DISPLAY_LINE
@@ -618,9 +663,9 @@ DISPLAY_LINE
 	CHANNEL = "Q[7]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 12;
+	TREE_INDEX = 13;
 	TREE_LEVEL = 1;
-	PARENT = 11;
+	PARENT = 12;
 }
 
 DISPLAY_LINE
@@ -628,9 +673,9 @@ DISPLAY_LINE
 	CHANNEL = "Q[6]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 13;
+	TREE_INDEX = 14;
 	TREE_LEVEL = 1;
-	PARENT = 11;
+	PARENT = 12;
 }
 
 DISPLAY_LINE
@@ -638,9 +683,9 @@ DISPLAY_LINE
 	CHANNEL = "Q[5]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 14;
+	TREE_INDEX = 15;
 	TREE_LEVEL = 1;
-	PARENT = 11;
+	PARENT = 12;
 }
 
 DISPLAY_LINE
@@ -648,9 +693,9 @@ DISPLAY_LINE
 	CHANNEL = "Q[4]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 15;
+	TREE_INDEX = 16;
 	TREE_LEVEL = 1;
-	PARENT = 11;
+	PARENT = 12;
 }
 
 DISPLAY_LINE
@@ -658,9 +703,9 @@ DISPLAY_LINE
 	CHANNEL = "Q[3]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 16;
+	TREE_INDEX = 17;
 	TREE_LEVEL = 1;
-	PARENT = 11;
+	PARENT = 12;
 }
 
 DISPLAY_LINE
@@ -668,9 +713,9 @@ DISPLAY_LINE
 	CHANNEL = "Q[2]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 17;
+	TREE_INDEX = 18;
 	TREE_LEVEL = 1;
-	PARENT = 11;
+	PARENT = 12;
 }
 
 DISPLAY_LINE
@@ -678,9 +723,9 @@ DISPLAY_LINE
 	CHANNEL = "Q[1]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 18;
+	TREE_INDEX = 19;
 	TREE_LEVEL = 1;
-	PARENT = 11;
+	PARENT = 12;
 }
 
 DISPLAY_LINE
@@ -688,18 +733,9 @@ DISPLAY_LINE
 	CHANNEL = "Q[0]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 19;
-	TREE_LEVEL = 1;
-	PARENT = 11;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "Ld";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
 	TREE_INDEX = 20;
-	TREE_LEVEL = 0;
+	TREE_LEVEL = 1;
+	PARENT = 12;
 }
 
 TIME_BAR

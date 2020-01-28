@@ -34,8 +34,8 @@ ARCHITECTURE LogicFunction OF instruction_fetch IS
   END COMPONENT;
   SIGNAL lily:    STD_LOGIC_VECTOR ( 31 downto 0 ) := "00000000000000000000000000000000";
   SIGNAL simon:   STD_LOGIC                        := '0';
-  SIGNAL rd_addr: STD_LOGIC_VECTOR( 7 downto 0 )   :="00000000";
-  SIGNAL K:       STD_LOGIC_VECTOR( 7 downto 0 )   :="00000000";     
+  SIGNAL rd_addr: STD_LOGIC_VECTOR( 7 downto 0 );
+  SIGNAL K:       STD_LOGIC_VECTOR( 7 downto 0 );     
 BEGIN
   u1: programCounter PORT MAP ( addr => addr,
                                  pc   => K,
