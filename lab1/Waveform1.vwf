@@ -1,46 +1,3 @@
-/*<simulation_settings>
-<ftestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off register8 -c register8 --vector_source="C:/Users/Correy/Desktop/directedStudies/lab1/Waveform1.vwf" --testbench_file="C:/Users/Correy/Desktop/directedStudies/lab1/simulation/qsim/Waveform1.vwf.vht"</ftestbench_cmd>
-<ttestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off register8 -c register8 --vector_source="C:/Users/Correy/Desktop/directedStudies/lab1/Waveform1.vwf" --testbench_file="C:/Users/Correy/Desktop/directedStudies/lab1/simulation/qsim/Waveform1.vwf.vht"</ttestbench_cmd>
-<fnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=on --flatten_buses=off --tool=modelsim_oem --format=vhdl --output_directory="C:/Users/Correy/Desktop/directedStudies/lab1/simulation/qsim/" register8 -c register8</fnetlist_cmd>
-<tnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=off --flatten_buses=off --timescale=1ps --tool=modelsim_oem --format=vhdl --output_directory="C:/Users/Correy/Desktop/directedStudies/lab1/simulation/qsim/" register8 -c register8</tnetlist_cmd>
-<modelsim_script>onerror {exit -code 1}
-vlib work
-vcom -work work register8.vho
-vcom -work work Waveform1.vwf.vht
-vsim -novopt -c -t 1ps -L cycloneive -L altera -L altera_mf -L 220model -L sgate -L altera_lnsim work.programCounter_vhd_vec_tst
-vcd file -direction register8.msim.vcd
-vcd add -internal programCounter_vhd_vec_tst/*
-vcd add -internal programCounter_vhd_vec_tst/i1/*
-proc simTimestamp {} {
-    echo "Simulation time: $::now ps"
-    if { [string equal running [runStatus]] } {
-        after 2500 simTimestamp
-    }
-}
-after 2500 simTimestamp
-run -all
-quit -f
-</modelsim_script>
-<modelsim_script_timing>onerror {exit -code 1}
-vlib work
-vcom -work work register8.vho
-vcom -work work Waveform1.vwf.vht
-vsim -novopt -c -t 1ps -sdfmax programCounter_vhd_vec_tst/i1=register8_vhd.sdo -L cycloneive -L altera -L altera_mf -L 220model -L sgate -L altera_lnsim work.programCounter_vhd_vec_tst
-vcd file -direction register8.msim.vcd
-vcd add -internal programCounter_vhd_vec_tst/*
-vcd add -internal programCounter_vhd_vec_tst/i1/*
-proc simTimestamp {} {
-    echo "Simulation time: $::now ps"
-    if { [string equal running [runStatus]] } {
-        after 2500 simTimestamp
-    }
-}
-after 2500 simTimestamp
-run -all
-quit -f
-</modelsim_script_timing>
-<hdl_lang>vhdl</hdl_lang>
-</simulation_settings>*/
 /*
 WARNING: Do NOT edit the input and output ports in this file in a text
 editor if you plan to continue editing the block that represents it in
@@ -48,19 +5,20 @@ the Block Editor! File corruption is VERY likely to occur.
 */
 
 /*
-Copyright (C) 2018  Intel Corporation. All rights reserved.
-Your use of Intel Corporation's design tools, logic functions 
+Copyright (C) 1991-2015 Altera Corporation. All rights reserved.
+Your use of Altera Corporation's design tools, logic functions 
 and other software and tools, and its AMPP partner logic 
 functions, and any output files from any of the foregoing 
 (including device programming or simulation files), and any 
 associated documentation or information are expressly subject 
-to the terms and conditions of the Intel Program License 
-Subscription Agreement, the Intel Quartus Prime License Agreement,
-the Intel FPGA IP License Agreement, or other applicable license
-agreement, including, without limitation, that your use is for
-the sole purpose of programming logic devices manufactured by
-Intel and sold by Intel or its authorized distributors.  Please
-refer to the applicable agreement for further details.
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, the Altera Quartus II License Agreement,
+the Altera MegaCore Function License Agreement, or other 
+applicable license agreement, including, without limitation, 
+that your use is for the sole purpose of programming logic 
+devices manufactured by Altera and sold by Altera or its 
+authorized distributors.  Please refer to the applicable 
+agreement for further details.
 */
 
 HEADER
@@ -68,7 +26,7 @@ HEADER
 	VERSION = 1;
 	TIME_UNIT = ns;
 	DATA_OFFSET = 0.0;
-	DATA_DURATION = 200.0;
+	DATA_DURATION = 800.0;
 	SIMULATION_TIME = 0.0;
 	GRID_PHASE = 0.0;
 	GRID_PERIOD = 10.0;
@@ -165,7 +123,7 @@ SIGNAL("addr[0]")
 	PARENT = "addr";
 }
 
-SIGNAL("clear")
+SIGNAL("clk")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
@@ -175,7 +133,7 @@ SIGNAL("clear")
 	PARENT = "";
 }
 
-SIGNAL("clock")
+SIGNAL("clr")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
@@ -195,7 +153,7 @@ SIGNAL("inc")
 	PARENT = "";
 }
 
-SIGNAL("load")
+SIGNAL("ld")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
@@ -300,9 +258,12 @@ TRANSITION_LIST("addr[7]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 0 FOR 80.0;
-		LEVEL 1 FOR 80.0;
-		LEVEL 0 FOR 40.0;
+		LEVEL 1 FOR 90.0;
+		LEVEL 0 FOR 45.0;
+		LEVEL 1 FOR 180.0;
+		LEVEL 0 FOR 90.0;
+		LEVEL 1 FOR 270.0;
+		LEVEL 0 FOR 125.0;
 	}
 }
 
@@ -311,9 +272,16 @@ TRANSITION_LIST("addr[6]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 40.0;
-		LEVEL 0 FOR 40.0;
-		LEVEL 1 FOR 40.0;
+		LEVEL 0 FOR 45.0;
+		LEVEL 1 FOR 45.0;
+		LEVEL 0 FOR 90.0;
+		LEVEL 1 FOR 135.0;
+		LEVEL 0 FOR 45.0;
+		LEVEL 1 FOR 45.0;
+		LEVEL 0 FOR 45.0;
+		LEVEL 1 FOR 90.0;
+		LEVEL 0 FOR 45.0;
+		LEVEL 1 FOR 135.0;
 		LEVEL 0 FOR 80.0;
 	}
 }
@@ -323,9 +291,12 @@ TRANSITION_LIST("addr[5]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 120.0;
-		LEVEL 0 FOR 40.0;
-		LEVEL 1 FOR 40.0;
+		LEVEL 1 FOR 45.0;
+		LEVEL 0 FOR 180.0;
+		LEVEL 1 FOR 45.0;
+		LEVEL 0 FOR 180.0;
+		LEVEL 1 FOR 135.0;
+		LEVEL 0 FOR 215.0;
 	}
 }
 
@@ -334,10 +305,17 @@ TRANSITION_LIST("addr[4]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 0 FOR 40.0;
-		LEVEL 1 FOR 80.0;
-		LEVEL 0 FOR 40.0;
-		LEVEL 1 FOR 40.0;
+		LEVEL 0 FOR 90.0;
+		LEVEL 1 FOR 45.0;
+		LEVEL 0 FOR 45.0;
+		LEVEL 1 FOR 45.0;
+		LEVEL 0 FOR 45.0;
+		LEVEL 1 FOR 45.0;
+		LEVEL 0 FOR 135.0;
+		LEVEL 1 FOR 90.0;
+		LEVEL 0 FOR 45.0;
+		LEVEL 1 FOR 135.0;
+		LEVEL 0 FOR 80.0;
 	}
 }
 
@@ -346,9 +324,11 @@ TRANSITION_LIST("addr[3]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 40.0;
-		LEVEL 0 FOR 40.0;
-		LEVEL 1 FOR 120.0;
+		LEVEL 1 FOR 135.0;
+		LEVEL 0 FOR 180.0;
+		LEVEL 1 FOR 270.0;
+		LEVEL 0 FOR 90.0;
+		LEVEL 1 FOR 125.0;
 	}
 }
 
@@ -357,11 +337,16 @@ TRANSITION_LIST("addr[2]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 40.0;
-		LEVEL 0 FOR 40.0;
-		LEVEL 1 FOR 40.0;
-		LEVEL 0 FOR 40.0;
-		LEVEL 1 FOR 40.0;
+		LEVEL 0 FOR 180.0;
+		LEVEL 1 FOR 45.0;
+		LEVEL 0 FOR 90.0;
+		LEVEL 1 FOR 135.0;
+		LEVEL 0 FOR 45.0;
+		LEVEL 1 FOR 45.0;
+		LEVEL 0 FOR 45.0;
+		LEVEL 1 FOR 45.0;
+		LEVEL 0 FOR 90.0;
+		LEVEL 1 FOR 80.0;
 	}
 }
 
@@ -370,9 +355,15 @@ TRANSITION_LIST("addr[1]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 80.0;
-		LEVEL 0 FOR 40.0;
-		LEVEL 1 FOR 80.0;
+		LEVEL 0 FOR 135.0;
+		LEVEL 1 FOR 90.0;
+		LEVEL 0 FOR 45.0;
+		LEVEL 1 FOR 90.0;
+		LEVEL 0 FOR 45.0;
+		LEVEL 1 FOR 90.0;
+		LEVEL 0 FOR 135.0;
+		LEVEL 1 FOR 45.0;
+		LEVEL 0 FOR 125.0;
 	}
 }
 
@@ -381,24 +372,14 @@ TRANSITION_LIST("addr[0]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 40.0;
-		LEVEL 0 FOR 120.0;
-		LEVEL 1 FOR 40.0;
+		LEVEL 1 FOR 90.0;
+		LEVEL 0 FOR 450.0;
+		LEVEL 1 FOR 225.0;
+		LEVEL 0 FOR 35.0;
 	}
 }
 
-TRANSITION_LIST("clear")
-{
-	NODE
-	{
-		REPEAT = 1;
-		LEVEL 0 FOR 60.0;
-		LEVEL 1 FOR 30.0;
-		LEVEL 0 FOR 110.0;
-	}
-}
-
-TRANSITION_LIST("clock")
+TRANSITION_LIST("clk")
 {
 	NODE
 	{
@@ -406,9 +387,22 @@ TRANSITION_LIST("clock")
 		NODE
 		{
 			REPEAT = 10;
-			LEVEL 0 FOR 10.0;
-			LEVEL 1 FOR 10.0;
+			LEVEL 0 FOR 40.0;
+			LEVEL 1 FOR 40.0;
 		}
+	}
+}
+
+TRANSITION_LIST("clr")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL 0 FOR 170.0;
+		LEVEL 1 FOR 50.0;
+		LEVEL 0 FOR 310.0;
+		LEVEL 1 FOR 60.0;
+		LEVEL 0 FOR 210.0;
 	}
 }
 
@@ -417,19 +411,19 @@ TRANSITION_LIST("inc")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 0 FOR 100.0;
-		LEVEL 1 FOR 100.0;
+		LEVEL 0 FOR 380.0;
+		LEVEL 1 FOR 420.0;
 	}
 }
 
-TRANSITION_LIST("load")
+TRANSITION_LIST("ld")
 {
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 0 FOR 20.0;
-		LEVEL 1 FOR 150.0;
-		LEVEL 0 FOR 30.0;
+		LEVEL 0 FOR 70.0;
+		LEVEL 1 FOR 670.0;
+		LEVEL 0 FOR 60.0;
 	}
 }
 
@@ -438,7 +432,7 @@ TRANSITION_LIST("pc[7]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 200.0;
+		LEVEL X FOR 800.0;
 	}
 }
 
@@ -447,7 +441,7 @@ TRANSITION_LIST("pc[6]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 200.0;
+		LEVEL X FOR 800.0;
 	}
 }
 
@@ -456,7 +450,7 @@ TRANSITION_LIST("pc[5]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 200.0;
+		LEVEL X FOR 800.0;
 	}
 }
 
@@ -465,7 +459,7 @@ TRANSITION_LIST("pc[4]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 200.0;
+		LEVEL X FOR 800.0;
 	}
 }
 
@@ -474,7 +468,7 @@ TRANSITION_LIST("pc[3]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 200.0;
+		LEVEL X FOR 800.0;
 	}
 }
 
@@ -483,7 +477,7 @@ TRANSITION_LIST("pc[2]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 200.0;
+		LEVEL X FOR 800.0;
 	}
 }
 
@@ -492,7 +486,7 @@ TRANSITION_LIST("pc[1]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 200.0;
+		LEVEL X FOR 800.0;
 	}
 }
 
@@ -501,7 +495,7 @@ TRANSITION_LIST("pc[0]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 200.0;
+		LEVEL X FOR 800.0;
 	}
 }
 
@@ -597,7 +591,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "clear";
+	CHANNEL = "clk";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 9;
@@ -606,7 +600,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "clock";
+	CHANNEL = "clr";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 10;
@@ -624,7 +618,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "load";
+	CHANNEL = "ld";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 12;
