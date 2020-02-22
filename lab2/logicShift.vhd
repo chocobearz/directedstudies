@@ -14,8 +14,8 @@ END logicShift;
 ARCHITECTURE LogicFunction OF logicShift IS
 SIGNAL lacie: INTEGER;
 BEGIN
-     --sll
 	  lacie <= to_integer(unsigned(B));
+	  --sll
 R <= (STD_LOGIC_VECTOR(shift_left(unsigned(A), lacie))) WHEN OP = "00" ELSE
      --srl
      (STD_LOGIC_VECTOR(shift_right(unsigned(A), lacie))) WHEN OP = "01" ELSE
