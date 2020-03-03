@@ -10,6 +10,10 @@ ARCHITECTURE tb OF register_file_tb IS
   SIGNAL writedata                    : STD_LOGIC_VECTOR(63 downto 0);
   SIGNAL regwrite, clk                : STD_LOGIC := '0';
   SIGNAL readreg1, readreg2, writereg : STD_LOGIC_VECTOR(4 downto 0);
+  SIGNAL finished                     :STD_LOGIC :='0';
+  CONSTANT clock_period: time := 50 ns;
+  CONSTANT half_period : time := 25 ns;
+  CONSTANT timing      : time := 40 ns;
 BEGIN
   -- connecting testbench signals with ALU_64.vhd
   UUT : ENTITY work.register_file PORT MAP (
@@ -22,12 +26,9 @@ BEGIN
   readreg2  => readreg2,
   writereg  => writereg
   );
+  clk <= not clk after half_period when finished /= '1' else '0';
    tb1 : PROCESS
-     CONSTANT clock_period: time := 50 ns;
-	  CONSTANT half_period : time  := 25 ns;
-	  CONSTANT timing      : time       := 40 ns;
      BEGIN
-	    clk <= not clk after half_period;
 	    writereg  <= "00001"; 
        regwrite  <= '0';  
        writedata <= "0000000000000000000000000000000000000000000000000000000000000001";
@@ -52,17 +53,20 @@ BEGIN
        WAIT FOR timing;
        ASSERT (
 		   (data1 = "0000000000000000000000000000000000000000000000000000000000000000") and 
-			(data2 = "0000000000000000000000000000000000000000000000000000000000000001")
+			(data2 = "0000000000000000000000000000000000000000000000000000000000000000")
 		 )  -- expected output
        REPORT "test failed for first read from non empty reg 2 with simaltaneous write" SEVERITY error;
+		 
 		 
 		 writedata <= "0000000000000000000000000000000000000000000000000000000000000011";
        WAIT FOR timing;
        ASSERT (
 		   (data1 = "0000000000000000000000000000000000000000000000000000000000000000") and 
-			(data2 = "0000000000000000000000000000000000000000000000000000000000000010")
+			(data2 = "0000000000000000000000000000000000000000000000000000000000000001")
 		 )  -- expected output
        REPORT "test failed for second read from non empty reg 2 with simaltaneous write" SEVERITY error;
+		 
+		 -- delay: 11259
 		 
 		 writedata <= "0000000000000000000000000000000000000000000000000000000000000100";
        WAIT FOR timing;
@@ -70,29 +74,35 @@ BEGIN
 		   (data1 = "0000000000000000000000000000000000000000000000000000000000000000") and 
 			(data2 = "0000000000000000000000000000000000000000000000000000000000000011")
 		 )  -- expected output
-       REPORT "atest failed for third read from non empty reg 2 with simaltaneous write" SEVERITY error;
+       REPORT "test failed for third read from non empty reg 2 with simaltaneous write" SEVERITY error;
+		 
+		 -- delay: 26674 - worst case delay
 		 
        writereg <= "00010";
        WAIT FOR timing;
        ASSERT (
 		   (data1 = "0000000000000000000000000000000000000000000000000000000000000000") and 
-			(data2 = "0000000000000000000000000000000000000000000000000000000000000011")
+			(data2 = "0000000000000000000000000000000000000000000000000000000000000100")
 		 )  -- expected output
        REPORT "test failed for write to reg 1, read empty register" SEVERITY error;
+		  
+		 -- delay: 11482
 		 
 		 writedata <= "0000000000000000000000000000000000000000000000000000000000000101";
        WAIT FOR timing;
        ASSERT (
 		   (data1 = "0000000000000000000000000000000000000000000000000000000000000100") and 
-			(data2 = "0000000000000000000000000000000000000000000000000000000000000011")
+			(data2 = "0000000000000000000000000000000000000000000000000000000000000100")
 		 )  -- expected output
        REPORT "test failed for first read from reg 2 with simaltaneous write" SEVERITY error;
+		 
+		 -- delay: 11276
 		 
 		 regwrite <= '0';
        WAIT FOR timing;
        ASSERT (
-		   (data1 = "0000000000000000000000000000000000000000000000000000000000000101") and 
-			(data2 = "0000000000000000000000000000000000000000000000000000000000000011")
+		   (data1 = "0000000000000000000000000000000000000000000000000000000000000100") and 
+			(data2 = "0000000000000000000000000000000000000000000000000000000000000100")
 		 )  -- expected output
        REPORT "test failed for second read from reg 2 deactivate write" SEVERITY error;
 		 
@@ -100,17 +110,22 @@ BEGIN
        WAIT FOR timing;
        ASSERT (
        	(data1 = "0000000000000000000000000000000000000000000000000000000000000101") and 
-			(data2 = "0000000000000000000000000000000000000000000000000000000000000011")
+			(data2 = "0000000000000000000000000000000000000000000000000000000000000100")
 		 )  -- expected output
        REPORT "test failed for read final active write" SEVERITY error;
+		 
+		 -- delay: 10665
 	
        writedata <= "0000000000000000000000000000000000000000000000000000000000001000";
        WAIT FOR timing;
        ASSERT (
        	(data1 = "0000000000000000000000000000000000000000000000000000000000000101") and 
-			(data2 = "0000000000000000000000000000000000000000000000000000000000000011")
+			(data2 = "0000000000000000000000000000000000000000000000000000000000000100")
 		 )  -- expected output
-       REPORT "second test for no active write when changing write data" SEVERITY error;	
+       REPORT "second test for no active write when changing write data" SEVERITY error;
+		 
+		 finished <= '1';
+		 
 		 WAIT;
 		 
 	END PROCESS;

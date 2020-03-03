@@ -14,7 +14,7 @@ ARCHITECTURE tb OF risc_v_decoder_tb IS
   SIGNAL funct3         : STD_LOGIC_VECTOR(2 downto 0);
 BEGIN
   -- connecting testbench signals with ALU_64.vhd
-  UUT : ENTITY work.risc_v_decoder PORT MAP (
+  DUT : ENTITY work.risc_v_decoder PORT MAP (
     bitposition => bitposition,
     instruction => instruction,
     rs1         => rs1,
@@ -41,7 +41,9 @@ BEGIN
 			(opcode = "1010101")
 		 )  -- expected output
        REPORT "test failed for R-type alternating instruction" SEVERITY error;
-		   
+		 
+		 -- delay: 1207 ps, immeditate has longest delay, rs1 shortest delay
+		 
        bitposition <= "01";
        WAIT FOR period;
        ASSERT (
@@ -55,6 +57,8 @@ BEGIN
 			(opcode = "1010101")
 		  )  -- expected output
        REPORT "test failed for I-type alternating instruction" SEVERITY error;
+		 
+		 -- delay: 12357 ps
 		  
        bitposition <= "10";
        WAIT FOR period;
@@ -68,6 +72,8 @@ BEGIN
 			(opcode = "1010101")
 		 )  -- expected output
        REPORT "test failed for S-type alternating instruction" SEVERITY error;
+	    
+	    --delay: 11939 ps
 	
 	    bitposition <= "11";	 
        WAIT FOR period;
@@ -82,7 +88,9 @@ BEGIN
 		 )  -- expected output
        REPORT "test failed for SB-type alternating instruction" SEVERITY error;
 		 
-		        instruction <= "11111111111111110000000000000000";  
+		 --no change so no delay
+		 
+		 instruction <= "11111111111111110000000000000000";  
        bitposition <= "00";
        WAIT FOR period;
        ASSERT (
@@ -96,6 +104,8 @@ BEGIN
 		 )  -- expected output
        REPORT "test failed for R-type half instruction" SEVERITY error;
 		   
+		 -- delay: 12939, immeditate has longest delay, rs1 shortest delay
+			
        bitposition <= "01";
        WAIT FOR period;
        ASSERT (
@@ -108,6 +118,8 @@ BEGIN
 			(opcode = "0000000")
 		  )  -- expected output
        REPORT "test failed for I-type half instruction" SEVERITY error;
+		  
+		 -- delay: 12388
 		  
        bitposition <= "10";
        WAIT FOR period;
@@ -122,6 +134,8 @@ BEGIN
 		 )  -- expected output
        REPORT "test failed for S-type half instruction" SEVERITY error;
 	
+	    -- delay: 11801
+	
 	    bitposition <= "11";	 
        WAIT FOR period;
        ASSERT (
@@ -134,6 +148,8 @@ BEGIN
 			(opcode = "0000000")
 		 )  -- expected output
        REPORT "test failed for SB-type half instruction" SEVERITY error;
+		 
+		 -- delay: 11068
 		 
 		 WAIT;
 		 
