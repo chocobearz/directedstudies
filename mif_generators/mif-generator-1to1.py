@@ -1,5 +1,6 @@
 import argparse
 
+#Parse file name, bit and words from BASH
 parser = argparse.ArgumentParser()
 parser.add_argument(
   "miffilename",
@@ -17,6 +18,7 @@ parser.add_argument(
 )
 args = parser.parse_args()
 
+# General header taken from Quartus Generated .mif file, format parsed sizes
 header = """
 -- Copyright (C) 1991-2015 Altera Corporation. All rights reserved.
 -- Your use of Altera Corporation's design tools, logic functions 
@@ -47,15 +49,21 @@ CONTENT BEGIN
         words = args.words
 )
 
+# Dictonary format from Quartus generated .mif file
 def contentLineGenerator(index, value):
     return f"\t{index}    :   {value};\n"
 
+
 myValues = list(range(0, args.words))
 
+# Wite to given file name
+# If the file already exists it will be overwritten
 textfile = open(f'{args.miffilename}.mif', 'w+')
 
+# Write header
 textfile.write(header)
 
+# Write 1 to 1 dictionary
 for index, value in enumerate(myValues):
     textfile.write(contentLineGenerator(index, value))
 
