@@ -23,21 +23,17 @@ COMPONENT data_mem IS
 		q		   : OUT STD_LOGIC_VECTOR (63 DOWNTO 0)
 	);
 END COMPONENT;
-SIGNAL lily : STD_LOGIC_VECTOR(63 downto 0);
 SIGNAL lacie: STD_LOGIC_VECTOR(6 downto 0);
 BEGIN
-  PROCESS(Wr, Rd) IS
+  PROCESS(Rd) IS
   BEGIN
-    IF(Wr = '1') THEN
-	   lily <= WrData;
-	 END IF;
-	 IF(Rd = '1') THEN
-	   lacie <= Addr;
+    IF(Rd = '1') THEN
+	     lacie <= Addr;
 	 END IF;
   END PROCESS;
   u1 : data_mem PORT MAP (address => lacie,
 		                   clock	 => clk,
-		                   data		 => lily,
-		                   wren		 => '0',
+		                   data		 => Wrdata,
+		                   wren		 => Wr,
 		                   q		    => Rdata );
 END logic_function;

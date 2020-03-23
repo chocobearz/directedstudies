@@ -5,6 +5,7 @@ ENTITY instruction_fetch IS
   PORT (
     addr: IN  STD_LOGIC_VECTOR(7 downto 0);
     inst: OUT STD_LOGIC_VECTOR(31 downto 0);
+	 pc  : OUT STD_LOGIC_VECTOR(7 downto 0);
     ld:   IN  STD_LOGIC := '0';
     clr:  IN  STD_LOGIC := '0';
     inc:  IN  STD_LOGIC := '0';
@@ -34,11 +35,10 @@ ARCHITECTURE LogicFunction OF instruction_fetch IS
   END COMPONENT;
   SIGNAL lily:    STD_LOGIC_VECTOR ( 31 downto 0 ) := "00000000000000000000000000000000";
   SIGNAL simon:   STD_LOGIC                        := '0';
-  SIGNAL rd_addr: STD_LOGIC_VECTOR( 7 downto 0 );
-  SIGNAL K:       STD_LOGIC_VECTOR( 7 downto 0 );     
+  SIGNAL rd_addr: STD_LOGIC_VECTOR( 7 downto 0 );     
 BEGIN
   u1: programCounter PORT MAP ( addr => addr,
-                                 pc   => K,
+                                 pc   => rd_addr,
                                  ld   => ld,
                                  clr  => clr,
                                  inc  => inc,
@@ -48,5 +48,8 @@ BEGIN
                           data    => lily,
                           wren    => simon,
                           q       => inst );
-rd_addr <= K;
+  PROCESS(clk)
+  BEGIN
+    pc <= rd_addr;
+  END PROCESS;
 END LogicFunction;

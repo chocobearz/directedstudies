@@ -13,7 +13,7 @@ END register8;
 
 ARCHITECTURE LogicFunction OF register8 IS
 BEGIN
-  PROCESS( Clr, Clk, Ld )
+  PROCESS( Clr, Clk)
   BEGIN
     IF ( Clr = '1' ) THEN
       Q <= "00000000";

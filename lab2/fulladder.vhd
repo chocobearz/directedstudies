@@ -10,6 +10,9 @@ ENTITY fulladder IS
 
 ARCHITECTURE LogicFunction OF fulladder IS
   BEGIN
+  PROCESS(A, B, CIN)
+  BEGIN
     SUM  <= (A XOR B) XOR CIN;
     COUT <= (A AND B) OR (CIN AND A) OR (CIN AND B);
+  END PROCESS;
 END LogicFunction;

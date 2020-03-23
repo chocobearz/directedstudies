@@ -6,8 +6,6 @@ ENTITY datapath IS
   PORT(
     address                 : IN STD_LOGIC_VECTOR( 7 downto 0 );
     load, clear, inc, clock : IN STD_LOGIC;
-	 bitposition             : IN STD_LOGIC_VECTOR( 1 downto 0);
-    carry, zero, branch     : OUT STD_LOGIC;
 	 test: OUT STD_LOGIC_VECTOR(63 downto 0)
     );
 END datapath;
@@ -25,9 +23,8 @@ COMPONENT instruction_fetch IS
 END COMPONENT;
 COMPONENT risc_v_decoder IS
   PORT(
-    bitposition     : in  STD_LOGIC_VECTOR(1 downto 0);
-    instruction     : in  STD_LOGIC_VECTOR(31 downto 0);
-    rs1, rs2, rd    : out STD_LOGIC_VECTOR(4 downto 0);
+    instruction    : in  STD_LOGIC_VECTOR(31 downto 0);
+    rs1, rs2, rd   : out STD_LOGIC_VECTOR(4 downto 0);
 	 immediate      : out STD_LOGIC_VECTOR(31 downto 0);
 	 opcode, funct7 : out STD_LOGIC_VECTOR(6 downto 0);
 	 funct3         : out STD_LOGIC_VECTOR(2 downto 0) 
@@ -47,7 +44,7 @@ COMPONENT ALU_64 IS
     opcode:        IN  STD_LOGIC_VECTOR (3 downto 0);
     inputA,inputB: IN  STD_LOGIC_VECTOR(n-1 downto 0);
     result:        OUT STD_LOGIC_VECTOR(n-1 downto 0);
-	z,c:           OUT STD_LOGIC
+	 z,c:           OUT STD_LOGIC
   );
 END COMPONENT;
 COMPONENT control_unit IS
@@ -63,7 +60,7 @@ COMPONENT ALU_control IS
     Opcode : out STD_LOGIC_VECTOR(3 downto 0);
     ALUOp  : in  STD_LOGIC_VECTOR(1 downto 0);
     Funct7 : in  STD_LOGIC_VECTOR(6 downto 0);
-	Funct3 : in  STD_LOGIC_VECTOR(2 downto 0)
+	 Funct3 : in  STD_LOGIC_VECTOR(2 downto 0)
     );
 END COMPONENT;
 COMPONENT imm_gen IS
@@ -73,22 +70,27 @@ COMPONENT imm_gen IS
     clk         : IN  STD_LOGIC
     );
 END COMPONENT;
-COMPONENT data_mem_control IS
+COMPONENT data_mem IS
   PORT(
-    Wr, Rd, clk  : IN  STD_LOGIC;
-    Addr         : IN  STD_LOGIC_VECTOR(6 downto 0);
-	 WrData       : IN  STD_LOGIC_VECTOR(63 downto 0);
-    Rdata        : OUT STD_LOGIC_VECTOR(63 downto 0)
+		address	: IN STD_LOGIC_VECTOR (6 DOWNTO 0);
+		clock		: IN STD_LOGIC  := '1';
+		data		: IN STD_LOGIC_VECTOR (63 DOWNTO 0);
+		rden		: IN STD_LOGIC  := '1';
+		wren		: IN STD_LOGIC ;
+		q		   : OUT STD_LOGIC_VECTOR (63 DOWNTO 0)
     );
 END COMPONENT;
-SIGNAL lacie, simon                                 : STD_LOGIC_VECTOR(31 downto 0);
-SIGNAL lily, bad, cat                               : STD_LOGIC_VECTOR(4 downto 0);
-SIGNAL penny, abbie                                 : STD_LOGIC_VECTOR(6 downto 0);
-SIGNAL gex                                          : STD_LOGIC_VECTOR(2 downto 0);
-SIGNAL sir, mix, alot, baby, got                    : STD_LOGIC;
-SIGNAL back                                         : STD_LOGIC_VECTOR(1 downto 0);
-SIGNAL banana, hammock                              : STD_LOGIC_VECTOR(3 downto 0);
-SIGNAL punk, rock, lives, forever, stuffs, the, ends : STD_LOGIC_VECTOR(63 downto 0);
+SIGNAL lacie, simon                                  : STD_LOGIC_VECTOR(31 downto 0);
+SIGNAL lily, bad, cat, sashay, away                  : STD_LOGIC_VECTOR(4 downto 0);
+SIGNAL penny, abbie, slaayyy                         : STD_LOGIC_VECTOR(6 downto 0);
+SIGNAL gex, feirce                                   : STD_LOGIC_VECTOR(2 downto 0);
+SIGNAL sir, mix, alot, baby, got, back               : STD_LOGIC;
+SIGNAL condragulations                               : STD_LOGIC;
+SIGNAL kween                                         : STD_LOGIC_VECTOR(1 downto 0);
+SIGNAL banana                                        : STD_LOGIC_VECTOR(3 downto 0);
+SIGNAL punk, rock, lives                           : STD_LOGIC_VECTOR(63 downto 0);
+SIGNAL she, done, already, had, herses          : STD_LOGIC_VECTOR(63 downto 0);
+SIGNAL carry, zero, branch                           : STD_LOGIC;
 BEGIN
   u1: instruction_fetch PORT MAP (addr => address,
                                   inst => lacie,
@@ -96,8 +98,7 @@ BEGIN
                                   clr  => clear,
                                   inc  => inc,
                                   clk  => clock );
-  u2: risc_v_decoder PORT MAP (bitposition    => bitposition,
-                               instruction    => lacie,
+  u2: risc_v_decoder PORT MAP (instruction    => lacie,
                                rs1            => lily,
                                rs2            => bad,
                                rd             => cat,
@@ -107,56 +108,73 @@ BEGIN
                                funct3         => gex );
   u3: register_file PORT MAP(data1    => punk,
                             data2     => rock,
-                            writedata => ends,
-                            regwrite  => got,
+                            writedata => had,
+                            regwrite  => back,
                             clk       => clock,
                             readreg1  => lily,
                             readreg2  => bad,
-                            writereg  => cat );
+                            writereg  => away );
   u4: imm_gen PORT MAP(immediate32 => simon,
                       immediate64  => lives,
                       clk          => clock );
   u5 : ALU_64 PORT MAP(opcode => banana,
                       inputA  => punk,
-                      inputB  => forever,
-                      result  => stuffs,
+                      inputB  => she,
+                      result  => done,
                       z       => zero,
                       c       => carry );
-  u6 : data_mem_control PORT MAP(Wr =>alot,
-                                Rd => sir,
-                                clk => clock,
-                                Addr => stuffs(6 downto 0),
-                                WrData => rock,
-                                Rdata  => the );
+  u6 : data_mem  PORT MAP(wren => alot,
+                          rden => sir,
+                          clock => clock,
+                          address => done(6 downto 0),
+                          data => rock,
+                          q  => already );
   u7 : control_unit PORT MAP(Branch  => branch,
                             MemRead  => sir,
                             MemtoReg => mix,
                             MemWrite => alot,
                             ALUSrc   => baby,
                             RegWrite => got,
-                            ALUOp    => back,
+                            ALUOp    => kween,
                             I        => penny,
                             clock    => clock );
   u8 : ALU_control PORT MAP(Opcode => banana,
-                           ALUOp   => back,
-                           Funct7  => abbie,
-                           Funct3  => gex);
-
+                           ALUOp   => kween,
+                           Funct7  => slaayyy,
+                           Funct3  => feirce);
   ALU_select : PROCESS(baby) IS 
   BEGIN
     IF baby = '1' THEN
-      forever <= lives;
+      she <= lives;
     ELSE
-      forever <= rock;
+      she <= rock;
     END IF;
   END PROCESS;
-  Write_select : PROCESS(mix) IS
+  Write_select : PROCESS(condragulations) IS
   BEGIN
-    IF mix = '1' THEN
-      ends <= the;
+    IF condragulations = '1' THEN
+      herses <= already;
     ELSE 
-      ends <= stuffs;
+      herses <= had;
     END IF;
   END PROCESS;
-  test <= ends;
+  test <= had;
+  
+temp_regs: PROCESS(clock)
+  BEGIN
+    IF rising_edge(clock) THEN
+	    --RegWr
+       back <= got; 
+		 --MemSel
+		 condragulations <= mix; 
+		 --Ibuf
+		 feirce <= gex; 
+		 slaayyy <= abbie; 
+		 --Result_reg
+		 had <= done; 
+		 --Wr_addr
+		 sashay <= cat; 
+       away <= sashay;
+     END IF;
+  END PROCESS;
 END logic_function;

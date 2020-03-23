@@ -14,14 +14,18 @@ END logicShift;
 ARCHITECTURE LogicFunction OF logicShift IS
 SIGNAL lacie: INTEGER;
 BEGIN
-	  lacie <= to_integer(unsigned(B));
+  lacie <= to_integer(unsigned(B));  
+  PROCESS(A, lacie, OP)
+  BEGIN
 	  --sll
-R <= (STD_LOGIC_VECTOR(shift_left(unsigned(A), lacie))) WHEN OP = "00" ELSE
-     --srl
-     (STD_LOGIC_VECTOR(shift_right(unsigned(A), lacie))) WHEN OP = "01" ELSE
-     --sra
-     (STD_LOGIC_VECTOR(shift_right(signed(A), lacie))) WHEN OP = "10";
-	  --ASSERT false REPORT "something went wrong, incorrect operation type";
-     --error for 11?
-
+	  IF OP = "00" THEN
+       R <= (STD_LOGIC_VECTOR(shift_left(unsigned(A), lacie)));
+	  --srl
+	  ELSIF OP = "01" THEN
+       R <= (STD_LOGIC_VECTOR(shift_right(unsigned(A), lacie)));
+	  --sra
+	  ELSIF OP = "10" THEN
+       R <= (STD_LOGIC_VECTOR(shift_right(signed(A), lacie)));
+	  END IF;
+  END PROCESS;
 END LogicFunction;
