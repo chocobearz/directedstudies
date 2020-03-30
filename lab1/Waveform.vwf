@@ -1,16 +1,16 @@
 /*<simulation_settings>
-<ftestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off register8 -c register8 --vector_source="C:/Users/Correy/Desktop/directedStudies/lab1/Waveform.vwf" --testbench_file="C:/Users/Correy/Desktop/directedStudies/lab1/simulation/qsim/Waveform.vwf.vht"</ftestbench_cmd>
-<ttestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off register8 -c register8 --vector_source="C:/Users/Correy/Desktop/directedStudies/lab1/Waveform.vwf" --testbench_file="C:/Users/Correy/Desktop/directedStudies/lab1/simulation/qsim/Waveform.vwf.vht"</ttestbench_cmd>
-<fnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=on --flatten_buses=off --tool=modelsim_oem --format=vhdl --output_directory="C:/Users/Correy/Desktop/directedStudies/lab1/simulation/qsim/" register8 -c register8</fnetlist_cmd>
-<tnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=off --flatten_buses=off --timescale=1ps --tool=modelsim_oem --format=vhdl --output_directory="C:/Users/Correy/Desktop/directedStudies/lab1/simulation/qsim/" register8 -c register8</tnetlist_cmd>
+<ftestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off datapath -c datapath --vector_source="C:/Users/Correy/Desktop/directedStudies/lab4/output_files/Waveform.vwf" --testbench_file="C:/Users/Correy/Desktop/directedStudies/lab4/simulation/qsim/output_files/Waveform.vwf.vht"</ftestbench_cmd>
+<ttestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off datapath -c datapath --vector_source="C:/Users/Correy/Desktop/directedStudies/lab4/output_files/Waveform.vwf" --testbench_file="C:/Users/Correy/Desktop/directedStudies/lab4/simulation/qsim/output_files/Waveform.vwf.vht"</ttestbench_cmd>
+<fnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=on --flatten_buses=off --tool=modelsim_oem --format=vhdl --output_directory="C:/Users/Correy/Desktop/directedStudies/lab4/simulation/qsim/" datapath -c datapath</fnetlist_cmd>
+<tnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=off --flatten_buses=off --timescale=1ps --tool=modelsim_oem --format=vhdl --output_directory="C:/Users/Correy/Desktop/directedStudies/lab4/simulation/qsim/" datapath -c datapath</tnetlist_cmd>
 <modelsim_script>onerror {exit -code 1}
 vlib work
-vcom -work work register8.vho
-vcom -work work Waveform.vwf.vht
-vsim -novopt -c -t 1ps -L cycloneive -L altera -L altera_mf -L 220model -L sgate -L altera_lnsim work.register8_vhd_vec_tst
-vcd file -direction register8.msim.vcd
-vcd add -internal register8_vhd_vec_tst/*
-vcd add -internal register8_vhd_vec_tst/i1/*
+vcom -work work datapath.vho
+vcom -work work output_files/Waveform.vwf.vht
+vsim -novopt -c -t 1ps -L cycloneive -L altera -L altera_mf -L 220model -L sgate -L altera_lnsim work.datapath_vhd_vec_tst
+vcd file -direction datapath.msim.vcd
+vcd add -internal datapath_vhd_vec_tst/*
+vcd add -internal datapath_vhd_vec_tst/i1/*
 proc simTimestamp {} {
     echo "Simulation time: $::now ps"
     if { [string equal running [runStatus]] } {
@@ -23,12 +23,12 @@ quit -f
 </modelsim_script>
 <modelsim_script_timing>onerror {exit -code 1}
 vlib work
-vcom -work work register8.vho
-vcom -work work Waveform.vwf.vht
-vsim -novopt -c -t 1ps -sdfmax register8_vhd_vec_tst/i1=register8_vhd.sdo -L cycloneive -L altera -L altera_mf -L 220model -L sgate -L altera_lnsim work.register8_vhd_vec_tst
-vcd file -direction register8.msim.vcd
-vcd add -internal register8_vhd_vec_tst/*
-vcd add -internal register8_vhd_vec_tst/i1/*
+vcom -work work datapath.vho
+vcom -work work output_files/Waveform.vwf.vht
+vsim -novopt -c -t 1ps -sdfmax datapath_vhd_vec_tst/i1=datapath_vhd.sdo -L cycloneive -L altera -L altera_mf -L 220model -L sgate -L altera_lnsim work.datapath_vhd_vec_tst
+vcd file -direction datapath.msim.vcd
+vcd add -internal datapath_vhd_vec_tst/*
+vcd add -internal datapath_vhd_vec_tst/i1/*
 proc simTimestamp {} {
     echo "Simulation time: $::now ps"
     if { [string equal running [runStatus]] } {
