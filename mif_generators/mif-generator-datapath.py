@@ -1,6 +1,7 @@
 from utils import instructiongenerator
 from utils import padinstruction
 from utils import binarytonumeric
+from utils import createcsv
 import random
 import argparse
 
@@ -23,6 +24,9 @@ baseinstruction = instructiongenerator(baseseeds)
 instruction = padinstruction(baseinstruction, depth)
 #convert binary insturction to numeric for storage in mif
 numericinstruction = binarytonumeric(instruction)
+
+#create csv to break down expected signals for testing
+createcsv(instruction,args.miffilename)
 
 # General header taken from Quartus Generated .mif file, format parsed sizes
 header = """
