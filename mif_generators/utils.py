@@ -210,7 +210,9 @@ def createcsv(instruction, csvfilename):
   # create testing CSV
   cols = ("INSTURCTION TYPE,PC,INSTRUCTION,IMMEDIATE,FUNCT7,RS2,RS1,FUNCT3,RD,"+
   "OPCODE,BRANCH,MEMREAD,MEMTOREG,MEMWRITE,ALUOP,REGW,ALUOPCODE,ALUSRC,"+
-  "DATA1OUT,DATA2OUT,DATA2IN,C,Z,ALUOUT,ADDR,WRDATAMEM,MEMOUT,WRDATAREG\n")
+  "DATA1OUT,DATA2OUT,DATA2IN,C,Z,ALUOUT,ADDR,WRDATAMEM,MEMOUT,WRDATAREG, REG5"+
+  "REG6, REG7, REG8, REG9, REG18, REG19, REG20, REG21, REG22, REG23, REG24"+
+  "REG25, REG26, REG27, REG28, REG29, REG30, REG31\n")
   name = []
   pc = []
   immediate = []
@@ -238,6 +240,26 @@ def createcsv(instruction, csvfilename):
   wrdatamem = []
   memout = []
   wrdatareg = []
+  # keep track of what is currently in the registers at the end of the datapath
+  reg5 = []
+  reg6 = []
+  reg7 = []
+  reg8 = []
+  reg9 = []
+  reg18 = []
+  reg19 = []
+  reg20 = []
+  reg21 = []
+  reg22 = []
+  reg23 = []
+  reg24 = []
+  reg25 = []
+  reg26 = []
+  reg27 = []
+  reg28 = []
+  reg29 = []
+  reg30 = []
+  reg31 = []
 
   # create PC given incremented instuctions in 5 bit binary
   for i,inst in enumerate(instruction):
@@ -300,6 +322,25 @@ def createcsv(instruction, csvfilename):
       wrdatamem.append("DATA2OUT")
       memout.append("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
       wrdatareg.append("ALUOUT")
+      reg5.append("")
+      reg6.append("")
+      reg7.append("")
+      reg8.append("")
+      reg9.append("")
+      reg18.append("")
+      reg19.append("")
+      reg20.append("")
+      reg21.append("")
+      reg22.append("")
+      reg23.append("")
+      reg24.append("")
+      reg25.append("")
+      reg26.append("")
+      reg27.append("")
+      reg28.append("")
+      reg29.append("")
+      reg30.append("")
+      reg31.append("")
     # ld-type
     elif(inst[25:32] == "0000011"):
       name.append("ld-type")
@@ -328,6 +369,25 @@ def createcsv(instruction, csvfilename):
       wrdatamem.append("DATA2OUT")
       memout.append("")
       wrdatareg.append("MEMOUT")
+      reg5.append("")
+      reg6.append("")
+      reg7.append("")
+      reg8.append("")
+      reg9.append("")
+      reg18.append("")
+      reg19.append("")
+      reg20.append("")
+      reg21.append("")
+      reg22.append("")
+      reg23.append("")
+      reg24.append("")
+      reg25.append("")
+      reg26.append("")
+      reg27.append("")
+      reg28.append("")
+      reg29.append("")
+      reg30.append("")
+      reg31.append("")
     # i-type
     elif(inst[25:32] == "0010011"):
       name.append("i-type")
@@ -375,6 +435,25 @@ def createcsv(instruction, csvfilename):
       wrdatamem.append("DATA2OUT")
       memout.append("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
       wrdatareg.append("ALUOUT")
+      reg5.append("")
+      reg6.append("")
+      reg7.append("")
+      reg8.append("")
+      reg9.append("")
+      reg18.append("")
+      reg19.append("")
+      reg20.append("")
+      reg21.append("")
+      reg22.append("")
+      reg23.append("")
+      reg24.append("")
+      reg25.append("")
+      reg26.append("")
+      reg27.append("")
+      reg28.append("")
+      reg29.append("")
+      reg30.append("")
+      reg31.append("")
     # s-type
     elif(inst[25:32] == "0100011"):
       name.append("s-type")
@@ -403,6 +482,26 @@ def createcsv(instruction, csvfilename):
       wrdatamem.append("DATA2OUT")
       memout.append("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
       wrdatareg.append("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+      reg5.append("")
+      reg6.append("")
+      reg7.append("")
+      reg8.append("")
+      reg9.append("")
+      reg18.append("")
+      reg19.append("")
+      reg20.append("")
+      reg21.append("")
+      reg22.append("")
+      reg23.append("")
+      reg24.append("")
+      reg25.append("")
+      reg26.append("")
+      reg27.append("")
+      reg28.append("")
+      reg29.append("")
+      reg30.append("")
+      reg31.append("")
+    # branch type
     elif(inst[25:32] == "1100011"):
       name.append("sb-type")
       immediate.append(
@@ -431,6 +530,25 @@ def createcsv(instruction, csvfilename):
       wrdatamem.append("DATA2OUT")
       memout.append("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
       wrdatareg.append("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+      reg5.append("")
+      reg6.append("")
+      reg7.append("")
+      reg8.append("")
+      reg9.append("")
+      reg18.append("")
+      reg19.append("")
+      reg20.append("")
+      reg21.append("")
+      reg22.append("")
+      reg23.append("")
+      reg24.append("")
+      reg25.append("")
+      reg26.append("")
+      reg27.append("")
+      reg28.append("")
+      reg29.append("")
+      reg30.append("")
+      reg31.append("")
     else:
       print("This is not a correct instruction type")
       exit(1)
@@ -445,7 +563,10 @@ def createcsv(instruction, csvfilename):
       +","+memtoreg[i]+","+memwrite[i]+","+aluop[i]+","+regw[i]+","+aluopcode[i]
       +","+alusrc[i]+","+data1out[i]+","+data2out[i]+","+data2in[i]+","+c[i]+","
       +z[i]+","+aluout[i]+","+addr[i]+","+wrdatamem[i]+","+memout[i]+","
-      +wrdatareg[i]+"\n"
+      +wrdatareg[i]+","+reg5[i]+","+reg6[i]+","+reg7[i]+","+reg8[i]+","+reg9[i]+
+      ","+reg18[i]+","+reg19[i]+","+reg20[i]+","+reg21[i]+","+reg22[i]+","+
+      reg23[i]+","+reg24[i]+","+reg25[i]+","+reg26[i]+","+reg27[i]+","+reg28[i]+
+      ","+reg29[i]+","+reg30[i]+","+reg31[i]+"\n"
     )
 
   csvfile.close()
