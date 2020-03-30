@@ -5,8 +5,7 @@ USE ieee.numeric_std.all;
 ENTITY datapath IS
   PORT(
     address                 : IN STD_LOGIC_VECTOR( 7 downto 0 );
-    load, clear, inc, clock : IN STD_LOGIC;
-	 test: OUT STD_LOGIC_VECTOR(63 downto 0)
+    load, clear, inc, clock : IN STD_LOGIC
     );
 END datapath;
 
@@ -158,7 +157,6 @@ BEGIN
       herses <= had;
     END IF;
   END PROCESS;
-  test <= had;
   
 temp_regs: PROCESS(clock)
   BEGIN
