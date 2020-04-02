@@ -179,9 +179,9 @@ def instructiongenerator(seeds):
   with an all 0 instruction, pull 0 from the 0 address in data_mem'''
   setup = []
   
-  # fill each address with 0 so we know what to expect in testing
+  # fill each address with 2 so we know what to expect in testing
   for address in addresses:
-    setup.append("00000000000000000" + ldtypefun3 + address + "0000011")
+    setup.append("00000000001000000" + ldtypefun3 + address + "0000011")
 
   return(setup+itypeinst+rtypeinst+sbtypeinst+stypeinst+ldtypeinst)
 
