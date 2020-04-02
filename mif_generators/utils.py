@@ -183,7 +183,7 @@ def instructiongenerator(seeds):
   for address in addresses:
     setup.append("00000000000000000" + ldtypefun3 + address + "0000011")
 
-  return(setup+rtypeinst+itypeinst+sbtypeinst+stypeinst+ldtypeinst)
+  return(setup+itypeinst+rtypeinst+sbtypeinst+stypeinst+ldtypeinst)
 
 def padinstruction(baselist, depth):
 
