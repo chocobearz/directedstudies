@@ -6,20 +6,20 @@ def instructiongenerator(seeds):
 
   rtypeop = "0110011"
   rtypefun3 = ["000", "000", "001", "100", "101", "101", "110", "111"]
-  rtypefun7 = ["0000000", "0100000", "0000000", "0000000", "0000000", 
+  rtypefun7 = ["0000000", "0100000", "0000000", "0110011", "0000000", 
   "0010011", "0000000", "0000000"]
   ldtypeop = "0000011"
-  ldtypefun3 = ["000", "001", "010", "011", "100", "101", "110"]
+   # only testing double word, more can be added if more tests are needed
+  ldtypefun3 = "011"
   itypeop = "0010011"
   itypefun3 = ["000", "001", "100", "101", "101", "110", "111"]
   itypefun7 = ["0000000", "0000000", "0000000", "0000000", "0100000", "0000000",
    "0000000"]
   stypeop = "0100011"
   # only testing double word, more can be added if more tests are needed
-  stypefun3 = ["000"]
+  stypefun3 = "111"
   sbtypeop = "1100011"
-  # only testing double word, more can be added if more tests are needed
-  sbtypefun3 = ["000"]
+  sbtypefun3 = ["000", "001", "100"]
   #read and write register numbers availible for use, also used for 5 bit immediates
   addresses = [ "00101", "00110", "00111", "01000", "01001", "10010","10011",
   "10100", "10101", "10110", "10111", "11000", "11001", "11010", "11011",
@@ -34,12 +34,12 @@ def instructiongenerator(seeds):
 
   #rs combinations
   readloc = []
-  for i in range(0,len(rtypefun3)):
+  for _ in rtypefun3:
     readloc.append(random.choice(addresses) + random.choice(addresses))
 
   # concatenate rtype opcode and rd with all temp register locations
   r_op_rd = []
-  for i in range(0,len(rtypefun3)):
+  for _ in rtypefun3:
     r_op_rd.append( random.choice(addresses) + rtypeop)
 
   # concatenate with funct 3
@@ -56,40 +56,18 @@ def instructiongenerator(seeds):
   for i, funct7 in enumerate(rtypefun7):
     rtypeinst.append(funct7 + r_op_rd_fun3_rs[i])
 
-  #Build ld-type instructions
-
-  # concatenate rtype opcode and rd with all temp register locations
-  ld_op_rd = []
-  for i in range(0,len(ldtypefun3)):
-    ld_op_rd.append( random.choice(addresses) + ldtypeop)
-
-  # concatenate with funct 3
-  ld_op_rd_fun3 = []
-  for i,funct in enumerate(ldtypefun3):
-    ld_op_rd_fun3.append(funct + ld_op_rd[i])
-
-  # concatonate with read addresses
-  ld_op_rd_fun3_rs = []
-  for i in range(0,len(ldtypefun3)):
-    ld_op_rd_fun3_rs.append(random.choice(addresses) + ld_op_rd_fun3[i])
-
-  # concatonate with immediate
-  # for ease of testing always add 2 to whatever is in the rs1
-  for i in range(0,len(ldtypefun3)):
-    ldtypeinst.append("000000000010" + ld_op_rd_fun3_rs[i])
-
   random.seed(seeds[1])
 
   #Build I-type instructions
 
   #rs combinations
   readloc = []
-  for i in range(0,len(itypefun3)):
+  for _ in itypefun3:
     readloc.append(random.choice(addresses) + random.choice(addresses))
 
-  # concatenate rtype opcode and rd with all temp register locations
+  # concatenate itype opcode and rd with all temp register locations
   i_op_rd = []
-  for i in range(0,len(itypefun3)):
+  for _ in itypefun3:
     i_op_rd.append( random.choice(addresses) + itypeop)
 
   # concatenate with funct 3
@@ -108,44 +86,16 @@ def instructiongenerator(seeds):
 
   random.seed(seeds[2])
 
-  #Build S-type instructions
-
-  #rs combinations
-  readloc = []
-  for i in range(0,len(stypefun3)):
-    readloc.append(random.choice(addresses) + random.choice(addresses))
-
-  # concatenate rtype opcode and immediate
-  # always have immediate at 2 for testing ease
-  s_op_imm = []
-  for i in range(0,len(stypefun3)):
-    s_op_imm.append( "00010" + stypeop)
-
-  # concatenate with funct 3
-  s_op_imm_fun3 = []
-  for i,funct in enumerate(stypefun3):
-    s_op_imm_fun3.append(funct + s_op_imm[i])
-
-  # concatonate with read addresses
-  s_op_imm_fun3_rs = []
-  for i, loc in enumerate(readloc):
-    s_op_imm_fun3_rs.append(loc + s_op_imm_fun3[i])
-
-  # concatonate with immediate
-  # always have immediate at 2 for testing ease
-  for i in range(0,len(stypefun3)):
-    stypeinst.append("0000000" + s_op_imm_fun3_rs[i])
-
   #Build Sb-type instructions
 
   #rs combinations
   readloc = []
-  for i in range(0,len(sbtypefun3)):
+  for _ in sbtypefun3:
     readloc.append(random.choice(addresses) + random.choice(addresses))
 
-  # concatenate rtype opcode and immediate
+  # concatenate sbtype opcode and immediate
   sb_op_imm = []
-  for i in range(0,len(sbtypefun3)):
+  for _ in sbtypefun3:
     sb_op_imm.append( "00100"+ sbtypeop)
 
   # concatenate with funct 3
@@ -164,6 +114,66 @@ def instructiongenerator(seeds):
   for i in range(0,len(sbtypefun3)):
     sbtypeinst.append("0000000" + sb_op_imm_fun3_rs[i])
 
+  '''To test store and load, first store to an address within data_mem then load 
+  out of the address to test that it changed'''
+  #Build S-type instructions
+
+  #rs combinations
+  # use register 0 for rs1 so as to always add 0
+  # what is in rs2 will be stored in data_mem
+  readloc = []
+  for _ in range(0,3):
+    readloc.append(random.choice(addresses) + "00000")
+  
+  # addresses in data_mem to test store and load on
+  storeload = []
+  for _ in readloc:
+    storeload.append(random.choice(addresses))
+
+  # concatenate stype opcode and immediate
+  # random address chosen for store, test three
+  s_op_imm = []
+  for store in storeload:
+    s_op_imm.append( store + stypeop)
+
+  # concatenate with funct 3
+  s_op_imm_fun3 = []
+  for i in range(0,len(storeload)):
+    s_op_imm_fun3.append(stypefun3 + s_op_imm[i])
+
+  # concatonate with read addresses
+  s_op_imm_fun3_rs = []
+  for i, loc in enumerate(readloc):
+    s_op_imm_fun3_rs.append(loc + s_op_imm_fun3[i])
+
+  # concatonate with immediate
+  # always have immediate at 2 for testing ease
+  for i in range(0,len(storeload)):
+    stypeinst.append("0000000" + s_op_imm_fun3_rs[i])
+
+#Build ld-type instructions
+
+  # concatenate ldtype opcode and rd with all temp register locations
+  ld_op_rd = []
+  for _ in storeload:
+    ld_op_rd.append( random.choice(addresses) + ldtypeop)
+
+  # concatenate with funct 3
+  ld_op_rd_fun3 = []
+  for i in range(0, len(storeload)):
+    ld_op_rd_fun3.append(ldtypefun3 + ld_op_rd[i])
+
+  # concatonate with read addresses
+  # add 0 for testing
+  ld_op_rd_fun3_rs = []
+  for i in range(0,len(storeload)):
+    ld_op_rd_fun3_rs.append("00000" + ld_op_rd_fun3[i])
+
+  # concatonate with immediate
+  # testing loading same addresses that were just stored
+  for load in storeload:
+    ldtypeinst.append("0000000" + load + ld_op_rd_fun3_rs[i])
+
   ''' build set up instructions to fill registers so they do not have unkown
   values, fill all useable registers with zeros to begin, add the 0 register
   with an all 0 instruction, pull 0 from the 0 address in data_mem'''
@@ -171,9 +181,9 @@ def instructiongenerator(seeds):
   
   # fill each address with 0 so we know what to expect in testing
   for address in addresses:
-    setup.append("00000000000000000000" + address + "0000011")
+    setup.append("00000000000000000" + ldtypefun3 + address + "0000011")
 
-  return(setup+rtypeinst+ldtypeinst+itypeinst+stypeinst+sbtypeinst)
+  return(setup+rtypeinst+itypeinst+sbtypeinst+stypeinst+ldtypeinst)
 
 def padinstruction(baselist, depth):
 
@@ -299,18 +309,16 @@ def createcsv(instruction, csvfilename):
           aluopcode.append("0001")
         elif(inst[17:20] == "101"):
           aluopcode.append("0101")
-        elif(inst[17:20] == "100"):
-          aluopcode.append("0100")
         else:
           print("Function type error")
       elif(inst[0:7] == "0100000" and inst[17:20] == "000"):
         aluopcode.append("0010")
       elif(inst[0:7] == "0010011" and inst[17:20] == "101"):
         aluopcode.append("0011")
+      elif(inst[0:7] == "0110011" and inst[17:20] == "100"):
+        aluopcode.append("0100")
       else:
         print("Function type error")
-        print("2")
-        print(inst)
       alusrc.append("0")
       data1out.append("")
       data2out.append("")
