@@ -204,6 +204,7 @@ def padinstruction(baselist, depth):
   #double check nothing went wrong when filling to correct depth
   if (depth - len(instruction) != 0):
     print("there is an issue constructing the instructions")
+    exit(1)
 
   return(instruction)
 
@@ -311,6 +312,7 @@ def createcsv(instruction, csvfilename):
           aluopcode.append("0101")
         else:
           print("Function type error")
+          exit(1)
       elif(inst[0:7] == "0100000" and inst[17:20] == "000"):
         aluopcode.append("0010")
       elif(inst[0:7] == "0010011" and inst[17:20] == "101"):
@@ -319,6 +321,7 @@ def createcsv(instruction, csvfilename):
         aluopcode.append("0100")
       else:
         print("Function type error")
+        exit(1)
       alusrc.append("0")
       data1out.append("")
       data2out.append("")
@@ -352,7 +355,7 @@ def createcsv(instruction, csvfilename):
     # ld-type
     elif(inst[25:32] == "0000011"):
       name.append("ld-type")
-      immediate.append("00000000000000000000"+inst[0:13])
+      immediate.append("00000000000000000000"+inst[0:12])
       funct7.append("0000000")
       rs2.append("00000")
       rs1.append(inst[12:17])
@@ -399,7 +402,7 @@ def createcsv(instruction, csvfilename):
     # i-type
     elif(inst[25:32] == "0010011"):
       name.append("i-type")
-      immediate.append("00000000000000000000"+inst[0:13])
+      immediate.append("00000000000000000000"+inst[0:12])
       funct7.append(inst[0:7])
       rs2.append("00000")
       rs1.append(inst[12:17])
@@ -428,10 +431,12 @@ def createcsv(instruction, csvfilename):
           aluopcode.append("0100")
         else:
           print("Function type error")
+          exit(1)
       elif(inst[0:7] == "0100000" and inst[17:20] == "101"):
         aluopcode.append("0011")
       else:
         print("Function type error")
+        exit(1)
       alusrc.append("1")
       data1out.append("")
       data2out.append("")
