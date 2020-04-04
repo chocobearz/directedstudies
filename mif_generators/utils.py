@@ -19,7 +19,8 @@ def instructiongenerator(seeds):
   # only testing double word, more can be added if more tests are needed
   stypefun3 = "111"
   sbtypeop = "1100011"
-  sbtypefun3 = ["000", "001", "100"]
+  # two of each to check both conditions
+  sbtypefun3 = ["000", "000", "001", "001", "100", "100"]
   #read and write register numbers availible for use, also used for 5 bit immediates
   addresses = [ "00101", "00110", "00111", "01000", "01001", "10010","10011",
   "10100", "10101", "10110", "10111", "11000", "11001", "11010", "11011",
@@ -93,10 +94,14 @@ def instructiongenerator(seeds):
   for _ in sbtypefun3:
     readloc.append(random.choice(addresses) + random.choice(addresses))
 
+  #number to branch if branching requirement met
+  # 2, 2, 3, 3, 4, 4
+  branches = ["00100", "00100", "00110", "00110", "01000", "01000"]
+
   # concatenate sbtype opcode and immediate
   sb_op_imm = []
-  for _ in sbtypefun3:
-    sb_op_imm.append( "00100"+ sbtypeop)
+  for branch in branches:
+    sb_op_imm.append( branch + sbtypeop)
 
   # concatenate with funct 3
   # always have immediate at 2 for testing ease
@@ -106,8 +111,22 @@ def instructiongenerator(seeds):
 
   # concatonate with read addresses
   sb_op_imm_fun3_rs = []
-  for i, loc in enumerate(readloc):
-    sb_op_imm_fun3_rs.append(loc + sb_op_imm_fun3[i])
+  '''if other istructions are edited this may need to be altered, these cases
+  test the condition not tested in the previous loop, however if preeceding 
+  operations are changed and registers hold different values new registers need
+  to be choosen to meet these conditions'''
+  # given these exact preeceding operations test BEQ FALSE
+  sb_op_imm_fun3_rs.append(readloc[0] + sb_op_imm_fun3[0])
+  # given these exact preeceding operations test BEQ TRUE
+  sb_op_imm_fun3_rs.append(readloc[2] + sb_op_imm_fun3[1])
+  # given these exact preeceding operations test BNE FALSE
+  sb_op_imm_fun3_rs.append(readloc[2] + sb_op_imm_fun3[2])
+  # given these exact preeceding operations test BNE TRUE
+  sb_op_imm_fun3_rs.append(readloc[1] + sb_op_imm_fun3[3])
+  # given these exact preeceding operations test BLT FALSE
+  sb_op_imm_fun3_rs.append(readloc[2] + sb_op_imm_fun3[4])
+  # given these exact preeceding operations test BLT TRUE
+  sb_op_imm_fun3_rs.append(readloc[1] + sb_op_imm_fun3[5])
 
   # concatonate with immediate
   # always have immediate at 2 for testing ease
