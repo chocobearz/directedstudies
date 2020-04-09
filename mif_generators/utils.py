@@ -1,6 +1,6 @@
 import random
 
-def instructiongenerator(seeds):
+def instructiongenerator(seeds, branch):
 
   random.seed(seeds[0])
 
@@ -93,7 +93,8 @@ def instructiongenerator(seeds):
   readloc = []
   for _ in sbtypefun3:
     readloc.append(random.choice(addresses) + random.choice(addresses))
-
+  #need to add another to test branch if not equal
+  readloc.append(random.choice(addresses) + random.choice(addresses))
   #number to branch if branching requirement met
   # 2, 2, 3, 3, 4, 4
   branches = ["00100", "00100", "00110", "00110", "01000", "01000"]
@@ -115,18 +116,32 @@ def instructiongenerator(seeds):
   test the condition not tested in the previous loop, however if preeceding 
   operations are changed and registers hold different values new registers need
   to be choosen to meet these conditions'''
-  # given these exact preeceding operations test BEQ FALSE
-  sb_op_imm_fun3_rs.append(readloc[0] + sb_op_imm_fun3[0])
-  # given these exact preeceding operations test BEQ TRUE
-  sb_op_imm_fun3_rs.append(readloc[2] + sb_op_imm_fun3[1])
-  # given these exact preeceding operations test BNE FALSE
-  sb_op_imm_fun3_rs.append(readloc[2] + sb_op_imm_fun3[2])
-  # given these exact preeceding operations test BNE TRUE
-  sb_op_imm_fun3_rs.append(readloc[1] + sb_op_imm_fun3[3])
-  # given these exact preeceding operations test BLT FALSE
-  sb_op_imm_fun3_rs.append(readloc[2] + sb_op_imm_fun3[4])
-  # given these exact preeceding operations test BLT TRUE
-  sb_op_imm_fun3_rs.append(readloc[1] + sb_op_imm_fun3[5])
+  if(branch == "branch"):
+    # given these exact preeceding operations test BEQ FALSE
+    sb_op_imm_fun3_rs.append(readloc[0] + sb_op_imm_fun3[0])
+    # given these exact preeceding operations test BEQ TRUE
+    sb_op_imm_fun3_rs.append(readloc[1] + sb_op_imm_fun3[1])
+    # given these exact preeceding operations test BNE FALSE
+    sb_op_imm_fun3_rs.append(readloc[1] + sb_op_imm_fun3[2])
+    # given these exact preeceding operations test BNE TRUE
+    sb_op_imm_fun3_rs.append(readloc[2] + sb_op_imm_fun3[3])
+    # given these exact preeceding operations test BLT FALSE
+    sb_op_imm_fun3_rs.append(readloc[1] + sb_op_imm_fun3[4])
+    # given these exact preeceding operations test BLT TRUE
+    sb_op_imm_fun3_rs.append(readloc[0] + sb_op_imm_fun3[5])
+  else:
+    # given these exact preeceding operations test BEQ FALSE
+    sb_op_imm_fun3_rs.append(readloc[0] + sb_op_imm_fun3[0])
+    # given these exact preeceding operations test BEQ TRUE
+    sb_op_imm_fun3_rs.append(readloc[1] + sb_op_imm_fun3[1])
+    # given these exact preeceding operations test BNE FALSE
+    sb_op_imm_fun3_rs.append("0100110010" + sb_op_imm_fun3[2])
+    # given these exact preeceding operations test BNE TRUE
+    sb_op_imm_fun3_rs.append(readloc[2] + sb_op_imm_fun3[3])
+    # given these exact preeceding operations test BLT FALSE
+    sb_op_imm_fun3_rs.append("0100110010" + sb_op_imm_fun3[4])
+    # given these exact preeceding operations test BLT TRUE
+    sb_op_imm_fun3_rs.append(readloc[0] + sb_op_imm_fun3[5])
 
   # concatonate with immediate
   # always have immediate at 2 for testing ease
@@ -136,14 +151,14 @@ def instructiongenerator(seeds):
   '''To test store and load, first store to an address within data_mem then load 
   out of the address to test that it changed'''
   #Build S-type instructions
-
+  random.seed(seeds[2]+1)
   #rs combinations
   # use register 0 for rs1 so as to always add 0
   # what is in rs2 will be stored in data_mem
   readloc = []
   for _ in range(0,3):
     readloc.append(random.choice(addresses) + "00000")
-  
+
   # addresses in data_mem to test store and load on
   storeload = []
   for _ in readloc:
@@ -181,7 +196,7 @@ def instructiongenerator(seeds):
   ld_op_rd_fun3 = []
   for i in range(0, len(storeload)):
     ld_op_rd_fun3.append(ldtypefun3 + ld_op_rd[i])
-
+  
   # concatonate with read addresses
   # add 0 for testing
   ld_op_rd_fun3_rs = []
@@ -190,7 +205,7 @@ def instructiongenerator(seeds):
 
   # concatonate with immediate
   # testing loading same addresses that were just stored
-  for load in storeload:
+  for i,load in enumerate(storeload):
     ldtypeinst.append("0000000" + load + ld_op_rd_fun3_rs[i])
 
   ''' build set up instructions to fill registers so they do not have unkown
@@ -201,8 +216,14 @@ def instructiongenerator(seeds):
   # fill each address with 2 so we know what to expect in testing
   for address in addresses:
     setup.append("00000000001000000" + ldtypefun3 + address + "0000011")
+  
+  #first return is for non branching setup test, second testd branchin
+  #first tests every instructin type, if you want to test this but have 
+  #branching set up remove the sbtype type inst to avoid jumping
+  #return(setup+itypeinst+rtypeinst+sbtypeinst+stypeinst+ldtypeinst)
+  return(setup+itypeinst[0:6]+sbtypeinst[0:2]+itypeinst[6:7]+rtypeinst[0:3]+
+  sbtypeinst[2:4]+rtypeinst[3:8]+sbtypeinst[4:6]+stypeinst+ldtypeinst)
 
-  return(setup+itypeinst+rtypeinst+sbtypeinst+stypeinst+ldtypeinst)
 
 def padinstruction(baselist, depth):
 
@@ -213,7 +234,7 @@ def padinstruction(baselist, depth):
   # continually call the base constructor in order to fill mif
   while (depth - len(instruction) > 0):
     seeds = [random.randint(1,50),random.randint(1,50), random.randint(1,50)]
-    newlist = instructiongenerator(seeds)
+    newlist = instructiongenerator(seeds, "nobranch")
     instruction = instruction + newlist
 
   #likley this will result in overflow, reduce to necessary depth

@@ -4,6 +4,8 @@ mif Generator contains python scripts to generate a .mif file for use within
 Intel Quartus where it's main features are:
 * Quick automated fill of a one to one .mif file
 * Quick fill of a custom .mif file from a csv of addresses
+* mif file crated fills a 32 bit 256 word .mif for instruction memory and
+  outputs a csv containing the instructions
 
 # Scripts
 
@@ -22,6 +24,19 @@ python mif-generator-1to1.py $miffilename $bits $word
 * `$miffilename`: The name of the output file
 * `bits`: The word size in bits
 * `word`: The number of words
+
+## Testing datapath
+
+### mif-generator-datapath.py
+
+A mif file is generated to test all instructions to a datapath then writes them
+to a .csv with their decoded values
+
+```bash
+python mif-generator-datapath.py $miffilename
+```
+.csv and .mif will have the same name
+* `$miffilename`: The name of the output file
 
 ## General Generator
 

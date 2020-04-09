@@ -32,16 +32,16 @@ BEGIN
 	 ELSIF ((ALUOp = "11" OR ALUOp = "10") AND Funct3 = "110") THEN
 	   Opcode <= "0110";
 	-- XOR
-	-- r or i type and funct3 = 100
-	 ELSIF ((ALUOp = "11" OR ALUOp = "10") AND Funct3 = "100") THEN
+	-- r type and funct7 = 0110011 or i type, and funct3 = 100
+	 ELSIF ((ALUOp = "11" OR (ALUOp = "10" AND Funct7 = "0110011")) AND Funct3 = "100") THEN
       Opcode <= "0100";
 	-- SLL
 	-- r or i type and funct3 = 001
-	 ELSIF ((ALUOp = "10" OR ALUOp = "10") AND Funct3 = "001") THEN
+	 ELSIF ((ALUOp = "10" OR ALUOp = "11") AND Funct3 = "001") THEN
       Opcode <= "0001";
 	-- SRA
 	-- r and funct7 = 0010011 or r and funct7 = 0100000, and funct3 =101
-	 ELSIF (((ALUOp = "11" AND Funct7 = "0010011") OR (ALUOp = "11" AND Funct7 = "0100000"))AND Funct3 = "101") THEN
+	 ELSIF (((ALUOp = "10" AND Funct7 = "0010011") OR (ALUOp = "11" AND Funct7 = "0100000"))AND Funct3 = "101") THEN
 	   Opcode <= "0011";
 	-- SRL
 	-- r or i type and funct7 = 0000000 and funct3 = 101

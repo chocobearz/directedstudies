@@ -11,12 +11,16 @@ parser.add_argument(
   "miffilename",
   help="mif file name"
 )
+parser.add_argument(
+  "branch",
+  help="branch or nobranch"
+)
 args = parser.parse_args()
 
 depth = 256
 baseseeds = [4,5,6]
 # set up necessary instructions to test
-baseinstruction = instructiongenerator(baseseeds)
+baseinstruction = instructiongenerator(baseseeds, args.branch)
 # add meaningful instructions for the datapath which are not necessary to testing
 # this is done to fill the remainder of the mif and if you choose to parse them
 # may be used for testing

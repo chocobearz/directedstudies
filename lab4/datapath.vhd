@@ -14,6 +14,7 @@ COMPONENT instruction_fetch IS
   PORT (
     addr: IN  STD_LOGIC_VECTOR(7 downto 0);
     inst: OUT STD_LOGIC_VECTOR(31 downto 0);
+    pc  : OUT STD_LOGIC_VECTOR(7 downto 0);
     ld:   IN  STD_LOGIC := '0';
     clr:  IN  STD_LOGIC := '0';
     inc:  IN  STD_LOGIC := '0';
@@ -24,9 +25,9 @@ COMPONENT risc_v_decoder IS
   PORT(
     instruction    : in  STD_LOGIC_VECTOR(31 downto 0);
     rs1, rs2, rd   : out STD_LOGIC_VECTOR(4 downto 0);
-	 immediate      : out STD_LOGIC_VECTOR(31 downto 0);
-	 opcode, funct7 : out STD_LOGIC_VECTOR(6 downto 0);
-	 funct3         : out STD_LOGIC_VECTOR(2 downto 0) 
+   immediate      : out STD_LOGIC_VECTOR(31 downto 0);
+   opcode, funct7 : out STD_LOGIC_VECTOR(6 downto 0);
+   funct3         : out STD_LOGIC_VECTOR(2 downto 0) 
   );
 END COMPONENT;
 COMPONENT register_file IS
@@ -43,42 +44,42 @@ COMPONENT ALU_64 IS
     opcode:        IN  STD_LOGIC_VECTOR (3 downto 0);
     inputA,inputB: IN  STD_LOGIC_VECTOR(n-1 downto 0);
     result:        OUT STD_LOGIC_VECTOR(n-1 downto 0);
-	 z,c:           OUT STD_LOGIC
+    z,c:           OUT STD_LOGIC
   );
 END COMPONENT;
 COMPONENT control_unit IS
   PORT(
     Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite : out STD_LOGIC;
-    ALUOp	                                              : out  STD_LOGIC_VECTOR(1 downto 0);
+    ALUOp                                                : out  STD_LOGIC_VECTOR(1 downto 0);
     I                                                     : in  STD_LOGIC_VECTOR(6 downto 0);
     clock                                                 : in  STD_LOGIC
     );
 END COMPONENT;
-COMPONENT ALU_control IS
-  PORT(
-    Opcode : out STD_LOGIC_VECTOR(3 downto 0);
-    ALUOp  : in  STD_LOGIC_VECTOR(1 downto 0);
-    Funct7 : in  STD_LOGIC_VECTOR(6 downto 0);
-	 Funct3 : in  STD_LOGIC_VECTOR(2 downto 0)
-    );
-END COMPONENT;
-COMPONENT imm_gen IS
-  PORT(
-    immediate32 : IN  STD_LOGIC_VECTOR(31 downto 0);
-	immediate64 : OUT STD_LOGIC_VECTOR(63 downto 0);
-    clk         : IN  STD_LOGIC
-    );
-END COMPONENT;
-COMPONENT data_mem IS
-  PORT(
-		address	: IN STD_LOGIC_VECTOR (6 DOWNTO 0);
-		clock		: IN STD_LOGIC  := '1';
-		data		: IN STD_LOGIC_VECTOR (63 DOWNTO 0);
-		rden		: IN STD_LOGIC  := '1';
-		wren		: IN STD_LOGIC ;
-		q		   : OUT STD_LOGIC_VECTOR (63 DOWNTO 0)
-    );
-END COMPONENT;
+  COMPONENT ALU_control IS
+    PORT(
+      Opcode : out STD_LOGIC_VECTOR(3 downto 0);
+      ALUOp  : in  STD_LOGIC_VECTOR(1 downto 0);
+      Funct7 : in  STD_LOGIC_VECTOR(6 downto 0);
+     Funct3 : in  STD_LOGIC_VECTOR(2 downto 0)
+      );
+  END COMPONENT;
+  COMPONENT imm_gen IS
+    PORT(
+      immediate32 : IN  STD_LOGIC_VECTOR(31 downto 0);
+    immediate64 : OUT STD_LOGIC_VECTOR(63 downto 0);
+      clk         : IN  STD_LOGIC
+      );
+  END COMPONENT;
+  COMPONENT data_mem IS
+    PORT(
+      address  : IN STD_LOGIC_VECTOR (6 DOWNTO 0);
+      clock    : IN STD_LOGIC  := '1';
+      data    : IN STD_LOGIC_VECTOR (63 DOWNTO 0);
+      rden    : IN STD_LOGIC  := '1';
+      wren    : IN STD_LOGIC ;
+      q       : OUT STD_LOGIC_VECTOR (63 DOWNTO 0)
+      );
+  END COMPONENT;
 SIGNAL lacie, simon                                  : STD_LOGIC_VECTOR(31 downto 0);
 SIGNAL lily, bad, cat, sashay, away                  : STD_LOGIC_VECTOR(4 downto 0);
 SIGNAL penny, abbie, slaayyy                         : STD_LOGIC_VECTOR(6 downto 0);
@@ -90,9 +91,11 @@ SIGNAL banana                                        : STD_LOGIC_VECTOR(3 downto
 SIGNAL punk, rock, lives                           : STD_LOGIC_VECTOR(63 downto 0);
 SIGNAL she, done, already, had, herses          : STD_LOGIC_VECTOR(63 downto 0);
 SIGNAL carry, zero, branch                           : STD_LOGIC;
+SIGNAL garbage                                      : STD_LOGIC_VECTOR(7 downto 0);
 BEGIN
   u1: instruction_fetch PORT MAP (addr => address,
                                   inst => lacie,
+                                  pc => garbage,
                                   ld   => load,
                                   clr  => clear,
                                   inc  => inc,
@@ -107,7 +110,7 @@ BEGIN
                                funct3         => gex );
   u3: register_file PORT MAP(data1    => punk,
                             data2     => rock,
-                            writedata => had,
+                            writedata => herses,
                             regwrite  => back,
                             clk       => clock,
                             readreg1  => lily,
@@ -157,22 +160,21 @@ BEGIN
       herses <= had;
     END IF;
   END PROCESS;
-  
-temp_regs: PROCESS(clock)
+  temp_regs: PROCESS(clock)
   BEGIN
     IF rising_edge(clock) THEN
-	    --RegWr
-       back <= got; 
-		 --MemSel
-		 condragulations <= mix; 
-		 --Ibuf
-		 feirce <= gex; 
-		 slaayyy <= abbie; 
-		 --Result_reg
-		 had <= done; 
-		 --Wr_addr
-		 sashay <= cat; 
-       away <= sashay;
-     END IF;
+      --RegWr
+      back <= got; 
+      --MemSel
+      condragulations <= mix; 
+      --Ibuf
+      feirce <= gex; 
+      slaayyy <= abbie; 
+      --Result_reg
+      had <= done; 
+      --Wr_addr
+      sashay <= cat; 
+      away <= sashay;
+    END IF;
   END PROCESS;
 END logic_function;
