@@ -3,13 +3,14 @@ USE ieee.std_logic_1164.ALL;
 
 ENTITY instruction_fetch IS
   PORT (
-    addr: IN  STD_LOGIC_VECTOR(7 downto 0);
-    inst: OUT STD_LOGIC_VECTOR(31 downto 0);
-	 pc  : OUT STD_LOGIC_VECTOR(7 downto 0);
-    ld:   IN  STD_LOGIC := '0';
-    clr:  IN  STD_LOGIC := '0';
-    inc:  IN  STD_LOGIC := '0';
-    clk:  IN  STD_LOGIC := '0'
+    addr   : IN  STD_LOGIC_VECTOR(7 downto 0);
+    inst   : OUT STD_LOGIC_VECTOR(31 downto 0);
+	 pc     : OUT STD_LOGIC_VECTOR(7 downto 0);
+    ld     : IN  STD_LOGIC := '0';
+    clr    : IN  STD_LOGIC := '0';
+    inc    : IN  STD_LOGIC := '0';
+	 branch : IN STD_LOGIC;
+    clk    : IN  STD_LOGIC := '0'
   );
 END instruction_fetch;
 

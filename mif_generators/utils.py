@@ -93,11 +93,9 @@ def instructiongenerator(seeds, branch):
   readloc = []
   for _ in sbtypefun3:
     readloc.append(random.choice(addresses) + random.choice(addresses))
-  #need to add another to test branch if not equal
-  readloc.append(random.choice(addresses) + random.choice(addresses))
   #number to branch if branching requirement met
-  # 2, 2, 3, 3, 4, 4
-  branches = ["00100", "00100", "00110", "00110", "01000", "01000"]
+  # 2, 2, 2, 2, 6, 6
+  branches = ["00010", "00010", "00100", "00100", "00110", "00110"]
 
   # concatenate sbtype opcode and immediate
   sb_op_imm = []
@@ -558,7 +556,7 @@ def createcsv(instruction, csvfilename):
     elif(inst[25:32] == "1100011"):
       name.append("sb-type")
       immediate.append(
-        "00000000000000000000"+inst[0]+inst[24]+inst[1:7]+inst[20:24])
+        "0000000000000000000"+inst[0]+inst[24]+inst[1:7]+inst[20:24]+"0")
       funct7.append("0000000")
       rs2.append(inst[7:12])
       rs1.append(inst[12:17])
