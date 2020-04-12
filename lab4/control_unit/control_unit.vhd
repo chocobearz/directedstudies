@@ -7,15 +7,23 @@ ENTITY control_unit IS
     Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite : out STD_LOGIC;
     ALUOp	                                              : out  STD_LOGIC_VECTOR(1 downto 0);
     I                                                     : in  STD_LOGIC_VECTOR(6 downto 0);
-    clock                                                 : in  STD_LOGIC
+    clock, clr                                            : in  STD_LOGIC
     );
 END control_unit;
 
 ARCHITECTURE logic_function OF control_unit IS
 BEGIN
-  PROCESS (clock, I) IS
+  PROCESS (clock, clr) IS
   BEGIN
-    IF RISING_EDGE(clock) THEN
+    IF clr = '1' THEN
+	   Branch   <= '0';
+		MemRead  <= '0';
+		MemtoReg <= '0';
+		MemWrite <= '0';
+		ALUSrc   <= '0';
+	   RegWrite <= '0';
+	  ALUOp    <= "00";
+    ELSIF RISING_EDGE(clock) THEN
 	   IF I(1 downto 0) = "11" THEN
 		  IF I(6 downto 2) = "01100" THEN
 		    Branch   <= '0';

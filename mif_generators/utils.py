@@ -94,7 +94,7 @@ def instructiongenerator(seeds, branch):
   for _ in sbtypefun3:
     readloc.append(random.choice(addresses) + random.choice(addresses))
   #number to branch if branching requirement met
-  # 2, 2, 2, 2, 6, 6
+  # 2, 2, 4, 4, 6, 6
   branches = ["00010", "00010", "00100", "00100", "00110", "00110"]
 
   # concatenate sbtype opcode and immediate
@@ -219,8 +219,42 @@ def instructiongenerator(seeds, branch):
   #first tests every instructin type, if you want to test this but have 
   #branching set up remove the sbtype type inst to avoid jumping
   #return(setup+itypeinst+rtypeinst+sbtypeinst+stypeinst+ldtypeinst)
+
+  #set up C code test
+  ctest = []
+
+  #addi x0 and 2 to store in reg5
+  ctest.append("00000000001000000000001010010011")
+  #addi x0 and 3 to store in reg6
+  ctest.append("00000000001100000000001100010011")
+  #add x0 and x0 to store in reg7
+  ctest.append("00000000000000000000001110110011")
+  #add x0 and x6 to store in reg8
+  ctest.append("00000000000000110000010000110011")
+  #branch if x8 equal to x7, exit if 3 is less than i, forward 10
+  ctest.append("00000000011101000000010101100011")
+  #branch if x8 is less than x7, exit if 3 is less than i, forward 8
+  ctest.append("00000000011101000100010001100011")
+  #addi x7 and 1 to store in reg7
+  ctest.append("00000000000100111000001110010011")
+  #branch if x6 is not equal to x5, forward 4
+  ctest.append("00000000011000101001001001100011")
+  #addi x5 and -1 to store in reg5
+  ctest.append("11111111111100101000001010010011")
+  #branch if x7 is less than x8, exit if i is less than 3, back4
+  #to keep even address recheck this condition
+  ctest.append("11111110100000111100111001100011")
+  #branch if x0 equal to x0, exit always true, forward 4
+  ctest.append("00000000000000000000001001100011")
+  #addi x6 and -1 to store in reg6, ELSE
+  ctest.append("11111111111100110000001100010011")
+  #branch if x7 is less than x8, exit if i is less than 3, back 6
+  ctest.append("11111110100000111100110101100011")
+  #branch if x0 not equal to x0, never true, noop
+  ctest.append("00000000000000000001010001100011")
+
   return(setup+itypeinst[0:6]+sbtypeinst[0:2]+itypeinst[6:7]+rtypeinst[0:3]+
-  sbtypeinst[2:4]+rtypeinst[3:8]+sbtypeinst[4:6]+stypeinst+ldtypeinst)
+  sbtypeinst[2:4]+rtypeinst[3:8]+sbtypeinst[4:6]+stypeinst+ldtypeinst + ctest)
 
 
 def padinstruction(baselist, depth):
@@ -454,24 +488,20 @@ def createcsv(instruction, csvfilename):
       aluop.append("11")
       regw.append("1")
       # check the functs to know the ALU op
-      if(inst[0:7] == "0000000"):
-        if(inst[17:20] == "000"):
-          aluopcode.append("0000")
-        elif(inst[17:20] == "111"):
-          aluopcode.append("0111")
-        elif(inst[17:20] == "110"):
-          aluopcode.append("0110")
-        elif(inst[17:20] == "001"):
-          aluopcode.append("0001")
-        elif(inst[17:20] == "101"):
-          aluopcode.append("0101")
-        elif(inst[17:20] == "100"):
-          aluopcode.append("0100")
-        else:
-          print("Function type error")
-          exit(1)
-      elif(inst[0:7] == "0100000" and inst[17:20] == "101"):
+      if(inst[0:7] == "0100000" and inst[17:20] == "101"):
         aluopcode.append("0011")
+      elif(inst[17:20] == "000"):
+        aluopcode.append("0000")
+      elif(inst[17:20] == "111"):
+        aluopcode.append("0111")
+      elif(inst[17:20] == "110"):
+        aluopcode.append("0110")
+      elif(inst[17:20] == "001"):
+        aluopcode.append("0001")
+      elif(inst[17:20] == "101"):
+        aluopcode.append("0101")
+      elif(inst[17:20] == "100"):
+        aluopcode.append("0100")
       else:
         print("Function type error")
         exit(1)

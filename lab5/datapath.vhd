@@ -6,12 +6,14 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 ENTITY datapath IS
   PORT(
     load, clear, clock : IN STD_LOGIC;
-    car, zer, bran, increment     : BUFFER STD_LOGIC;
+    car, zer, bran, increment : BUFFER STD_LOGIC;
     writedata,imm      : BUFFER STD_LOGIC_VECTOR(63 downto 0);
     writeaddr          : BUFFER STD_LOGIC_VECTOR(4 downto 0);
 	 branchtype         : BUFFER STD_LOGIC_VECTOR(2 downto 0);
-	 addr,pc            : BUFFER STD_LOGIC_VECTOR(7 downto 0);
-	 opcode : BUFFER STD_LOGIC_VECTOR(6 downto 0)
+	 addr,pc, addre, addres           : BUFFER STD_LOGIC_VECTOR(7 downto 0);
+	 opcode : BUFFER STD_LOGIC_VECTOR(6 downto 0);
+    rd1, rd2 : BUFFER STD_LOGIC_VECTOR(4 downto 0);
+	 alu1, alu2 : BUFFER STD_LOGIC_VECTOR(63 downto 0)
     );
 END datapath;
 
@@ -20,10 +22,9 @@ COMPONENT instruction_fetch IS
   PORT (
     addr: IN  STD_LOGIC_VECTOR(7 downto 0);
     inst: OUT STD_LOGIC_VECTOR(31 downto 0);
-    pc  : OUT STD_LOGIC_VECTOR(7 downto 0);
+    pc, pcinc: OUT STD_LOGIC_VECTOR(7 downto 0);
     ld:   IN  STD_LOGIC := '0';
     clr:  IN  STD_LOGIC := '0';
-    inc:  IN  STD_LOGIC := '0';
     clk:  IN  STD_LOGIC := '0'
   );
 END COMPONENT;
@@ -33,14 +34,15 @@ COMPONENT risc_v_decoder IS
     rs1, rs2, rd   : out STD_LOGIC_VECTOR(4 downto 0);
    immediate      : out STD_LOGIC_VECTOR(31 downto 0);
    opcode, funct7 : out STD_LOGIC_VECTOR(6 downto 0);
-   funct3         : out STD_LOGIC_VECTOR(2 downto 0) 
+   funct3         : out STD_LOGIC_VECTOR(2 downto 0) ;
+	clr            : in STD_LOGIC
   );
 END COMPONENT;
 COMPONENT register_file IS
   PORT(
     data1, data2                  : out STD_LOGIC_VECTOR(63 downto 0);
     writedata                     : in  STD_LOGIC_VECTOR(63 downto 0);
-    regwrite, clk                 : in  STD_LOGIC;
+    regwrite, clk, clr            : in  STD_LOGIC;
     readreg1, readreg2, writereg  : in  STD_LOGIC_VECTOR(4 downto 0)
     );
 END COMPONENT;
@@ -50,7 +52,8 @@ COMPONENT ALU_64 IS
     opcode:        IN  STD_LOGIC_VECTOR (3 downto 0);
     inputA,inputB: IN  STD_LOGIC_VECTOR(n-1 downto 0);
     result:        OUT STD_LOGIC_VECTOR(n-1 downto 0);
-    z,c:           OUT STD_LOGIC
+    z,c:           OUT STD_LOGIC;
+	 clr:           IN  STD_LOGIC
   );
 END COMPONENT;
 COMPONENT control_unit IS
@@ -58,7 +61,7 @@ COMPONENT control_unit IS
     Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite : out STD_LOGIC;
     ALUOp                                                : out  STD_LOGIC_VECTOR(1 downto 0);
     I                                                     : in  STD_LOGIC_VECTOR(6 downto 0);
-    clock                                                 : in  STD_LOGIC
+    clock, clr                                                 : in  STD_LOGIC
     );
 END COMPONENT;
   COMPONENT ALU_control IS
@@ -66,14 +69,15 @@ END COMPONENT;
       Opcode : out STD_LOGIC_VECTOR(3 downto 0);
       ALUOp  : in  STD_LOGIC_VECTOR(1 downto 0);
       Funct7 : in  STD_LOGIC_VECTOR(6 downto 0);
-     Funct3 : in  STD_LOGIC_VECTOR(2 downto 0)
+      Funct3 : in  STD_LOGIC_VECTOR(2 downto 0);
+	   clr    : in  STD_LOGIC
       );
   END COMPONENT;
   COMPONENT imm_gen IS
     PORT(
       immediate32 : IN  STD_LOGIC_VECTOR(31 downto 0);
-    immediate64 : OUT STD_LOGIC_VECTOR(63 downto 0);
-      clk         : IN  STD_LOGIC
+      immediate64 : OUT STD_LOGIC_VECTOR(63 downto 0);
+      clk, clr    : IN  STD_LOGIC
       );
   END COMPONENT;
   COMPONENT data_mem IS
@@ -91,20 +95,20 @@ SIGNAL lily, bad, cat, sashay, away                  : STD_LOGIC_VECTOR(4 downto
 SIGNAL penny, abbie, slaayyy                         : STD_LOGIC_VECTOR(6 downto 0);
 SIGNAL gex, feirce                                   : STD_LOGIC_VECTOR(2 downto 0);
 SIGNAL sir, mix, alot, baby, got, back               : STD_LOGIC;
-SIGNAL condragulations, inc                          : STD_LOGIC;
+SIGNAL condragulations, incr                          : STD_LOGIC;
 SIGNAL kween                                         : STD_LOGIC_VECTOR(1 downto 0);
 SIGNAL banana                                        : STD_LOGIC_VECTOR(3 downto 0);
 SIGNAL punk, rock, lives                             : STD_LOGIC_VECTOR(63 downto 0);
 SIGNAL she, done, already, had, herses               : STD_LOGIC_VECTOR(63 downto 0);
 SIGNAL carry, zero, branch                           : STD_LOGIC;
-SIGNAL garbage, address, werk                        : STD_LOGIC_VECTOR(7 downto 0);
+SIGNAL garbage, address, werk, another,choice , more : STD_LOGIC_VECTOR(7 downto 0);
 BEGIN
   u1: instruction_fetch PORT MAP (addr => address,
                                   inst => lacie,
                                   pc => garbage,
+											 pcinc =>another,
                                   ld   => load,
                                   clr  => clear,
-                                  inc  => inc,
                                   clk  => clock );
   u2: risc_v_decoder PORT MAP (instruction    => lacie,
                                rs1            => lily,
@@ -113,7 +117,8 @@ BEGIN
                                immediate      => simon,
                                opcode         => penny,
                                funct7         => abbie,
-                               funct3         => gex );
+                               funct3         => gex,
+										 clr            => clear);
   u3: register_file PORT MAP(data1    => punk,
                             data2     => rock,
                             writedata => herses,
@@ -121,16 +126,19 @@ BEGIN
                             clk       => clock,
                             readreg1  => lily,
                             readreg2  => bad,
-                            writereg  => away );
+                            writereg  => away,
+									 clr       => clear );
   u4: imm_gen PORT MAP(immediate32 => simon,
                       immediate64  => lives,
-                      clk          => clock );
+                      clk          => clock,
+							 clr          => clear);
   u5 : ALU_64 PORT MAP(opcode => banana,
                       inputA  => punk,
                       inputB  => she,
                       result  => done,
                       z       => zero,
-                      c       => carry );
+                      c       => carry,
+							clr      => clear );
   u6 : data_mem  PORT MAP(wren => alot,
                           rden => sir,
                           clock => clock,
@@ -145,33 +153,55 @@ BEGIN
                             RegWrite => got,
                             ALUOp    => kween,
                             I        => penny,
-                            clock    => clock );
+                            clock    => clock,
+									 clr      => clear );
   u8 : ALU_control PORT MAP(Opcode => banana,
                            ALUOp   => kween,
                            Funct7  => slaayyy,
-                           Funct3  => feirce);
+                           Funct3  => feirce,
+									clr     => clear);
 									
-  ALU_select : PROCESS(baby) IS 
+  ALU_select : PROCESS(baby, clear) IS 
   BEGIN
-    IF baby = '1' THEN
+    IF clear = '1' THEN
+	   she <= (others => '0');
+    ELSIF baby = '1' THEN
       she <= lives;
     ELSE
       she <= rock;
     END IF;
   END PROCESS;
   
-  Write_select : PROCESS(condragulations) IS
+  Write_select : PROCESS(condragulations, clear) IS
   BEGIN
-    IF condragulations = '1' THEN
+    IF clear = '1' THEN
+	   herses <= (others => '0');
+    ELSIF condragulations = '1' THEN
       herses <= already;
     ELSE 
       herses <= had;
     END IF;
   END PROCESS;
   
-  temp_regs: PROCESS(clock)
+  temp_regs: PROCESS(clock, clear)
   BEGIN
-    IF rising_edge(clock) THEN
+    IF clear = '1' THEN
+	   --RegWr
+      back <= '0'; 
+      --MemSel
+      condragulations <= '0'; 
+      --Ibuf
+      feirce <= (others => '0'); 
+      slaayyy <= (others => '0'); 
+      --Result_reg
+      had <= (others => '0'); 
+      --Wr_addr
+      sashay <= (others => '0'); 
+      away <= sashay;
+		--address from pc
+		werk<= (others => '0');
+		more <= (others => '0');
+    ELSIF rising_edge(clock) THEN
       --RegWr
       back <= got; 
       --MemSel
@@ -186,41 +216,59 @@ BEGIN
       away <= sashay;
 		--address from pc
 		werk<=garbage;
+		more <= another;
     END IF;
   END PROCESS;
   
-  addrCaculate: PROCESS(werk, lives)
+  addrCaculate: PROCESS(werk, lives, clear)
   BEGIN
-    address <= werk + lives(7 downto 0);
+    IF clear = '1' THEN
+	   choice <= (others => '0');
+	 ELSE
+      choice <= werk + lives(7 downto 0);
+	 END IF;
   END PROCESS;
   
-  branching: PROCESS(branch, feirce )
-    BEGIN
-	 IF branch = ('1') THEN
-	   IF (feirce = "000") THEN
-		  IF zero = '1' THEN
-		    inc <= '1';
-		  ELSE
-		    inc <= '0';
-		  END IF;
-		ELSIF (feirce = "001") THEN
-		  IF zero = '0' THEN
-		    inc <= '1';
-		  ELSE 
-		    inc <= '0';
-		  END IF;
-		ELSIF (feirce = "100") THEN
-		  IF ( zero = '0' and carry = '0') THEN
-		    inc <= '1';
-		  ELSE
-		    inc <= '0';
-		  END IF;
-		END IF;
+branching: PROCESS(branch, feirce, clear )
+  BEGIN
+ IF clear = '1' THEN
+  incr <= '0'; 
+ ELSIF branch = ('1') THEN
+   IF (feirce = "000") THEN
+	  IF zero = '1' THEN
+	    incr <= '1';
 	  ELSE
-	    inc <= '0';
-    END IF;
-  END PROCESS;
+	    incr <= '0';
+	  END IF;
+	ELSIF (feirce = "001") THEN
+	  IF zero = '0' THEN
+	    incr <= '1';
+	  ELSE 
+	    incr <= '0';
+	  END IF;
+	ELSIF (feirce = "100") THEN
+	  IF ( zero = '0' and carry = '0') THEN
+	    incr <= '1';
+	  ELSE
+	    incr <= '0';
+	  END IF;
+	END IF;
+  ELSE
+    incr <= '0';
+  END IF;
+END PROCESS;
   
+multiplexer: PROCESS(incr, choice, another, clear)
+  BEGIN
+    IF clear = '1' THEN
+	   address <= (others => '0');
+    ELSIF(incr = '1') THEN
+	   address <= choice;
+	 ELSE 
+	   address <= more;
+    END IF;
+END PROCESS;
+	 
   car <= carry;
   zer <= zero;
   writedata <= herses;
@@ -231,5 +279,11 @@ BEGIN
   pc <= werk;
   imm <= lives;
   opcode <= penny;
-  increment <= inc;
+  increment <= incr;
+  addre <= more;
+  addres <= choice;
+  rd1 <= lily;
+  rd2 <= bad;
+  alu1 <= punk;
+  alu2 <= she;
 END logic_function;

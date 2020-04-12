@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 ENTITY addsub IS
   GENERIC(n: INTEGER:= 64);
   PORT(
-    OP:   IN     STD_LOGIC;
+    OP, CLR:   IN     STD_LOGIC;
     A,B:  IN     STD_LOGIC_VECTOR(n-1 downto 0);
     R:    BUFFER STD_LOGIC_VECTOR(n-1 downto 0);
     COUT: OUT    STD_LOGIC
@@ -15,7 +15,7 @@ ENTITY addsub IS
 ARCHITECTURE LogicFunction OF addsub IS
   COMPONENT fulladder IS
     PORT(
-      A,B, CIN: IN  STD_LOGIC;
+      A,B, CIN, CLR: IN  STD_LOGIC;
       SUM,COUT: OUT STD_LOGIC
     );
   END COMPONENT;
@@ -33,7 +33,8 @@ ARCHITECTURE LogicFunction OF addsub IS
                    B => bsig(i),
                    CIN => lacie(i),
                    SUM => result(i),
-                   COUT => lacie(i+1)
+                   COUT => lacie(i+1),
+						 CLR => CLR
 						 );
     END GENERATE;
 	 COUT   <= '1' when (A(n-1) = bsig(n-1)) AND (result(n-1) /= A(n-1)) ELSE

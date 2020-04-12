@@ -7,17 +7,20 @@ ENTITY ALU_control IS
     Opcode : out STD_LOGIC_VECTOR(3 downto 0);
     ALUOp  : in  STD_LOGIC_VECTOR(1 downto 0);
     Funct7 : in  STD_LOGIC_VECTOR(6 downto 0);
-	 Funct3 : in  STD_LOGIC_VECTOR(2 downto 0)
+	 Funct3 : in  STD_LOGIC_VECTOR(2 downto 0);
+	 clr    : in  STD_LOGIC
     );
 END ALU_control;
 
 ARCHITECTURE logic_function OF ALU_control IS
 BEGIN
-  PROCESS (ALUOp, Funct7, Funct3) IS
+  PROCESS (ALUOp, Funct7, Funct3, clr) IS
   BEGIN
+    IF clr = '1' THEN
+	   Opcode <= (OTHERS => '0');
   --ADD
    -- if store or load, or r-type with func7 = 0000000 and funct3 = 000 , or i-type and funct 3 = 000
-	 IF (ALUOp = "00" OR ( ((ALUOp = "10"AND Funct7 = "0000000") OR ALUOp = "11") AND Funct3 = "000") ) THEN
+	 ELSIF (ALUOp = "00" OR ( ((ALUOp = "10"AND Funct7 = "0000000") OR ALUOp = "11") AND Funct3 = "000") ) THEN
 	   Opcode <= "0000";
 	--SUB
 	-- if branch or r-type with funct7 = 0100000 and funct3 = 000

@@ -8,14 +8,15 @@ ENTITY ALU_64 IS
     opcode:        IN  STD_LOGIC_VECTOR (3 downto 0);
     inputA,inputB: IN  STD_LOGIC_VECTOR(n-1 downto 0);
     result:        OUT STD_LOGIC_VECTOR(n-1 downto 0);
-	 z,c:           OUT STD_LOGIC
+	 z,c:           OUT STD_LOGIC;
+	 clr:           IN  STD_LOGIC
   );
 END ALU_64;
 
 ARCHITECTURE LogicFunction OF ALU_64 IS
 COMPONENT addsub IS
   PORT(
-    OP:   IN  STD_LOGIC;
+    OP, CLR:   IN  STD_LOGIC;
     A,B:  IN  STD_LOGIC_VECTOR(n-1 downto 0);
     R:    OUT STD_LOGIC_VECTOR(n-1 downto 0);
     COUT:    OUT STD_LOGIC
@@ -25,7 +26,8 @@ COMPONENT logicShift IS
   PORT(
     OP:  IN  STD_LOGIC_VECTOR (1 downto 0);
     A,B: IN  STD_LOGIC_VECTOR(n-1 downto 0);
-    R:   OUT STD_LOGIC_VECTOR(n-1 downto 0)
+    R:   OUT STD_LOGIC_VECTOR(n-1 downto 0);
+	 CLR: IN  STD_LOGIC
   );
 END COMPONENT;
 SIGNAL sumout,diffout                         : STD_LOGIC;
@@ -42,7 +44,14 @@ BEGIN
 	 c <= '0';
   ELSIF opcode = "0010" THEN
     r <= diff;
-	 c <= diffout;
+	 --need to set carry to 1 when subtracting 0 from a positive
+	 IF (inputb = "0000000000000000000000000000000000000000000000000000000000000000"
+	     AND inputA /= "0000000000000000000000000000000000000000000000000000000000000000"
+		  AND inputA(63) = '0') THEN
+	   c <= '1';
+	 ELSE
+	   c <= diffout;
+	 END IF;
   ELSIF opcode = "0011" THEN
     r <= shiftra;
 	 c <= '0';
@@ -65,28 +74,33 @@ U1: addsub PORT MAP(OP => '0',
                     A => inputA,
                     B => inputB,
                     R => sum,
-                    COUT => sumout
+                    COUT => sumout,
+						  clr => CLR
             );
 U2: addsub PORT MAP(OP => '1',
                     A => inputA,
                     B => inputB,
                     R => diff,
-                    COUT => diffout
+                    COUT => diffout,
+						  clr => CLR
           );
 U3: logicShift PORT MAP (OP => "00",
                          A => inputA,
                          B => inputB,
-                         R => shiftll
+                         R => shiftll,
+								 clr => CLR
 );
 U4: logicShift PORT MAP (OP => "01",
                          A => inputA,
                          B => inputB,
-                         R => shiftrl
+                         R => shiftrl,
+								 clr => CLR
              );
 U5: logicShift PORT MAP (OP => "10",
                          A => inputA,
                          B => inputB,
-                         R => shiftra
+                         R => shiftra,
+								 clr => CLR
               );
 z <= '1' WHEN r = all_zeros ELSE '0';
 result <= r;

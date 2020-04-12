@@ -9,7 +9,6 @@ ENTITY programCounter IS
 	 pc  : BUFFER STD_LOGIC_VECTOR( 7 downto 0) ;
     ld:   IN     STD_LOGIC;
     clr:  IN     STD_LOGIC;
-    inc:  IN     STD_LOGIC;
     clk:  IN     STD_LOGIC
   );
 END programCounter;
@@ -30,7 +29,7 @@ SIGNAL Y : STD_LOGIC_VECTOR ( 7 downto 0 );
 
 BEGIN
 
-  Y <= addr WHEN ( inc = '1' ) ELSE pc + 1;
+  Y <= addr;
 
   u1: register8 PORT MAP ( Clk => clk,
                            Clr => clr,
