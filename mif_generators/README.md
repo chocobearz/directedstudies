@@ -37,6 +37,7 @@ python mif-generator-datapath.py $miffilename
 ```
 .csv and .mif will have the same name
 * `$miffilename`: The name of the output file
+* `$branch` : branch if testing for branching none for no branching test
 
 ## General Generator
 
