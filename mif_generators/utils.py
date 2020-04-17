@@ -215,10 +215,12 @@ def instructiongenerator(seeds, branch):
   for address in addresses:
     setup.append("00000000001000000" + ldtypefun3 + address + "0000011")
   
-  #first return is for non branching setup test, second testd branchin
+  #first return is for non branching setup test, second testd branching
   #first tests every instructin type, if you want to test this but have 
   #branching set up remove the sbtype type inst to avoid jumping
-  #return(setup+itypeinst+rtypeinst+sbtypeinst+stypeinst+ldtypeinst)
+  if( branch != "branch"):
+    return(setup+itypeinst+rtypeinst+sbtypeinst+stypeinst+ldtypeinst)
+
 
   #set up C code test
   ctest = []
