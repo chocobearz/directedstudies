@@ -5,15 +5,7 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 ENTITY datapath IS
   PORT(
-    load, clear, clock : IN STD_LOGIC;
-    car, zer, bran, increment : BUFFER STD_LOGIC;
-    writedata,imm      : BUFFER STD_LOGIC_VECTOR(63 downto 0);
-    writeaddr          : BUFFER STD_LOGIC_VECTOR(4 downto 0);
-	 branchtype         : BUFFER STD_LOGIC_VECTOR(2 downto 0);
-	 addr,pc, addre, addres           : BUFFER STD_LOGIC_VECTOR(7 downto 0);
-	 opcode : BUFFER STD_LOGIC_VECTOR(6 downto 0);
-    rd1, rd2 : BUFFER STD_LOGIC_VECTOR(4 downto 0);
-	 alu1, alu2 : BUFFER STD_LOGIC_VECTOR(63 downto 0)
+    load, clear, clock : IN STD_LOGIC
     );
 END datapath;
 
@@ -268,22 +260,4 @@ multiplexer: PROCESS(incr, choice, another, clear)
 	   address <= more;
     END IF;
 END PROCESS;
-	 
-  car <= carry;
-  zer <= zero;
-  writedata <= herses;
-  writeaddr <= away;
-  bran <= branch;
-  branchtype <= feirce;
-  addr <= address;
-  pc <= werk;
-  imm <= lives;
-  opcode <= penny;
-  increment <= incr;
-  addre <= more;
-  addres <= choice;
-  rd1 <= lily;
-  rd2 <= bad;
-  alu1 <= punk;
-  alu2 <= she;
 END logic_function;
