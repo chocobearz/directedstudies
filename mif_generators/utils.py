@@ -1,5 +1,12 @@
 import random
 
+def pad_leading_zeroes(binary_num, desired_length):
+  """
+  Pads the given binary number with leading zeroes, based on the current length
+  of the binary number, and the desired length
+  """
+  return "0"*(desired_length - len(binary_num)) + str(binary_num)
+
 def instructiongeneratormany(seeds, branch):
 
   random.seed(seeds[0])
