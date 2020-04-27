@@ -7,6 +7,7 @@ def pad_leading_zeroes(binary_num, desired_length):
   """
   return "0"*(desired_length - len(binary_num)) + str(binary_num)
 
+# for testing branch prediction with BEQ most are equal
 def instructiongeneratormany(seeds, branch):
 
   random.seed(seeds[0])
@@ -31,9 +32,25 @@ def instructiongeneratormany(seeds, branch):
   setup = []
   rdaddress = "00000"
 
+  # the percentage of addresses that should have the same binary value pushed into it
+  perc_same = 0.75
+
+  # the integer number of addresses using perc_same
+  addresses_with_same_value = int(len(addresses)*perc_same)
+
   # fill each address with 2 so we know what to expect in testing
-  for address in addresses:
-    setup.append("000000000010" + rdaddress + ldtypefun3 + address + "0000011")
+  for i in range(0, addresses_with_same_value):
+    setup.append("000000000010" + rdaddress + ldtypefun3 + addresses[i] + "0000011")
+
+  # the remaining addresses should have different numbers pushed into it
+  next_value = 3
+
+  for i in range(addresses_with_same_value, len(addresses)):
+    setup.append(
+      pad_leading_zeroes("{0:b}".format(next_value), 12)
+      + rdaddress + ldtypefun3 + addresses[i] + "0000011"
+    )
+    next_value += 1
 
   #Build Sb-type instructions
 
@@ -68,6 +85,7 @@ def instructiongeneratormany(seeds, branch):
 
   return(setup+sbtypeinst)
 
+# for testing branch prediction with BEQ, most are not equal
 def instructiongeneratorfew(seeds, branch):
 
   random.seed(seeds[0])
