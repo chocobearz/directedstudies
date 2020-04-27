@@ -1,5 +1,12 @@
 import random
 
+def pad_leading_zeroes(binary_num, desired_length):
+  """
+  Pads the given binary number with leading zeroes, based on the current length
+  of the binary number, and the desired length
+  """
+  return "0"*(desired_length - len(binary_num)) + str(binary_num)
+
 def instructiongeneratormany(seeds, branch):
 
   random.seed(seeds[0])
@@ -84,10 +91,26 @@ def instructiongeneratorfew(seeds, branch):
   with an all 0 instruction, pull 0 from the 0 address in data_mem'''
   setup = []
   rdaddress = "00000"
-  
+
+  # the percentage of addresses that should have the same binary value pushed into it
+  perc_same = 0.25
+
+  # the integer number of addresses using perc_same
+  addresses_with_same_value = int(len(addresses)*perc_same)
+
   # fill each address with 2 so we know what to expect in testing
-  for address in addresses:
-    setup.append("000000000010" + rdaddress + ldtypefun3 + address + "0000011")
+  for i in range(0, addresses_with_same_value):
+    setup.append("000000000010" + rdaddress + ldtypefun3 + addresses[i] + "0000011")
+
+  # the remaining addresses should have different numbers pushed into it
+  next_value = 3
+
+  for i in range(addresses_with_same_value, len(addresses)):
+    setup.append(
+      pad_leading_zeroes("{0:b}".format(next_value), 12)
+      + rdaddress + ldtypefun3 + addresses[i] + "0000011"
+    )
+    next_value += 1
 
   #Build Sb-type instructions
 
