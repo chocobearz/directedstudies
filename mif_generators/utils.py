@@ -93,7 +93,7 @@ def instructiongeneratorfew(seeds, branch):
   rdaddress = "00000"
 
   # the percentage of addresses that should have the same binary value pushed into it
-  perc_same = 0.75
+  perc_same = 0.25
 
   # the integer number of addresses using perc_same
   addresses_with_same_value = int(len(addresses)*perc_same)
