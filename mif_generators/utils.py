@@ -1,5 +1,125 @@
 import random
 
+def instructiongeneratormany(seeds, branch):
+
+  random.seed(seeds[0])
+
+  ldtypeop = "0000011"
+   # only testing double word, more can be added if more tests are needed
+  ldtypefun3 = "011"
+  sbtypeop = "1100011"
+  # two of each to check both conditions
+  sbtypefun3 = "000"
+  #read and write register numbers availible for use, also used for 5 bit immediates
+  addresses = [ "00101", "00110", "00111", "01000", "01001", "10010","10011",
+  "10100", "10101", "10110", "10111", "11000", "11001", "11010", "11011",
+  "11100", "11101", "11110", "11111"]
+
+  ldtypeinst = []
+  sbtypeinst = []
+
+    ''' build set up instructions to fill registers so they do not have unkown
+  values, fill all useable registers with zeros to begin, add the 0 register
+  with an all 0 instruction, pull 0 from the 0 address in data_mem'''
+  setup = []
+  
+  # fill each address with 2 so we know what to expect in testing
+  for address in addresses:
+    setup.append("00000000001000000" + ldtypefun3 + address + "0000011")
+
+  #Build Sb-type instructions
+
+  #rs combinations
+  readloc = []
+  for i in range(1,30)
+    readloc.append(random.choice(addresses) + random.choice(addresses))
+  #number to branch if branching requirement met
+  # 2
+  branch = "00010"
+
+  # concatenate sbtype opcode and immediate
+  sb_op_imm = []
+  for _ in addresses:
+    sb_op_imm.append( branch + sbtypeop)
+
+  # concatenate with funct 3
+  # always have immediate at 2 for testing ease
+  sb_op_imm_fun3 = []
+  for inst in sb_op_imm:
+    sb_op_imm_fun3.append(sbtypefun3 + inst)
+
+  # concatonate with read addresses
+  sb_op_imm_fun3_rs = []
+  for i,loc in readloc:
+    sb_op_imm_fun3_rs.append(loc + sb_op_imm_fun3[i])
+
+  # concatonate with immediate
+  # always have immediate at 2 for testing ease
+  for i in range(0,len(sbtypefun3)):
+    sbtypeinst.append("0000000" + sb_op_imm_fun3_rs[i]
+
+  return(setup+sbtypeinst)
+
+def instructiongeneratorfew(seeds, branch):
+
+  random.seed(seeds[0])
+
+  ldtypeop = "0000011"
+   # only testing double word, more can be added if more tests are needed
+  ldtypefun3 = "011"
+  sbtypeop = "1100011"
+  # two of each to check both conditions
+  sbtypefun3 = "000"
+  #read and write register numbers availible for use, also used for 5 bit immediates
+  addresses = [ "00101", "00110", "00111", "01000", "01001", "10010","10011",
+  "10100", "10101", "10110", "10111", "11000", "11001", "11010", "11011",
+  "11100", "11101", "11110", "11111"]
+
+  ldtypeinst = []
+  sbtypeinst = []
+
+    ''' build set up instructions to fill registers so they do not have unkown
+  values, fill all useable registers with zeros to begin, add the 0 register
+  with an all 0 instruction, pull 0 from the 0 address in data_mem'''
+  setup = []
+  
+  # fill each address with 2 so we know what to expect in testing
+  for address in addresses:
+    setup.append("00000000001000000" + ldtypefun3 + address + "0000011")
+
+  #Build Sb-type instructions
+
+  #rs combinations
+  readloc = []
+  for i in range(1,30)
+    readloc.append(random.choice(addresses) + random.choice(addresses))
+  #number to branch if branching requirement met
+  # 2
+  branch = "00010"
+
+  # concatenate sbtype opcode and immediate
+  sb_op_imm = []
+  for _ in addresses:
+    sb_op_imm.append( branch + sbtypeop)
+
+  # concatenate with funct 3
+  # always have immediate at 2 for testing ease
+  sb_op_imm_fun3 = []
+  for inst in sb_op_imm:
+    sb_op_imm_fun3.append(sbtypefun3 + inst)
+
+  # concatonate with read addresses
+  sb_op_imm_fun3_rs = []
+  for i,loc in readloc:
+    sb_op_imm_fun3_rs.append(loc + sb_op_imm_fun3[i])
+
+  # concatonate with immediate
+  # always have immediate at 2 for testing ease
+  for i in range(0,len(sbtypefun3)):
+    sbtypeinst.append("0000000" + sb_op_imm_fun3_rs[i]
+
+  return(setup+sbtypeinst)
+
 def instructiongenerator(seeds, branch):
 
   random.seed(seeds[0])
