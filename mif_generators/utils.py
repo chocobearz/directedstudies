@@ -91,7 +91,13 @@ def instructiongeneratorfew(seeds, branch):
   with an all 0 instruction, pull 0 from the 0 address in data_mem'''
   setup = []
   rdaddress = "00000"
-  
+
+  # the percentage of addresses that should have the same binary value pushed into it
+  perc_same = 0.75
+
+  # the integer number of addresses using perc_same
+  addresses_with_same_value = int(len(addresses)*perc_same)
+
   # fill each address with 2 so we know what to expect in testing
   for address in addresses:
     setup.append("000000000010" + rdaddress + ldtypefun3 + address + "0000011")
