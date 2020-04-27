@@ -24,9 +24,15 @@ BEGIN
     ELSIF RISING_EDGE(clk) THEN
       data1 <= registers(TO_INTEGER(UNSIGNED(readreg1)));
       data2 <= registers(TO_INTEGER(UNSIGNED(readreg2)));
+    END IF;
+ -- still write the data on a stall as this is still from a proper instruction
+  END PROCESS;
+  PROCESS(clk)
+  BEGIN
+    IF rising_edge(clk) THEN
       IF (regwrite = '1') THEN
         registers(TO_INTEGER(UNSIGNED(writereg))) <= writedata;
       END IF;
-    END IF;
+	END IF;
   END PROCESS;
 END logic_function;

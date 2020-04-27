@@ -16,13 +16,10 @@ BEGIN
   BEGIN
     IF clr = '1' THEN
 	   immediate64 <= (others => '0');
-    ELSIF rising_edge(clk) THEN
-	   IF immediate32(31) = '0' THEN
-	   
-	     immediate64 <= "00000000000000000000000000000000" & immediate32;
-		ELSE
+	 ELSIF immediate32(31) = '0' THEN
+	   immediate64 <= "00000000000000000000000000000000" & immediate32;
+	 ELSE
 		  immediate64 <= "11111111111111111111111111111111" & immediate32;
-		END IF;
     END IF;
   END PROCESS;
 END logic_function;

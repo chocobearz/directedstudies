@@ -15,12 +15,14 @@ ARCHITECTURE LogicFunction OF register8 IS
 BEGIN
   PROCESS( Clr, Clk)
   BEGIN
-    IF ( Clr = '1' ) THEN
-      Q <= "00000000";
-	 ELSIF rising_edge(clk) THEN
-      IF ( ld = '1' ) THEN
-        Q <= D;
+    IF ( Clr = '1') THEN
+	   IF(ld = '1') THEN
+        Q <= "00000000";
+		ELSE
+		  Q <= D;
 		END IF;
+	 ELSIF rising_edge(clk) THEN
+        Q <= D;
     END IF;
   END PROCESS;
 END LogicFunction;
