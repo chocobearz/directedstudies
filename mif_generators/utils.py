@@ -22,10 +22,11 @@ def instructiongeneratormany(seeds, branch):
   values, fill all useable registers with zeros to begin, add the 0 register
   with an all 0 instruction, pull 0 from the 0 address in data_mem'''
   setup = []
-  
+  rdaddress = "00000"
+
   # fill each address with 2 so we know what to expect in testing
   for address in addresses:
-    setup.append("00000000001000000" + ldtypefun3 + address + "0000011")
+    setup.append("000000000010" + rdaddress + ldtypefun3 + address + "0000011")
 
   #Build Sb-type instructions
 
