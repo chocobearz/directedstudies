@@ -100,12 +100,12 @@ END COMPONENT;
 	   instruction_out : OUT STD_LOGIC_VECTOR(31 downto 0);	
 	   pc_in           : IN STD_LOGIC_VECTOR(7 downto 0);
 	   pc_out          : OUT STD_LOGIC_VECTOR(7 downto 0);
-		branch,staybranch          : IN STD_LOGIC
+		stall,staystall : IN STD_LOGIC
     );
   END COMPONENT;
   COMPONENT RD_reg IS
     PORT(
-      clear, clock, branch          : IN  STD_LOGIC;
+      clear, clock                  : IN  STD_LOGIC;
 	   Data1_in, Data2_in, imm_in    : IN  STD_LOGIC_VECTOR(63 downto 0);
 	   wradd_in                      : IN  STD_LOGIC_VECTOR(4 downto 0);
       Data1_out, Data2_out, imm_out : OUT STD_LOGIC_VECTOR(63 downto 0);
@@ -246,11 +246,10 @@ BEGIN
 	                   instruction_out => its,
 	                   pc_in => garbage,        
 	                   pc_out =>  werk,
-							 branch => you,
-							 staybranch => help);
+							 stall => you,
+							 staystall => help);
   u10: RD_reg PORT MAP(clear => clear,
                        clock => clock,
-							  branch => branch,
 	                    Data1_in => punk,
 		                 Data2_in => rock,
 		                 imm_in => lives,

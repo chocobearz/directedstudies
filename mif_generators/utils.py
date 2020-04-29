@@ -8,7 +8,7 @@ def pad_leading_zeroes(binary_num, desired_length):
   return "0"*(desired_length - len(binary_num)) + str(binary_num)
 
 # for testing branch prediction with BEQ most are equal
-def instructiongeneratormany(seeds, branch):
+def instructiongeneratormany(seeds):
 
   random.seed(seeds[0])
 
@@ -26,7 +26,7 @@ def instructiongeneratormany(seeds, branch):
   ldtypeinst = []
   sbtypeinst = []
 
-    ''' build set up instructions to fill registers so they do not have unkown
+  ''' build set up instructions to fill registers so they do not have unkown
   values, fill all useable registers with zeros to begin, add the 0 register
   with an all 0 instruction, pull 0 from the 0 address in data_mem'''
   setup = []
@@ -56,7 +56,7 @@ def instructiongeneratormany(seeds, branch):
 
   #rs combinations
   readloc = []
-  for i in range(1,30)
+  for i in range(1,30):
     readloc.append(random.choice(addresses) + random.choice(addresses))
   #number to branch if branching requirement met
   # 2
@@ -64,7 +64,7 @@ def instructiongeneratormany(seeds, branch):
 
   # concatenate sbtype opcode and immediate
   sb_op_imm = []
-  for _ in addresses:
+  for _ in readloc:
     sb_op_imm.append( branch + sbtypeop)
 
   # concatenate with funct 3
@@ -75,18 +75,18 @@ def instructiongeneratormany(seeds, branch):
 
   # concatonate with read addresses
   sb_op_imm_fun3_rs = []
-  for i,loc in readloc:
+  for i,loc in enumerate(readloc):
     sb_op_imm_fun3_rs.append(loc + sb_op_imm_fun3[i])
 
   # concatonate with immediate
   # always have immediate at 2 for testing ease
   for i in range(0,len(sbtypefun3)):
-    sbtypeinst.append("0000000" + sb_op_imm_fun3_rs[i]
+    sbtypeinst.append("0000000" + sb_op_imm_fun3_rs[i])
 
   return(setup+sbtypeinst)
 
 # for testing branch prediction with BEQ, most are not equal
-def instructiongeneratorfew(seeds, branch):
+def instructiongeneratorfew(seeds):
 
   random.seed(seeds[0])
 
@@ -104,7 +104,7 @@ def instructiongeneratorfew(seeds, branch):
   ldtypeinst = []
   sbtypeinst = []
 
-    ''' build set up instructions to fill registers so they do not have unkown
+  ''' build set up instructions to fill registers so they do not have unkown
   values, fill all useable registers with zeros to begin, add the 0 register
   with an all 0 instruction, pull 0 from the 0 address in data_mem'''
   setup = []
@@ -134,7 +134,7 @@ def instructiongeneratorfew(seeds, branch):
 
   #rs combinations
   readloc = []
-  for i in range(1,30)
+  for i in range(1,30):
     readloc.append(random.choice(addresses) + random.choice(addresses))
   #number to branch if branching requirement met
   # 2
@@ -142,7 +142,7 @@ def instructiongeneratorfew(seeds, branch):
 
   # concatenate sbtype opcode and immediate
   sb_op_imm = []
-  for _ in addresses:
+  for _ in readloc:
     sb_op_imm.append( branch + sbtypeop)
 
   # concatenate with funct 3
@@ -153,13 +153,13 @@ def instructiongeneratorfew(seeds, branch):
 
   # concatonate with read addresses
   sb_op_imm_fun3_rs = []
-  for i,loc in readloc:
+  for i,loc in enumerate(readloc):
     sb_op_imm_fun3_rs.append(loc + sb_op_imm_fun3[i])
 
   # concatonate with immediate
   # always have immediate at 2 for testing ease
   for i in range(0,len(sbtypefun3)):
-    sbtypeinst.append("0000000" + sb_op_imm_fun3_rs[i]
+    sbtypeinst.append("0000000" + sb_op_imm_fun3_rs[i])
 
   return(setup+sbtypeinst)
 
