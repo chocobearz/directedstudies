@@ -1,0 +1,50 @@
+# do datapath.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 01:36:05 on Apr 17,2020
+# vcom -work work datapath.vho 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package VITAL_Timing
+# -- Loading package VITAL_Primitives
+# -- Loading package cycloneive_atom_pack
+# -- Loading package cycloneive_components
+# -- Compiling entity hard_block
+# -- Compiling architecture structure of hard_block
+# -- Compiling entity datapath
+# -- Compiling architecture structure of datapath
+# End time: 01:36:06 on Apr 17,2020, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 01:36:06 on Apr 17,2020
+# vcom -work work Waveform14.vwf.vht 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity datapath_vhd_vec_tst
+# -- Compiling architecture datapath_arch of datapath_vhd_vec_tst
+# End time: 01:36:06 on Apr 17,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim -novopt -c -t 1ps -sdfmax datapath_vhd_vec_tst/i1=datapath_vhd.sdo -L cycloneive -L altera -L altera_mf -L 220model -L sgate -L altera_lnsim work.datapath_vhd_vec_tst 
+# Start time: 01:36:08 on Apr 17,2020
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading work.datapath_vhd_vec_tst(datapath_arch)
+# SDF 10.5b Compiler 2016.10 Oct  5 2016
+# 
+# Loading ieee.vital_timing(body)
+# Loading ieee.vital_primitives(body)
+# Loading cycloneive.cycloneive_atom_pack(body)
+# Loading cycloneive.cycloneive_components
+# Loading work.datapath(structure)
+# Loading work.hard_block(structure)
+# Loading cycloneive.cycloneive_io_ibuf(arch)
+# Loading instances from datapath_vhd.sdo
+# Loading timing data from datapath_vhd.sdo
+# ** Note: (vsim-3587) SDF Backannotation Successfully Completed.
+#    Time: 0 ps  Iteration: 0  Instance: /datapath_vhd_vec_tst File: Waveform14.vwf.vht
+# after#33
+# End time: 01:36:09 on Apr 17,2020, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0

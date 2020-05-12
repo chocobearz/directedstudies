@@ -5,18 +5,7 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 ENTITY datapath IS
   PORT(
-    clear, clock : IN STD_LOGIC;
-    car, zer, bran, increment, alusel, stl, ld : BUFFER STD_LOGIC;
-    writedata,imm      : BUFFER STD_LOGIC_VECTOR(63 downto 0);
-    writeaddr, exeaddr, anotherout         : BUFFER STD_LOGIC_VECTOR(4 downto 0);
-	 branchtype         : BUFFER STD_LOGIC_VECTOR(2 downto 0);
-	 addr,pc            : BUFFER STD_LOGIC_VECTOR(7 downto 0);
-	 opcode             : BUFFER STD_LOGIC_VECTOR(6 downto 0);
-    rd1, rd2           : BUFFER STD_LOGIC_VECTOR(4 downto 0);
-	 alu1, alu2         : BUFFER STD_LOGIC_VECTOR(63 downto 0);
-	 aluop              : BUFFER STD_LOGIC_VECTOR(3 downto 0);
-	 inst        : buffer std_logic_vector(31 downto 0);
-	 sel1, sel2  : buffer STD_LOGIC_VECTOR(1 downto 0)
+    clear, clock : IN STD_LOGIC
     );
 END datapath;
 
@@ -81,7 +70,7 @@ END COMPONENT;
     PORT(
       immediate32 : IN  STD_LOGIC_VECTOR(31 downto 0);
       immediate64 : OUT STD_LOGIC_VECTOR(63 downto 0);
-      clr,clk     : IN  STD_LOGIC
+      clr         : IN  STD_LOGIC
       );
   END COMPONENT;
   COMPONENT data_mem IS
@@ -101,12 +90,12 @@ END COMPONENT;
 	   instruction_out : OUT STD_LOGIC_VECTOR(31 downto 0);	
 	   pc_in           : IN STD_LOGIC_VECTOR(7 downto 0);
 	   pc_out          : OUT STD_LOGIC_VECTOR(7 downto 0);
-		branch,staybranch          : IN STD_LOGIC
+		stall,staystall         : IN STD_LOGIC
     );
   END COMPONENT;
   COMPONENT RD_reg IS
     PORT(
-      clear, clock, branch          : IN  STD_LOGIC;
+      clear, clock                  : IN  STD_LOGIC;
 	   Data1_in, Data2_in, imm_in    : IN  STD_LOGIC_VECTOR(63 downto 0);
 	   wradd_in                      : IN  STD_LOGIC_VECTOR(4 downto 0);
       Data1_out, Data2_out, imm_out : OUT STD_LOGIC_VECTOR(63 downto 0);
@@ -213,8 +202,7 @@ BEGIN
 									 clk       => clock );
   u4: imm_gen PORT MAP(immediate32 => simon,
                       immediate64  => lives,
-							 clr          => clear,
-							 clk          => clock);
+							 clr          => clear);
   u5 : ALU_64 PORT MAP(opcode => banana,
                       inputA  => hola,
                       inputB  => she,
@@ -249,11 +237,10 @@ BEGIN
 	                   instruction_out => its,
 	                   pc_in => garbage,        
 	                   pc_out =>  werk,
-							 branch => you,
-							 staybranch => help);
+							 stall => you,
+							 staystall => help);
   u10: RD_reg PORT MAP(clear => clear,
                        clock => clock,
-							  branch => branch,
 	                    Data1_in => punk,
 		                 Data2_in => rock,
 		                 imm_in => lives,
@@ -362,6 +349,7 @@ BEGIN
   BEGIN
     IF clear = '1' THEN
 	   choice <= (others => '0');
+		more <= (OTHERS => '0');
 	 ELSE
       choice <= todrag + lots(7 downto 0);
 		more <= todrag + 1;
@@ -435,28 +423,4 @@ BEGIN
  END IF;
 END PROCESS;
 
-car <= carry;
-zer <= zero;
-bran <= you;
-increment <= incr;
-writedata <= herses;
-imm <= lots;
-writeaddr <= inafrica;
-exeaddr <= men;
-branchtype <= feirce;
-addr <= choice;
-pc <= todrag;
-opcode <= penny;
-rd1 <= lipsync;
-rd2 <= forurlyf;
-alu1 <= hola;
-alu2 <= she;
-alusel <= meaway;
-aluop <= banana;
-stl <= stall;
-ld <= load;
-inst <= its;
-sel1 <= fwdA;
-sel2 <= fwdB;
-anotherout <= sashay;
 END logic_function;

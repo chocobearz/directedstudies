@@ -1,0 +1,27 @@
+{C:/Users/Paige Tuttosi/Desktop/lab1/instruction_fetch.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:\Users\Paige Tuttosi\Desktop\lab1\instruction_fetch.vhd}
+Model Technology ModelSim ALTERA vcom 10.3d Compiler 2014.10 Oct  7 2014
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity instruction_fetch
+-- Compiling architecture LogicFunction of instruction_fetch
+
+} {} {}} {C:/Users/Paige Tuttosi/Desktop/lab1/programCounter.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/Paige Tuttosi/Desktop/lab1/programCounter.vhd}
+Model Technology ModelSim ALTERA vcom 10.3d Compiler 2014.10 Oct  7 2014
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity programCounter
+-- Compiling architecture LogicFunction of programCounter
+
+} {} {}} {C:/Users/Paige Tuttosi/Desktop/lab1/register8.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/Paige Tuttosi/Desktop/lab1/register8.vhd}
+Model Technology ModelSim ALTERA vcom 10.3d Compiler 2014.10 Oct  7 2014
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity register8
+-- Compiling architecture LogicFunction of register8
+
+} {} {}}

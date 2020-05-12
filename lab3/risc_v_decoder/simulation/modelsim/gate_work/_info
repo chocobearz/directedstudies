@@ -1,0 +1,148 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/Correy/Desktop/directedStudies/lab3/risc_v_decoder/simulation/modelsim
+Ehard_block
+Z1 w1583165120
+Z2 DPx4 ieee 16 vital_primitives 0 22 G>kiXP8Q9dRClKfK1Zn7j1
+Z3 DPx10 cycloneive 20 cycloneive_atom_pack 0 22 g8;l:a_bzlE?3R3d7zk3Z0
+Z4 DPx4 ieee 12 vital_timing 0 22 J>EBealN09f8GzldA[z2>3
+Z5 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z6 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+Z7 DPx10 cycloneive 21 cycloneive_components 0 22 Yj^f[Ven<H;0LiK:6PWEg0
+R0
+Z8 8C:/Users/Correy/Desktop/directedStudies/lab3/risc_v_decoder/simulation/modelsim/risc_v_decoder_7_1200mv_85c_slow.vho
+Z9 FC:/Users/Correy/Desktop/directedStudies/lab3/risc_v_decoder/simulation/modelsim/risc_v_decoder_7_1200mv_85c_slow.vho
+l0
+L34
+VOgIg9T_BR7joedFDVM>H13
+!s100 A`ID_i56<Ua56=ZD=[EG=2
+Z10 OV;C;10.5b;63
+32
+Z11 !s110 1583165255
+!i10b 1
+Z12 !s108 1583165255.000000
+Z13 !s90 -reportprogress|300|-work|work|C:/Users/Correy/Desktop/directedStudies/lab3/risc_v_decoder/simulation/modelsim/risc_v_decoder_7_1200mv_85c_slow.vho|
+Z14 !s107 C:/Users/Correy/Desktop/directedStudies/lab3/risc_v_decoder/simulation/modelsim/risc_v_decoder_7_1200mv_85c_slow.vho|
+!i113 1
+Z15 o-work work
+Z16 tExplicit 1 CvgOpt 0
+Astructure
+R2
+R3
+R4
+R5
+R6
+R7
+DEx4 work 10 hard_block 0 22 OgIg9T_BR7joedFDVM>H13
+l64
+L50
+V`^CmQg<48W[ez[JL_5@Yn2
+!s100 2S?JL;LJ@<3:BHXTNcXS]3
+R10
+32
+R11
+!i10b 1
+R12
+R13
+R14
+!i113 1
+R15
+R16
+Erisc_v_decoder
+R1
+R2
+R3
+R4
+R5
+R6
+R7
+R0
+R8
+R9
+l0
+L77
+V;[P4fc5WB5YS<7Qi;WeLe3
+!s100 :WM?O3UPC]a9_:LdN_VLQ0
+R10
+32
+R11
+!i10b 1
+R12
+R13
+R14
+!i113 1
+R15
+R16
+Astructure
+R2
+R3
+R4
+R5
+R6
+R7
+Z17 DEx4 work 14 risc_v_decoder 0 22 ;[P4fc5WB5YS<7Qi;WeLe3
+l365
+L192
+VjNo<jEz@2@HCo^7oln<?=2
+!s100 `GeIHlMMKL9F[O_Angc;12
+R10
+32
+R11
+!i10b 1
+R12
+R13
+R14
+!i113 1
+R15
+R16
+Erisc_v_decoder_tb
+Z18 w1583164800
+R5
+R6
+R0
+Z19 8C:/Users/Correy/Desktop/directedStudies/lab3/risc_v_decoder/risc_v_decoder_tb.vhd
+Z20 FC:/Users/Correy/Desktop/directedStudies/lab3/risc_v_decoder/risc_v_decoder_tb.vhd
+l0
+L5
+V>778HE;eLBF=><BngBWj;1
+!s100 YiIAc;1V6UVUhSdJ4aioA0
+R10
+32
+!s110 1583165269
+!i10b 1
+Z21 !s108 1583165269.000000
+Z22 !s90 -reportprogress|300|-work|work|C:/Users/Correy/Desktop/directedStudies/lab3/risc_v_decoder/risc_v_decoder_tb.vhd|
+Z23 !s107 C:/Users/Correy/Desktop/directedStudies/lab3/risc_v_decoder/risc_v_decoder_tb.vhd|
+!i113 1
+R15
+R16
+Atb
+R2
+R3
+R4
+R7
+R17
+R5
+R6
+DEx4 work 17 risc_v_decoder_tb 0 22 >778HE;eLBF=><BngBWj;1
+l15
+L8
+Vc@@e9fm1Zf5NOEaOgG^JW3
+!s100 1GD<Od[8BdEcn9=6D4<Jo2
+R10
+32
+!s110 1583165270
+!i10b 1
+R21
+R22
+R23
+!i113 1
+R15
+R16

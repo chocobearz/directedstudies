@@ -1,0 +1,185 @@
+------------------------------------------------------------
+Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Slow 1200mV 85C Model Setup 'RD_reg:u10|fun3_out[0]'
+Slack : -39.248
+TNS   : -39.248
+
+Type  : Slow 1200mV 85C Model Setup 'clock'
+Slack : -33.563
+TNS   : -2831.175
+
+Type  : Slow 1200mV 85C Model Setup 'IF_reg:u9|instruction_out[0]'
+Slack : -6.878
+TNS   : -294.180
+
+Type  : Slow 1200mV 85C Model Hold 'RD_reg:u10|fun3_out[0]'
+Slack : 0.012
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'IF_reg:u9|instruction_out[0]'
+Slack : 0.230
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'clock'
+Slack : 0.334
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Recovery 'RD_reg:u10|fun3_out[0]'
+Slack : -4.529
+TNS   : -4.529
+
+Type  : Slow 1200mV 85C Model Recovery 'IF_reg:u9|instruction_out[0]'
+Slack : -2.707
+TNS   : -69.623
+
+Type  : Slow 1200mV 85C Model Recovery 'clock'
+Slack : -1.724
+TNS   : -77.100
+
+Type  : Slow 1200mV 85C Model Removal 'IF_reg:u9|instruction_out[0]'
+Slack : 0.012
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Removal 'clock'
+Slack : 1.335
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Removal 'RD_reg:u10|fun3_out[0]'
+Slack : 2.379
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'clock'
+Slack : -3.000
+TNS   : -789.993
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'IF_reg:u9|instruction_out[0]'
+Slack : 0.369
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'RD_reg:u10|fun3_out[0]'
+Slack : 0.428
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Setup 'RD_reg:u10|fun3_out[0]'
+Slack : -36.054
+TNS   : -36.054
+
+Type  : Slow 1200mV 0C Model Setup 'clock'
+Slack : -30.848
+TNS   : -2549.291
+
+Type  : Slow 1200mV 0C Model Setup 'IF_reg:u9|instruction_out[0]'
+Slack : -6.410
+TNS   : -277.142
+
+Type  : Slow 1200mV 0C Model Hold 'RD_reg:u10|fun3_out[0]'
+Slack : 0.015
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'IF_reg:u9|instruction_out[0]'
+Slack : 0.223
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'clock'
+Slack : 0.336
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Recovery 'RD_reg:u10|fun3_out[0]'
+Slack : -4.037
+TNS   : -4.037
+
+Type  : Slow 1200mV 0C Model Recovery 'IF_reg:u9|instruction_out[0]'
+Slack : -2.632
+TNS   : -69.508
+
+Type  : Slow 1200mV 0C Model Recovery 'clock'
+Slack : -1.512
+TNS   : -65.256
+
+Type  : Slow 1200mV 0C Model Removal 'IF_reg:u9|instruction_out[0]'
+Slack : 0.166
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Removal 'clock'
+Slack : 1.195
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Removal 'RD_reg:u10|fun3_out[0]'
+Slack : 2.105
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'clock'
+Slack : -3.000
+TNS   : -788.409
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'IF_reg:u9|instruction_out[0]'
+Slack : 0.449
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'RD_reg:u10|fun3_out[0]'
+Slack : 0.461
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Setup 'RD_reg:u10|fun3_out[0]'
+Slack : -18.809
+TNS   : -18.809
+
+Type  : Fast 1200mV 0C Model Setup 'clock'
+Slack : -15.811
+TNS   : -1128.619
+
+Type  : Fast 1200mV 0C Model Setup 'IF_reg:u9|instruction_out[0]'
+Slack : -3.293
+TNS   : -134.483
+
+Type  : Fast 1200mV 0C Model Hold 'RD_reg:u10|fun3_out[0]'
+Slack : -0.003
+TNS   : -0.003
+
+Type  : Fast 1200mV 0C Model Hold 'IF_reg:u9|instruction_out[0]'
+Slack : 0.082
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'clock'
+Slack : 0.128
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Recovery 'RD_reg:u10|fun3_out[0]'
+Slack : -1.944
+TNS   : -1.944
+
+Type  : Fast 1200mV 0C Model Recovery 'IF_reg:u9|instruction_out[0]'
+Slack : -1.125
+TNS   : -17.115
+
+Type  : Fast 1200mV 0C Model Recovery 'clock'
+Slack : -0.396
+TNS   : -12.183
+
+Type  : Fast 1200mV 0C Model Removal 'IF_reg:u9|instruction_out[0]'
+Slack : 0.079
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Removal 'clock'
+Slack : 0.616
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Removal 'RD_reg:u10|fun3_out[0]'
+Slack : 1.333
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'clock'
+Slack : -3.000
+TNS   : -617.669
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'IF_reg:u9|instruction_out[0]'
+Slack : 0.272
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'RD_reg:u10|fun3_out[0]'
+Slack : 0.367
+TNS   : 0.000
+
+------------------------------------------------------------

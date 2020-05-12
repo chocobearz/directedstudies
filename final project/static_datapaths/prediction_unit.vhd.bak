@@ -1,0 +1,26 @@
+LIBRARY ieee;
+USE ieee.STD_LOGIC_1164.all;
+
+ENTITY pediction_unit IS
+  PORT(
+    clear : IN  STD_LOGIC;
+	 pc    : IN  STD_LOGIC_VECTOR(7 downto 0);     
+	 addr  : OUT STD_LOGIC_VECTOR(7 downto 0)
+    );
+END EXE_reg;
+
+ARCHITECTURE LogicFunction OF prediction_unit IS
+BEGIN
+  PROCESS( Clear, Clock)
+  BEGIN
+    IF ( Clear = '1' ) THEN
+      output_out <= (OTHERS => '0');
+		wrdata_out <= (OTHERS => '0');
+		wradd_out  <= (OTHERS => '0');
+	 ELSIF rising_edge(clock) THEN
+      output_out <= output_in;
+		wrdata_out <= wrdata_in;
+		wradd_out  <= wradd_in;
+    END IF;
+  END PROCESS;
+END LogicFunction;

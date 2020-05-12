@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Sat Apr 18 13:22:42 2020
+Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+Revision Name : instruction_fetch
+Top-level Entity Name : instruction_fetch
+Family : Cyclone IV E
+Total logic elements : 57
+    Total combinational functions : 41
+    Dedicated logic registers : 24
+Total registers : 24
+Total pins : 59
+Total virtual pins : 0
+Total memory bits : 8,192
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0

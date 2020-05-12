@@ -1,9 +1,9 @@
 LIBRARY ieee;
 USE ieee.STD_LOGIC_1164.all;
 
-ENTITY dyanmic_prediction_unit IS
-PORT (taken, clr, clock: IN  STD_LOGIC;
-      predict          : OUT STD_LOGIC);
+ENTITY dynamic_prediction_unit IS
+PORT (taken, clr, clock, branch: IN  STD_LOGIC;
+      predict                  : OUT STD_LOGIC);
 END dynamic_prediction_unit;
 
 ARCHITECTURE LogicFunction OF dynamic_prediction_unit IS
@@ -16,35 +16,43 @@ BEGIN
 	 CASE state_present IS
 		WHEN A => 
 		   --taken again
-			IF taken='1' THEN 
+			IF branch = '0' THEN
+			   state_next <= A;
+			ELSIF taken ='1' AND branch = '1' THEN 
 				state_next <= A;
 			--not taken
-			ELSE 
+			ELSIF taken ='0' AND branch = '1' THEN 
 		      state_next <= B;	
 			END IF; 
       --predict taken once but not taken once intermediate
 		WHEN B => 
 		   --predict taken
-			IF taken='1' THEN 
+			IF branch = '0' THEN
+			   state_next <= B;
+			ELSIF taken='1' AND branch = '1' THEN 
 				state_next <= A; 
 			--not taken
-			ELSE
+			ELSIF taken ='0' AND branch = '1' THEN 
 			   state_next <= C;
 			END IF; 
       -- predict taken once but not taken once intermediate
 		WHEN C => 
 		   -- taken
-			IF taken='1' THEN 
+			IF branch = '0' THEN
+			   state_next <= C;
+			ELSIF taken='1' AND branch = '1' THEN 
 				state_next <= B;
-			ELSE 
+			ELSIF taken= '0' AND branch = '1' THEN 
 		      state_next<= D;	
 			END IF; 
       -- predict not taken twice
 		WHEN D => 
 		   --taken
-			IF taken='1' THEN 
+			IF branch = '0' THEN
+			   state_next <= D;
+			ELSIF taken='1' AND branch = '1' THEN 
 				state_next <= C; 
-			ELSE 
+			ELSIF taken ='0' AND branch = '1' THEN 
 				state_next <= D; 
 			END IF;	
 	  END CASE; 

@@ -1,0 +1,317 @@
+------------------------------------------------------------
+Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Slow 1200mV 85C Model Setup 'datapath:inst5|RD_reg:u10|fun3_out[0]'
+Slack : -39.927
+TNS   : -282.712
+
+Type  : Slow 1200mV 85C Model Setup 'KEY[0]'
+Slack : -35.076
+TNS   : -2947.251
+
+Type  : Slow 1200mV 85C Model Setup 'SW[17]'
+Slack : -19.159
+TNS   : -266.602
+
+Type  : Slow 1200mV 85C Model Setup 'clDivide:inst|clkOut'
+Slack : -11.954
+TNS   : -332.954
+
+Type  : Slow 1200mV 85C Model Setup 'datapath:inst5|IF_reg:u9|instruction_out[0]'
+Slack : -5.930
+TNS   : -233.882
+
+Type  : Slow 1200mV 85C Model Setup 'CLOCK_50'
+Slack : -1.724
+TNS   : -15.685
+
+Type  : Slow 1200mV 85C Model Hold 'SW[17]'
+Slack : -14.715
+TNS   : -185.524
+
+Type  : Slow 1200mV 85C Model Hold 'datapath:inst5|RD_reg:u10|fun3_out[0]'
+Slack : -6.221
+TNS   : -65.671
+
+Type  : Slow 1200mV 85C Model Hold 'datapath:inst5|IF_reg:u9|instruction_out[0]'
+Slack : -2.862
+TNS   : -17.160
+
+Type  : Slow 1200mV 85C Model Hold 'KEY[0]'
+Slack : -1.574
+TNS   : -48.063
+
+Type  : Slow 1200mV 85C Model Hold 'clDivide:inst|clkOut'
+Slack : 0.386
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'CLOCK_50'
+Slack : 0.389
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Recovery 'datapath:inst5|RD_reg:u10|fun3_out[0]'
+Slack : -3.187
+TNS   : -3.187
+
+Type  : Slow 1200mV 85C Model Recovery 'KEY[0]'
+Slack : -2.737
+TNS   : -464.506
+
+Type  : Slow 1200mV 85C Model Recovery 'datapath:inst5|IF_reg:u9|instruction_out[0]'
+Slack : -2.202
+TNS   : -92.662
+
+Type  : Slow 1200mV 85C Model Recovery 'clDivide:inst|clkOut'
+Slack : -1.082
+TNS   : -29.552
+
+Type  : Slow 1200mV 85C Model Removal 'KEY[0]'
+Slack : -0.811
+TNS   : -94.077
+
+Type  : Slow 1200mV 85C Model Removal 'datapath:inst5|IF_reg:u9|instruction_out[0]'
+Slack : -0.453
+TNS   : -1.533
+
+Type  : Slow 1200mV 85C Model Removal 'clDivide:inst|clkOut'
+Slack : 0.827
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Removal 'datapath:inst5|RD_reg:u10|fun3_out[0]'
+Slack : 1.859
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'SW[17]'
+Slack : -11.131
+TNS   : -5395.291
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'KEY[0]'
+Slack : -3.000
+TNS   : -789.993
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'CLOCK_50'
+Slack : -3.000
+TNS   : -18.420
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'datapath:inst5|RD_reg:u10|fun3_out[0]'
+Slack : -2.673
+TNS   : -419.915
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'clDivide:inst|clkOut'
+Slack : -1.285
+TNS   : -131.070
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'datapath:inst5|IF_reg:u9|instruction_out[0]'
+Slack : 0.374
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Setup 'datapath:inst5|RD_reg:u10|fun3_out[0]'
+Slack : -36.804
+TNS   : -264.375
+
+Type  : Slow 1200mV 0C Model Setup 'KEY[0]'
+Slack : -32.249
+TNS   : -2654.888
+
+Type  : Slow 1200mV 0C Model Setup 'SW[17]'
+Slack : -17.923
+TNS   : -247.496
+
+Type  : Slow 1200mV 0C Model Setup 'clDivide:inst|clkOut'
+Slack : -11.067
+TNS   : -297.028
+
+Type  : Slow 1200mV 0C Model Setup 'datapath:inst5|IF_reg:u9|instruction_out[0]'
+Slack : -5.586
+TNS   : -225.733
+
+Type  : Slow 1200mV 0C Model Setup 'CLOCK_50'
+Slack : -1.481
+TNS   : -13.041
+
+Type  : Slow 1200mV 0C Model Hold 'SW[17]'
+Slack : -13.212
+TNS   : -165.776
+
+Type  : Slow 1200mV 0C Model Hold 'datapath:inst5|RD_reg:u10|fun3_out[0]'
+Slack : -5.499
+TNS   : -57.717
+
+Type  : Slow 1200mV 0C Model Hold 'datapath:inst5|IF_reg:u9|instruction_out[0]'
+Slack : -2.487
+TNS   : -14.280
+
+Type  : Slow 1200mV 0C Model Hold 'KEY[0]'
+Slack : -1.526
+TNS   : -49.450
+
+Type  : Slow 1200mV 0C Model Hold 'clDivide:inst|clkOut'
+Slack : 0.338
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'CLOCK_50'
+Slack : 0.348
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Recovery 'datapath:inst5|RD_reg:u10|fun3_out[0]'
+Slack : -2.856
+TNS   : -2.856
+
+Type  : Slow 1200mV 0C Model Recovery 'KEY[0]'
+Slack : -2.321
+TNS   : -371.812
+
+Type  : Slow 1200mV 0C Model Recovery 'datapath:inst5|IF_reg:u9|instruction_out[0]'
+Slack : -2.220
+TNS   : -96.904
+
+Type  : Slow 1200mV 0C Model Recovery 'clDivide:inst|clkOut'
+Slack : -0.882
+TNS   : -22.289
+
+Type  : Slow 1200mV 0C Model Removal 'KEY[0]'
+Slack : -0.769
+TNS   : -91.142
+
+Type  : Slow 1200mV 0C Model Removal 'datapath:inst5|IF_reg:u9|instruction_out[0]'
+Slack : -0.193
+TNS   : -0.420
+
+Type  : Slow 1200mV 0C Model Removal 'clDivide:inst|clkOut'
+Slack : 0.758
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Removal 'datapath:inst5|RD_reg:u10|fun3_out[0]'
+Slack : 1.750
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'SW[17]'
+Slack : -10.283
+TNS   : -4843.851
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'KEY[0]'
+Slack : -3.000
+TNS   : -788.409
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'CLOCK_50'
+Slack : -3.000
+TNS   : -18.420
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'datapath:inst5|RD_reg:u10|fun3_out[0]'
+Slack : -2.504
+TNS   : -369.753
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'clDivide:inst|clkOut'
+Slack : -1.285
+TNS   : -131.070
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'datapath:inst5|IF_reg:u9|instruction_out[0]'
+Slack : 0.293
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Setup 'datapath:inst5|RD_reg:u10|fun3_out[0]'
+Slack : -18.929
+TNS   : -137.859
+
+Type  : Fast 1200mV 0C Model Setup 'KEY[0]'
+Slack : -16.532
+TNS   : -1208.086
+
+Type  : Fast 1200mV 0C Model Setup 'SW[17]'
+Slack : -9.322
+TNS   : -130.194
+
+Type  : Fast 1200mV 0C Model Setup 'clDivide:inst|clkOut'
+Slack : -5.406
+TNS   : -114.794
+
+Type  : Fast 1200mV 0C Model Setup 'datapath:inst5|IF_reg:u9|instruction_out[0]'
+Slack : -2.413
+TNS   : -90.291
+
+Type  : Fast 1200mV 0C Model Setup 'CLOCK_50'
+Slack : -0.349
+TNS   : -1.880
+
+Type  : Fast 1200mV 0C Model Hold 'SW[17]'
+Slack : -7.677
+TNS   : -97.165
+
+Type  : Fast 1200mV 0C Model Hold 'datapath:inst5|RD_reg:u10|fun3_out[0]'
+Slack : -3.328
+TNS   : -36.631
+
+Type  : Fast 1200mV 0C Model Hold 'datapath:inst5|IF_reg:u9|instruction_out[0]'
+Slack : -1.646
+TNS   : -12.047
+
+Type  : Fast 1200mV 0C Model Hold 'KEY[0]'
+Slack : -0.737
+TNS   : -21.581
+
+Type  : Fast 1200mV 0C Model Hold 'clDivide:inst|clkOut'
+Slack : 0.173
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'CLOCK_50'
+Slack : 0.180
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Recovery 'KEY[0]'
+Slack : -1.654
+TNS   : -349.407
+
+Type  : Fast 1200mV 0C Model Recovery 'datapath:inst5|RD_reg:u10|fun3_out[0]'
+Slack : -1.549
+TNS   : -1.549
+
+Type  : Fast 1200mV 0C Model Recovery 'datapath:inst5|IF_reg:u9|instruction_out[0]'
+Slack : -0.763
+TNS   : -22.606
+
+Type  : Fast 1200mV 0C Model Recovery 'clDivide:inst|clkOut'
+Slack : -0.082
+TNS   : -0.455
+
+Type  : Fast 1200mV 0C Model Removal 'KEY[0]'
+Slack : -0.404
+TNS   : -45.564
+
+Type  : Fast 1200mV 0C Model Removal 'datapath:inst5|IF_reg:u9|instruction_out[0]'
+Slack : -0.271
+TNS   : -1.183
+
+Type  : Fast 1200mV 0C Model Removal 'clDivide:inst|clkOut'
+Slack : 0.388
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Removal 'datapath:inst5|RD_reg:u10|fun3_out[0]'
+Slack : 0.899
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'SW[17]'
+Slack : -5.337
+TNS   : -2281.334
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'KEY[0]'
+Slack : -3.000
+TNS   : -688.753
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'CLOCK_50'
+Slack : -3.000
+TNS   : -18.756
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'datapath:inst5|RD_reg:u10|fun3_out[0]'
+Slack : -1.195
+TNS   : -132.341
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'clDivide:inst|clkOut'
+Slack : -1.000
+TNS   : -102.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'datapath:inst5|IF_reg:u9|instruction_out[0]'
+Slack : 0.361
+TNS   : 0.000
+
+------------------------------------------------------------

@@ -1,0 +1,991 @@
+Analysis & Synthesis report for ALU_64
+Sat Mar 21 10:08:57 2020
+Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. User-Specified and Inferred Latches
+  9. General Register Statistics
+ 10. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 11. Parameter Settings for User Entity Instance: Top-level Entity: |ALU_64
+ 12. Parameter Settings for User Entity Instance: addsub:U1
+ 13. Parameter Settings for User Entity Instance: addsub:U2
+ 14. Parameter Settings for User Entity Instance: logicShift:U3
+ 15. Parameter Settings for User Entity Instance: logicShift:U4
+ 16. Parameter Settings for User Entity Instance: logicShift:U5
+ 17. Port Connectivity Checks: "logicShift:U5"
+ 18. Port Connectivity Checks: "logicShift:U4"
+ 19. Port Connectivity Checks: "logicShift:U3"
+ 20. Port Connectivity Checks: "addsub:U2"
+ 21. Port Connectivity Checks: "addsub:U1|fulladder:\FA:0:U1"
+ 22. Port Connectivity Checks: "addsub:U1"
+ 23. Post-Synthesis Netlist Statistics for Top Partition
+ 24. Elapsed Time Per Partition
+ 25. Analysis & Synthesis Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2018  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+
+
+
++----------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                     ;
++------------------------------------+---------------------------------------------+
+; Analysis & Synthesis Status        ; Successful - Sat Mar 21 10:08:57 2020       ;
+; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
+; Revision Name                      ; ALU_64                                      ;
+; Top-level Entity Name              ; ALU_64                                      ;
+; Family                             ; Cyclone IV E                                ;
+; Total logic elements               ; 1,662                                       ;
+;     Total combinational functions  ; 1,662                                       ;
+;     Dedicated logic registers      ; 0                                           ;
+; Total registers                    ; 0                                           ;
+; Total pins                         ; 198                                         ;
+; Total virtual pins                 ; 0                                           ;
+; Total memory bits                  ; 0                                           ;
+; Embedded Multiplier 9-bit elements ; 0                                           ;
+; Total PLLs                         ; 0                                           ;
++------------------------------------+---------------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                              ;
++------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                           ; Setting            ; Default Value      ;
++------------------------------------------------------------------+--------------------+--------------------+
+; Device                                                           ; EP4CE115F29C7      ;                    ;
+; Top-level entity name                                            ; ALU_64             ; ALU_64             ;
+; Family name                                                      ; Cyclone IV E       ; Cyclone V          ;
+; Use smart compilation                                            ; Off                ; Off                ;
+; Enable parallel Assembler and Timing Analyzer during compilation ; On                 ; On                 ;
+; Enable compact report table                                      ; Off                ; Off                ;
+; Restructure Multiplexers                                         ; Auto               ; Auto               ;
+; Create Debugging Nodes for IP Cores                              ; Off                ; Off                ;
+; Preserve fewer node names                                        ; On                 ; On                 ;
+; Intel FPGA IP Evaluation Mode                                    ; Enable             ; Enable             ;
+; Verilog Version                                                  ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                     ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                         ; Auto               ; Auto               ;
+; Safe State Machine                                               ; Off                ; Off                ;
+; Extract Verilog State Machines                                   ; On                 ; On                 ;
+; Extract VHDL State Machines                                      ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                       ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                   ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                          ; On                 ; On                 ;
+; Infer RAMs from Raw Logic                                        ; On                 ; On                 ;
+; Parallel Synthesis                                               ; On                 ; On                 ;
+; DSP Block Balancing                                              ; Auto               ; Auto               ;
+; NOT Gate Push-Back                                               ; On                 ; On                 ;
+; Power-Up Don't Care                                              ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                     ; Off                ; Off                ;
+; Remove Duplicate Registers                                       ; On                 ; On                 ;
+; Ignore CARRY Buffers                                             ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                           ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                            ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                        ; Off                ; Off                ;
+; Ignore LCELL Buffers                                             ; Off                ; Off                ;
+; Ignore SOFT Buffers                                              ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                   ; Off                ; Off                ;
+; Optimization Technique                                           ; Balanced           ; Balanced           ;
+; Carry Chain Length                                               ; 70                 ; 70                 ;
+; Auto Carry Chains                                                ; On                 ; On                 ;
+; Auto Open-Drain Pins                                             ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                            ; Off                ; Off                ;
+; Auto ROM Replacement                                             ; On                 ; On                 ;
+; Auto RAM Replacement                                             ; On                 ; On                 ;
+; Auto DSP Block Replacement                                       ; On                 ; On                 ;
+; Auto Shift Register Replacement                                  ; Auto               ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                  ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                    ; On                 ; On                 ;
+; Strict RAM Replacement                                           ; Off                ; Off                ;
+; Allow Synchronous Control Signals                                ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                           ; Off                ; Off                ;
+; Auto RAM Block Balancing                                         ; On                 ; On                 ;
+; Auto RAM to Logic Cell Conversion                                ; Off                ; Off                ;
+; Auto Resource Sharing                                            ; Off                ; Off                ;
+; Allow Any RAM Size For Recognition                               ; Off                ; Off                ;
+; Allow Any ROM Size For Recognition                               ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                    ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing              ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                ; Off                ; Off                ;
+; Timing-Driven Synthesis                                          ; On                 ; On                 ;
+; Report Parameter Settings                                        ; On                 ; On                 ;
+; Report Source Assignments                                        ; On                 ; On                 ;
+; Report Connectivity Checks                                       ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                               ; Off                ; Off                ;
+; Synchronization Register Chain Length                            ; 2                  ; 2                  ;
+; Power Optimization During Synthesis                              ; Normal compilation ; Normal compilation ;
+; HDL message level                                                ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                  ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report         ; 5000               ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report               ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report        ; 100                ; 100                ;
+; Clock MUX Protection                                             ; On                 ; On                 ;
+; Auto Gated Clock Conversion                                      ; Off                ; Off                ;
+; Block Design Naming                                              ; Auto               ; Auto               ;
+; SDC constraint protection                                        ; Off                ; Off                ;
+; Synthesis Effort                                                 ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal     ; On                 ; On                 ;
+; Pre-Mapping Resynthesis Optimization                             ; Off                ; Off                ;
+; Analysis & Synthesis Message Level                               ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                      ; Auto               ; Auto               ;
+; Resource Aware Inference For Block RAM                           ; On                 ; On                 ;
++------------------------------------------------------------------+--------------------+--------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 8           ;
+; Maximum allowed            ; 4           ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 4           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
+;     Processor 2            ;   0.0%      ;
+;     Processor 3            ;   0.0%      ;
+;     Processor 4            ;   0.0%      ;
++----------------------------+-------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                       ;
++----------------------------------+-----------------+-----------------+-------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type       ; File Name with Absolute Path                                ; Library ;
++----------------------------------+-----------------+-----------------+-------------------------------------------------------------+---------+
+; logicShift.vhd                   ; yes             ; User VHDL File  ; C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd ;         ;
+; fulladder.vhd                    ; yes             ; User VHDL File  ; C:/Users/Correy/Desktop/directedStudies/lab2/fulladder.vhd  ;         ;
+; ALU_64.vhd                       ; yes             ; User VHDL File  ; C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd     ;         ;
+; addsub.vhd                       ; yes             ; User VHDL File  ; C:/Users/Correy/Desktop/directedStudies/lab2/addsub.vhd     ;         ;
++----------------------------------+-----------------+-----------------+-------------------------------------------------------------+---------+
+
+
++---------------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary                   ;
++---------------------------------------------+-----------------+
+; Resource                                    ; Usage           ;
++---------------------------------------------+-----------------+
+; Estimated Total logic elements              ; 1,662           ;
+;                                             ;                 ;
+; Total combinational functions               ; 1662            ;
+; Logic element usage by number of LUT inputs ;                 ;
+;     -- 4 input functions                    ; 800             ;
+;     -- 3 input functions                    ; 635             ;
+;     -- <=2 input functions                  ; 227             ;
+;                                             ;                 ;
+; Logic elements by mode                      ;                 ;
+;     -- normal mode                          ; 1599            ;
+;     -- arithmetic mode                      ; 63              ;
+;                                             ;                 ;
+; Total registers                             ; 0               ;
+;     -- Dedicated logic registers            ; 0               ;
+;     -- I/O registers                        ; 0               ;
+;                                             ;                 ;
+; I/O pins                                    ; 198             ;
+;                                             ;                 ;
+; Embedded Multiplier 9-bit elements          ; 0               ;
+;                                             ;                 ;
+; Maximum fan-out node                        ; inputB[3]~input ;
+; Maximum fan-out                             ; 184             ;
+; Total fan-out                               ; 5822            ;
+; Average fan-out                             ; 2.83            ;
++---------------------------------------------+-----------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                         ;
++-----------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------------------------+-------------+--------------+
+; Compilation Hierarchy Node  ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                   ; Entity Name ; Library Name ;
++-----------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------------------------+-------------+--------------+
+; |ALU_64                     ; 1662 (726)          ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 198  ; 0            ; |ALU_64                               ; ALU_64      ; work         ;
+;    |addsub:U1|              ; 110 (2)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1                     ; addsub      ; work         ;
+;       |fulladder:\FA:0:U1|  ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:0:U1  ; fulladder   ; work         ;
+;       |fulladder:\FA:10:U1| ; 3 (3)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:10:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:11:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:11:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:12:U1| ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:12:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:13:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:13:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:14:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:14:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:15:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:15:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:16:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:16:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:17:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:17:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:18:U1| ; 3 (3)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:18:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:19:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:19:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:1:U1|  ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:1:U1  ; fulladder   ; work         ;
+;       |fulladder:\FA:20:U1| ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:20:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:21:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:21:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:22:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:22:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:23:U1| ; 3 (3)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:23:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:24:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:24:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:25:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:25:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:26:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:26:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:27:U1| ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:27:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:28:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:28:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:29:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:29:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:2:U1|  ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:2:U1  ; fulladder   ; work         ;
+;       |fulladder:\FA:30:U1| ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:30:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:31:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:31:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:32:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:32:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:33:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:33:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:34:U1| ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:34:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:35:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:35:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:36:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:36:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:37:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:37:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:38:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:38:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:39:U1| ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:39:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:3:U1|  ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:3:U1  ; fulladder   ; work         ;
+;       |fulladder:\FA:40:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:40:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:41:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:41:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:42:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:42:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:43:U1| ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:43:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:44:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:44:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:45:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:45:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:46:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:46:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:47:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:47:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:48:U1| ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:48:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:49:U1| ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:49:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:4:U1|  ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:4:U1  ; fulladder   ; work         ;
+;       |fulladder:\FA:50:U1| ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:50:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:51:U1| ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:51:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:53:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:53:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:54:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:54:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:55:U1| ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:55:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:57:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:57:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:58:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:58:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:59:U1| ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:59:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:5:U1|  ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:5:U1  ; fulladder   ; work         ;
+;       |fulladder:\FA:60:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:60:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:61:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:61:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:62:U1| ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:62:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:6:U1|  ; 3 (3)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:6:U1  ; fulladder   ; work         ;
+;       |fulladder:\FA:7:U1|  ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:7:U1  ; fulladder   ; work         ;
+;       |fulladder:\FA:8:U1|  ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:8:U1  ; fulladder   ; work         ;
+;       |fulladder:\FA:9:U1|  ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U1|fulladder:\FA:9:U1  ; fulladder   ; work         ;
+;    |addsub:U2|              ; 208 (66)            ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2                     ; addsub      ; work         ;
+;       |fulladder:\FA:10:U1| ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:10:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:11:U1| ; 5 (5)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:11:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:12:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:12:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:13:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:13:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:14:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:14:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:15:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:15:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:16:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:16:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:17:U1| ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:17:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:18:U1| ; 5 (5)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:18:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:19:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:19:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:1:U1|  ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:1:U1  ; fulladder   ; work         ;
+;       |fulladder:\FA:20:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:20:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:21:U1| ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:21:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:22:U1| ; 5 (5)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:22:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:23:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:23:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:24:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:24:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:25:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:25:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:26:U1| ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:26:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:27:U1| ; 5 (5)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:27:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:28:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:28:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:29:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:29:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:2:U1|  ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:2:U1  ; fulladder   ; work         ;
+;       |fulladder:\FA:30:U1| ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:30:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:31:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:31:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:32:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:32:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:33:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:33:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:34:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:34:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:35:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:35:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:36:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:36:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:37:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:37:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:38:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:38:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:39:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:39:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:3:U1|  ; 4 (4)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:3:U1  ; fulladder   ; work         ;
+;       |fulladder:\FA:40:U1| ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:40:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:41:U1| ; 5 (5)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:41:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:42:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:42:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:43:U1| ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:43:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:44:U1| ; 5 (5)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:44:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:45:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:45:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:46:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:46:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:47:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:47:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:48:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:48:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:49:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:49:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:4:U1|  ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:4:U1  ; fulladder   ; work         ;
+;       |fulladder:\FA:50:U1| ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:50:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:51:U1| ; 5 (5)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:51:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:52:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:52:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:53:U1| ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:53:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:54:U1| ; 5 (5)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:54:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:55:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:55:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:56:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:56:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:57:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:57:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:58:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:58:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:59:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:59:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:5:U1|  ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:5:U1  ; fulladder   ; work         ;
+;       |fulladder:\FA:60:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:60:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:61:U1| ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:61:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:62:U1| ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:62:U1 ; fulladder   ; work         ;
+;       |fulladder:\FA:6:U1|  ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:6:U1  ; fulladder   ; work         ;
+;       |fulladder:\FA:7:U1|  ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:7:U1  ; fulladder   ; work         ;
+;       |fulladder:\FA:8:U1|  ; 5 (5)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:8:U1  ; fulladder   ; work         ;
+;       |fulladder:\FA:9:U1|  ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|addsub:U2|fulladder:\FA:9:U1  ; fulladder   ; work         ;
+;    |logicShift:U3|          ; 287 (287)           ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|logicShift:U3                 ; logicShift  ; work         ;
+;    |logicShift:U4|          ; 118 (118)           ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|logicShift:U4                 ; logicShift  ; work         ;
+;    |logicShift:U5|          ; 213 (213)           ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ALU_64|logicShift:U5                 ; logicShift  ; work         ;
++-----------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------------------------+-------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++----------------------------------------------------------------------------------------------------+
+; User-Specified and Inferred Latches                                                                ;
++-----------------------------------------------------+---------------------+------------------------+
+; Latch Name                                          ; Latch Enable Signal ; Free of Timing Hazards ;
++-----------------------------------------------------+---------------------+------------------------+
+; r[0]                                                ; opcode[3]           ; yes                    ;
+; r[1]                                                ; opcode[3]           ; yes                    ;
+; r[2]                                                ; opcode[3]           ; yes                    ;
+; r[3]                                                ; opcode[3]           ; yes                    ;
+; r[4]                                                ; opcode[3]           ; yes                    ;
+; r[5]                                                ; opcode[3]           ; yes                    ;
+; r[6]                                                ; opcode[3]           ; yes                    ;
+; r[7]                                                ; opcode[3]           ; yes                    ;
+; r[8]                                                ; opcode[3]           ; yes                    ;
+; r[9]                                                ; opcode[3]           ; yes                    ;
+; r[10]                                               ; opcode[3]           ; yes                    ;
+; r[11]                                               ; opcode[3]           ; yes                    ;
+; r[12]                                               ; opcode[3]           ; yes                    ;
+; r[13]                                               ; opcode[3]           ; yes                    ;
+; r[14]                                               ; opcode[3]           ; yes                    ;
+; r[15]                                               ; opcode[3]           ; yes                    ;
+; r[16]                                               ; opcode[3]           ; yes                    ;
+; r[17]                                               ; opcode[3]           ; yes                    ;
+; r[18]                                               ; opcode[3]           ; yes                    ;
+; r[19]                                               ; opcode[3]           ; yes                    ;
+; r[20]                                               ; opcode[3]           ; yes                    ;
+; r[21]                                               ; opcode[3]           ; yes                    ;
+; r[22]                                               ; opcode[3]           ; yes                    ;
+; r[23]                                               ; opcode[3]           ; yes                    ;
+; r[24]                                               ; opcode[3]           ; yes                    ;
+; r[25]                                               ; opcode[3]           ; yes                    ;
+; r[26]                                               ; opcode[3]           ; yes                    ;
+; r[27]                                               ; opcode[3]           ; yes                    ;
+; r[28]                                               ; opcode[3]           ; yes                    ;
+; r[29]                                               ; opcode[3]           ; yes                    ;
+; r[30]                                               ; opcode[3]           ; yes                    ;
+; r[31]                                               ; opcode[3]           ; yes                    ;
+; r[32]                                               ; opcode[3]           ; yes                    ;
+; r[33]                                               ; opcode[3]           ; yes                    ;
+; r[34]                                               ; opcode[3]           ; yes                    ;
+; r[35]                                               ; opcode[3]           ; yes                    ;
+; r[36]                                               ; opcode[3]           ; yes                    ;
+; r[37]                                               ; opcode[3]           ; yes                    ;
+; r[38]                                               ; opcode[3]           ; yes                    ;
+; r[39]                                               ; opcode[3]           ; yes                    ;
+; r[40]                                               ; opcode[3]           ; yes                    ;
+; r[41]                                               ; opcode[3]           ; yes                    ;
+; r[42]                                               ; opcode[3]           ; yes                    ;
+; r[43]                                               ; opcode[3]           ; yes                    ;
+; r[44]                                               ; opcode[3]           ; yes                    ;
+; r[45]                                               ; opcode[3]           ; yes                    ;
+; r[46]                                               ; opcode[3]           ; yes                    ;
+; r[47]                                               ; opcode[3]           ; yes                    ;
+; r[48]                                               ; opcode[3]           ; yes                    ;
+; r[49]                                               ; opcode[3]           ; yes                    ;
+; r[50]                                               ; opcode[3]           ; yes                    ;
+; r[51]                                               ; opcode[3]           ; yes                    ;
+; r[52]                                               ; opcode[3]           ; yes                    ;
+; r[53]                                               ; opcode[3]           ; yes                    ;
+; r[54]                                               ; opcode[3]           ; yes                    ;
+; r[55]                                               ; opcode[3]           ; yes                    ;
+; r[56]                                               ; opcode[3]           ; yes                    ;
+; r[57]                                               ; opcode[3]           ; yes                    ;
+; r[58]                                               ; opcode[3]           ; yes                    ;
+; r[59]                                               ; opcode[3]           ; yes                    ;
+; r[60]                                               ; opcode[3]           ; yes                    ;
+; r[61]                                               ; opcode[3]           ; yes                    ;
+; r[62]                                               ; opcode[3]           ; yes                    ;
+; r[63]                                               ; opcode[3]           ; yes                    ;
+; c$latch                                             ; opcode[3]           ; yes                    ;
+; Number of user-specified and inferred latches = 65  ;                     ;                        ;
++-----------------------------------------------------+---------------------+------------------------+
+Note: All latches listed above may not be present at the end of synthesis due to various synthesis optimizations.
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 0     ;
+; Number of registers using Synchronous Clear  ; 0     ;
+; Number of registers using Synchronous Load   ; 0     ;
+; Number of registers using Asynchronous Clear ; 0     ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 0     ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                           ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
+; 22:1               ; 15 bits   ; 210 LEs       ; 105 LEs              ; 105 LEs                ; No         ; |ALU_64|r[30]              ;
+; 23:1               ; 15 bits   ; 225 LEs       ; 105 LEs              ; 120 LEs                ; No         ; |ALU_64|r[47]              ;
+; 23:1               ; 8 bits    ; 120 LEs       ; 64 LEs               ; 56 LEs                 ; No         ; |ALU_64|r[8]               ;
+; 24:1               ; 8 bits    ; 128 LEs       ; 64 LEs               ; 64 LEs                 ; No         ; |ALU_64|r[55]              ;
+; 24:1               ; 4 bits    ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; No         ; |ALU_64|r[7]               ;
+; 25:1               ; 4 bits    ; 64 LEs        ; 36 LEs               ; 28 LEs                 ; No         ; |ALU_64|r[59]              ;
+; 25:1               ; 2 bits    ; 32 LEs        ; 18 LEs               ; 14 LEs                 ; No         ; |ALU_64|r[2]               ;
+; 26:1               ; 2 bits    ; 34 LEs        ; 18 LEs               ; 16 LEs                 ; No         ; |ALU_64|r[61]              ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
+
+
++------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Top-level Entity: |ALU_64 ;
++----------------+-------+-----------------------------------------------+
+; Parameter Name ; Value ; Type                                          ;
++----------------+-------+-----------------------------------------------+
+; n              ; 64    ; Signed Integer                                ;
++----------------+-------+-----------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------+
+; Parameter Settings for User Entity Instance: addsub:U1 ;
++----------------+-------+-------------------------------+
+; Parameter Name ; Value ; Type                          ;
++----------------+-------+-------------------------------+
+; n              ; 64    ; Signed Integer                ;
++----------------+-------+-------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------+
+; Parameter Settings for User Entity Instance: addsub:U2 ;
++----------------+-------+-------------------------------+
+; Parameter Name ; Value ; Type                          ;
++----------------+-------+-------------------------------+
+; n              ; 64    ; Signed Integer                ;
++----------------+-------+-------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: logicShift:U3 ;
++----------------+-------+-----------------------------------+
+; Parameter Name ; Value ; Type                              ;
++----------------+-------+-----------------------------------+
+; n              ; 64    ; Signed Integer                    ;
++----------------+-------+-----------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: logicShift:U4 ;
++----------------+-------+-----------------------------------+
+; Parameter Name ; Value ; Type                              ;
++----------------+-------+-----------------------------------+
+; n              ; 64    ; Signed Integer                    ;
++----------------+-------+-----------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: logicShift:U5 ;
++----------------+-------+-----------------------------------+
+; Parameter Name ; Value ; Type                              ;
++----------------+-------+-----------------------------------+
+; n              ; 64    ; Signed Integer                    ;
++----------------+-------+-----------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------+
+; Port Connectivity Checks: "logicShift:U5" ;
++-------+-------+----------+----------------+
+; Port  ; Type  ; Severity ; Details        ;
++-------+-------+----------+----------------+
+; op[1] ; Input ; Info     ; Stuck at VCC   ;
+; op[0] ; Input ; Info     ; Stuck at GND   ;
++-------+-------+----------+----------------+
+
+
++-------------------------------------------+
+; Port Connectivity Checks: "logicShift:U4" ;
++-------+-------+----------+----------------+
+; Port  ; Type  ; Severity ; Details        ;
++-------+-------+----------+----------------+
+; op[1] ; Input ; Info     ; Stuck at GND   ;
+; op[0] ; Input ; Info     ; Stuck at VCC   ;
++-------+-------+----------+----------------+
+
+
++-------------------------------------------+
+; Port Connectivity Checks: "logicShift:U3" ;
++------+-------+----------+-----------------+
+; Port ; Type  ; Severity ; Details         ;
++------+-------+----------+-----------------+
+; op   ; Input ; Info     ; Stuck at GND    ;
++------+-------+----------+-----------------+
+
+
++----------------------------------------+
+; Port Connectivity Checks: "addsub:U2"  ;
++------+-------+----------+--------------+
+; Port ; Type  ; Severity ; Details      ;
++------+-------+----------+--------------+
+; op   ; Input ; Info     ; Stuck at VCC ;
++------+-------+----------+--------------+
+
+
++----------------------------------------------------------+
+; Port Connectivity Checks: "addsub:U1|fulladder:\FA:0:U1" ;
++------+-------+----------+--------------------------------+
+; Port ; Type  ; Severity ; Details                        ;
++------+-------+----------+--------------------------------+
+; cin  ; Input ; Info     ; Stuck at GND                   ;
++------+-------+----------+--------------------------------+
+
+
++----------------------------------------+
+; Port Connectivity Checks: "addsub:U1"  ;
++------+-------+----------+--------------+
+; Port ; Type  ; Severity ; Details      ;
++------+-------+----------+--------------+
+; op   ; Input ; Info     ; Stuck at GND ;
++------+-------+----------+--------------+
+
+
++-----------------------------------------------------+
+; Post-Synthesis Netlist Statistics for Top Partition ;
++-----------------------+-----------------------------+
+; Type                  ; Count                       ;
++-----------------------+-----------------------------+
+; boundary_port         ; 198                         ;
+; cycloneiii_lcell_comb ; 1662                        ;
+;     arith             ; 63                          ;
+;         2 data inputs ; 63                          ;
+;     normal            ; 1599                        ;
+;         1 data inputs ; 1                           ;
+;         2 data inputs ; 163                         ;
+;         3 data inputs ; 635                         ;
+;         4 data inputs ; 800                         ;
+;                       ;                             ;
+; Max LUT depth         ; 57.30                       ;
+; Average LUT depth     ; 23.51                       ;
++-----------------------+-----------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:12     ;
++----------------+--------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+    Info: Processing started: Sat Mar 21 10:08:22 2020
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off ALU_64 -c ALU_64
+Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
+Info (12021): Found 2 design units, including 1 entities, in source file seven_segments.vhd
+    Info (12022): Found design unit 1: seven_segments-LogicFunction File: C:/Users/Correy/Desktop/directedStudies/lab2/seven_segments.vhd Line: 11
+    Info (12023): Found entity 1: seven_segments File: C:/Users/Correy/Desktop/directedStudies/lab2/seven_segments.vhd Line: 4
+Info (12021): Found 2 design units, including 1 entities, in source file logicshift.vhd
+    Info (12022): Found design unit 1: logicShift-LogicFunction File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 14
+    Info (12023): Found entity 1: logicShift File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 5
+Info (12021): Found 2 design units, including 1 entities, in source file fulladder.vhd
+    Info (12022): Found design unit 1: fulladder-LogicFunction File: C:/Users/Correy/Desktop/directedStudies/lab2/fulladder.vhd Line: 11
+    Info (12023): Found entity 1: fulladder File: C:/Users/Correy/Desktop/directedStudies/lab2/fulladder.vhd Line: 4
+Info (12021): Found 2 design units, including 1 entities, in source file alu_64_tb.vhd
+    Info (12022): Found design unit 1: ALU_64_tb-tb File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64_tb.vhd Line: 8
+    Info (12023): Found entity 1: ALU_64_tb File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64_tb.vhd Line: 5
+Info (12021): Found 2 design units, including 1 entities, in source file alu_64.vhd
+    Info (12022): Found design unit 1: ALU_64-LogicFunction File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 15
+    Info (12023): Found entity 1: ALU_64 File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 5
+Info (12021): Found 2 design units, including 1 entities, in source file addsub.vhd
+    Info (12022): Found design unit 1: addsub-LogicFunction File: C:/Users/Correy/Desktop/directedStudies/lab2/addsub.vhd Line: 15
+    Info (12023): Found entity 1: addsub File: C:/Users/Correy/Desktop/directedStudies/lab2/addsub.vhd Line: 5
+Info (12127): Elaborating entity "ALU_64" for the top level hierarchy
+Warning (10492): VHDL Process Statement warning at ALU_64.vhd(38): signal "sum" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 38
+Warning (10492): VHDL Process Statement warning at ALU_64.vhd(39): signal "sumout" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 39
+Warning (10492): VHDL Process Statement warning at ALU_64.vhd(41): signal "shiftll" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 41
+Warning (10492): VHDL Process Statement warning at ALU_64.vhd(44): signal "diff" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 44
+Warning (10492): VHDL Process Statement warning at ALU_64.vhd(45): signal "diffout" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 45
+Warning (10492): VHDL Process Statement warning at ALU_64.vhd(47): signal "shiftra" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 47
+Warning (10492): VHDL Process Statement warning at ALU_64.vhd(53): signal "shiftrl" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 53
+Warning (10631): VHDL Process Statement warning at ALU_64.vhd(35): inferring latch(es) for signal or variable "r", which holds its previous value in one or more paths through the process File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Warning (10631): VHDL Process Statement warning at ALU_64.vhd(35): inferring latch(es) for signal or variable "c", which holds its previous value in one or more paths through the process File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "c" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[0]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[1]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[2]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[3]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[4]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[5]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[6]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[7]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[8]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[9]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[10]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[11]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[12]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[13]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[14]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[15]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[16]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[17]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[18]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[19]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[20]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[21]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[22]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[23]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[24]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[25]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[26]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[27]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[28]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[29]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[30]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[31]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[32]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[33]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[34]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[35]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[36]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[37]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[38]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[39]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[40]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[41]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[42]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[43]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[44]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[45]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[46]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[47]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[48]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[49]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[50]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[51]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[52]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[53]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[54]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[55]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[56]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[57]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[58]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[59]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[60]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[61]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[62]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (10041): Inferred latch for "r[63]" at ALU_64.vhd(35) File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 35
+Info (12128): Elaborating entity "addsub" for hierarchy "addsub:U1" File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 64
+Info (12128): Elaborating entity "fulladder" for hierarchy "addsub:U1|fulladder:\FA:0:U1" File: C:/Users/Correy/Desktop/directedStudies/lab2/addsub.vhd Line: 32
+Warning (10492): VHDL Process Statement warning at fulladder.vhd(15): signal "CIN" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Correy/Desktop/directedStudies/lab2/fulladder.vhd Line: 15
+Warning (10492): VHDL Process Statement warning at fulladder.vhd(16): signal "CIN" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Correy/Desktop/directedStudies/lab2/fulladder.vhd Line: 16
+Info (12128): Elaborating entity "logicShift" for hierarchy "logicShift:U3" File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64.vhd Line: 76
+Info (10041): Inferred latch for "R[0]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[1]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[2]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[3]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[4]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[5]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[6]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[7]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[8]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[9]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[10]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[11]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[12]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[13]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[14]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[15]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[16]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[17]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[18]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[19]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[20]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[21]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[22]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[23]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[24]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[25]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[26]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[27]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[28]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[29]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[30]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[31]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[32]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[33]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[34]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[35]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[36]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[37]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[38]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[39]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[40]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[41]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[42]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[43]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[44]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[45]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[46]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[47]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[48]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[49]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[50]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[51]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[52]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[53]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[54]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[55]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[56]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[57]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[58]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[59]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[60]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[61]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[62]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (10041): Inferred latch for "R[63]" at logicShift.vhd(21) File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[3]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[2]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[1]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[0]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[5]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[6]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[7]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[8]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[9]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[10]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[11]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[12]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[13]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[14]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[15]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[16]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[17]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[18]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[19]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[20]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[21]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[22]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[23]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[24]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[25]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[26]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[27]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[28]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[29]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[30]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[31]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[32]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[33]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[34]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[35]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[36]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[37]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[38]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[39]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[40]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[41]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[42]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[43]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[44]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[45]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[46]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[47]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[48]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[49]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[50]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[51]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[52]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[53]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[54]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[55]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[56]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[57]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[58]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[59]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[60]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[61]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[62]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[63]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U5|R[4]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[3]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[2]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[1]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[0]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[5]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[6]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[7]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[8]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[9]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[10]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[11]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[12]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[13]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[14]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[15]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[16]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[17]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[18]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[19]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[20]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[21]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[22]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[23]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[24]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[25]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[26]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[27]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[28]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[29]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[30]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[31]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[32]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[33]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[34]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[35]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[36]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[37]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[38]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[39]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[40]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[41]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[42]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[43]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[44]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[45]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[46]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[47]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[48]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[49]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[50]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[51]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[52]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[53]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[54]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[55]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[56]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[57]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[58]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[59]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[60]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[61]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[62]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[63]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U4|R[4]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[3]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[2]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[1]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[0]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[5]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[6]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[7]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[8]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[9]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[10]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[11]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[12]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[13]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[14]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[15]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[16]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[17]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[18]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[19]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[20]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[21]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[22]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[23]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[24]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[25]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[26]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[27]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[28]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[29]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[30]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[31]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[32]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[33]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[34]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[35]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[36]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[37]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[38]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[39]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[40]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[41]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[42]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[43]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[44]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[45]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[46]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[47]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[48]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[49]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[50]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[51]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[52]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[53]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[54]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[55]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[56]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[57]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[58]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[59]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[60]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[61]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[62]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[63]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Warning (14026): LATCH primitive "logicShift:U3|R[4]" is permanently enabled File: C:/Users/Correy/Desktop/directedStudies/lab2/logicShift.vhd Line: 21
+Info (286030): Timing-Driven Synthesis is running
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Info (21057): Implemented 1860 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 132 input pins
+    Info (21059): Implemented 66 output pins
+    Info (21061): Implemented 1662 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 204 warnings
+    Info: Peak virtual memory: 4804 megabytes
+    Info: Processing ended: Sat Mar 21 10:08:57 2020
+    Info: Elapsed time: 00:00:35
+    Info: Total CPU time (on all processors): 00:00:39
+
+

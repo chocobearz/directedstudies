@@ -1,0 +1,105 @@
+# Reading C:/intelFPGA_lite/18.1/modelsim_ase/tcl/vsim/pref.tcl
+# do ALU_64_run_msim_gate_vhdl.do
+# if {[file exists gate_work]} {
+# 	vdel -lib gate_work -all
+# }
+# vlib gate_work
+# vmap work gate_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work gate_work 
+# Copying C:/intelFPGA_lite/18.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vcom -93 -work work {ALU_64_7_1200mv_85c_slow.vho}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 18:44:13 on Mar 02,2020
+# vcom -reportprogress 300 -93 -work work ALU_64_7_1200mv_85c_slow.vho 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package VITAL_Timing
+# -- Loading package VITAL_Primitives
+# -- Loading package cycloneive_atom_pack
+# -- Loading package cycloneive_components
+# -- Compiling entity hard_block
+# -- Compiling architecture structure of hard_block
+# -- Compiling entity ALU_64
+# -- Compiling architecture structure of ALU_64
+# End time: 18:44:15 on Mar 02,2020, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 0
+# 
+vcom -reportprogress 300 -work work C:/Users/Correy/Desktop/directedStudies/lab2/simulation/modelsim/ALU_64_7_1200mv_85c_slow.vho
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 18:44:55 on Mar 02,2020
+# vcom -reportprogress 300 -work work C:/Users/Correy/Desktop/directedStudies/lab2/simulation/modelsim/ALU_64_7_1200mv_85c_slow.vho 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package VITAL_Timing
+# -- Loading package VITAL_Primitives
+# -- Loading package cycloneive_atom_pack
+# -- Loading package cycloneive_components
+# -- Compiling entity hard_block
+# -- Compiling architecture structure of hard_block
+# -- Compiling entity ALU_64
+# -- Compiling architecture structure of ALU_64
+# End time: 18:44:56 on Mar 02,2020, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+vcom -reportprogress 300 -work work C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64_tb.vhd
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 18:45:04 on Mar 02,2020
+# vcom -reportprogress 300 -work work C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64_tb.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity ALU_64_tb
+# -- Compiling architecture tb of ALU_64_tb
+# -- Loading package VITAL_Timing
+# -- Loading package VITAL_Primitives
+# -- Loading package cycloneive_atom_pack
+# -- Loading package cycloneive_components
+# -- Loading entity ALU_64
+# End time: 18:45:04 on Mar 02,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vsim -gui -l msim_transcript work.alu_64_tb -L altera_ver -L cycloneiv_ver -sdftyp /DUT=C:/Users/Correy/Desktop/directedStudies/lab2/simulation/modelsim/ALU_64_7_1200mv_85c_vhd_slow.sdo
+# vsim -gui -l msim_transcript work.alu_64_tb -L altera_ver -L cycloneiv_ver -sdftyp /DUT=C:/Users/Correy/Desktop/directedStudies/lab2/simulation/modelsim/ALU_64_7_1200mv_85c_vhd_slow.sdo 
+# Start time: 21:38:03 on Mar 02,2020
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.vital_timing(body)
+# Loading ieee.vital_primitives(body)
+# Loading cycloneive.cycloneive_atom_pack(body)
+# Loading cycloneive.cycloneive_components
+# Loading work.alu_64_tb(tb)
+# SDF 10.5b Compiler 2016.10 Oct  5 2016
+# 
+# Loading work.alu_64(structure)
+# Loading work.hard_block(structure)
+# Loading ieee.std_logic_arith(body)
+# Loading cycloneive.cycloneive_io_obuf(arch)
+# Loading cycloneive.cycloneive_io_ibuf(arch)
+# Loading cycloneive.cycloneive_lcell_comb(vital_lcell_comb)
+# Loading cycloneive.cycloneive_clkctrl(vital_clkctrl)
+# Loading cycloneive.cycloneive_ena_reg(behave)
+# Loading instances from C:/Users/Correy/Desktop/directedStudies/lab2/simulation/modelsim/ALU_64_7_1200mv_85c_vhd_slow.sdo
+# Loading timing data from C:/Users/Correy/Desktop/directedStudies/lab2/simulation/modelsim/ALU_64_7_1200mv_85c_vhd_slow.sdo
+# ** Warning: Design size of 189317 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Expect performance to be adversely affected.
+# ** Note: (vsim-3587) SDF Backannotation Successfully Completed.
+#    Time: 0 ps  Iteration: 0  Instance: /alu_64_tb File: C:/Users/Correy/Desktop/directedStudies/lab2/ALU_64_tb.vhd
+add wave sim:/alu_64_tb/DUT/*
+run -all
+# ** Error: arithmetic shift right test for negative failed for shift by 16
+#    Time: 1190 ns  Iteration: 0  Instance: /alu_64_tb
+# ** Error: arithmetic shift right test for positive failed for shift by 16
+#    Time: 1540 ns  Iteration: 0  Instance: /alu_64_tb
+# ** Error: arithmetic shift right test for positive failed for shift by 61
+#    Time: 1610 ns  Iteration: 0  Instance: /alu_64_tb
+# ** Error: arithmetic shift right test for positive failed for shift by 62
+#    Time: 1680 ns  Iteration: 0  Instance: /alu_64_tb
+# ** Error: logic shift right test failed for shift by 1 with positive
+#    Time: 2170 ns  Iteration: 0  Instance: /alu_64_tb
+# WARNING: No extended dataflow license exists
+# End time: 21:54:21 on Mar 02,2020, Elapsed time: 0:16:18
+# Errors: 5, Warnings: 2

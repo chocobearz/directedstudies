@@ -1,0 +1,221 @@
+------------------------------------------------------------
+Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Slow 1200mV 85C Model Setup 'clear'
+Slack : -42.946
+TNS   : -1904.393
+
+Type  : Slow 1200mV 85C Model Setup 'funky3[0]'
+Slack : -42.373
+TNS   : -42.373
+
+Type  : Slow 1200mV 85C Model Setup 'clock'
+Slack : -34.037
+TNS   : -3951.382
+
+Type  : Slow 1200mV 85C Model Setup 'instruction_fetch:u1|inst_mem:u2|altsyncram:altsyncram_component|altsyncram_79s3:auto_generated|ram_block1a0~porta_address_reg0'
+Slack : -7.664
+TNS   : -373.186
+
+Type  : Slow 1200mV 85C Model Hold 'instruction_fetch:u1|inst_mem:u2|altsyncram:altsyncram_component|altsyncram_79s3:auto_generated|ram_block1a0~porta_address_reg0'
+Slack : -3.286
+TNS   : -44.786
+
+Type  : Slow 1200mV 85C Model Hold 'clock'
+Slack : 0.380
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'funky3[0]'
+Slack : 0.815
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'clear'
+Slack : 2.344
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Recovery 'instruction_fetch:u1|inst_mem:u2|altsyncram:altsyncram_component|altsyncram_79s3:auto_generated|ram_block1a0~porta_address_reg0'
+Slack : -2.433
+TNS   : -137.802
+
+Type  : Slow 1200mV 85C Model Recovery 'funky3[0]'
+Slack : -1.756
+TNS   : -1.756
+
+Type  : Slow 1200mV 85C Model Recovery 'clock'
+Slack : 0.011
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Removal 'clock'
+Slack : -0.177
+TNS   : -96.237
+
+Type  : Slow 1200mV 85C Model Removal 'instruction_fetch:u1|inst_mem:u2|altsyncram:altsyncram_component|altsyncram_79s3:auto_generated|ram_block1a0~porta_address_reg0'
+Slack : 0.959
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Removal 'funky3[0]'
+Slack : 1.096
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'clock'
+Slack : -3.000
+TNS   : -824.934
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'clear'
+Slack : -3.000
+TNS   : -3.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'instruction_fetch:u1|inst_mem:u2|altsyncram:altsyncram_component|altsyncram_79s3:auto_generated|ram_block1a0~porta_address_reg0'
+Slack : 0.403
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'funky3[0]'
+Slack : 0.423
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Setup 'clear'
+Slack : -39.554
+TNS   : -1751.448
+
+Type  : Slow 1200mV 0C Model Setup 'funky3[0]'
+Slack : -38.769
+TNS   : -38.769
+
+Type  : Slow 1200mV 0C Model Setup 'clock'
+Slack : -31.284
+TNS   : -3584.865
+
+Type  : Slow 1200mV 0C Model Setup 'instruction_fetch:u1|inst_mem:u2|altsyncram:altsyncram_component|altsyncram_79s3:auto_generated|ram_block1a0~porta_address_reg0'
+Slack : -7.294
+TNS   : -355.023
+
+Type  : Slow 1200mV 0C Model Hold 'instruction_fetch:u1|inst_mem:u2|altsyncram:altsyncram_component|altsyncram_79s3:auto_generated|ram_block1a0~porta_address_reg0'
+Slack : -2.911
+TNS   : -39.113
+
+Type  : Slow 1200mV 0C Model Hold 'clock'
+Slack : 0.377
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'funky3[0]'
+Slack : 0.762
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'clear'
+Slack : 2.127
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Recovery 'instruction_fetch:u1|inst_mem:u2|altsyncram:altsyncram_component|altsyncram_79s3:auto_generated|ram_block1a0~porta_address_reg0'
+Slack : -2.393
+TNS   : -134.879
+
+Type  : Slow 1200mV 0C Model Recovery 'funky3[0]'
+Slack : -1.667
+TNS   : -1.667
+
+Type  : Slow 1200mV 0C Model Recovery 'clock'
+Slack : 0.110
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Removal 'clock'
+Slack : -0.176
+TNS   : -96.046
+
+Type  : Slow 1200mV 0C Model Removal 'funky3[0]'
+Slack : 0.962
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Removal 'instruction_fetch:u1|inst_mem:u2|altsyncram:altsyncram_component|altsyncram_79s3:auto_generated|ram_block1a0~porta_address_reg0'
+Slack : 1.180
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'clock'
+Slack : -3.000
+TNS   : -823.262
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'clear'
+Slack : -3.000
+TNS   : -3.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'instruction_fetch:u1|inst_mem:u2|altsyncram:altsyncram_component|altsyncram_79s3:auto_generated|ram_block1a0~porta_address_reg0'
+Slack : 0.210
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'funky3[0]'
+Slack : 0.458
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Setup 'clear'
+Slack : -20.560
+TNS   : -905.013
+
+Type  : Fast 1200mV 0C Model Setup 'funky3[0]'
+Slack : -20.512
+TNS   : -20.512
+
+Type  : Fast 1200mV 0C Model Setup 'clock'
+Slack : -16.152
+TNS   : -1714.463
+
+Type  : Fast 1200mV 0C Model Setup 'instruction_fetch:u1|inst_mem:u2|altsyncram:altsyncram_component|altsyncram_79s3:auto_generated|ram_block1a0~porta_address_reg0'
+Slack : -3.891
+TNS   : -182.024
+
+Type  : Fast 1200mV 0C Model Hold 'instruction_fetch:u1|inst_mem:u2|altsyncram:altsyncram_component|altsyncram_79s3:auto_generated|ram_block1a0~porta_address_reg0'
+Slack : -1.933
+TNS   : -28.205
+
+Type  : Fast 1200mV 0C Model Hold 'clock'
+Slack : 0.154
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'funky3[0]'
+Slack : 0.240
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'clear'
+Slack : 1.173
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Recovery 'instruction_fetch:u1|inst_mem:u2|altsyncram:altsyncram_component|altsyncram_79s3:auto_generated|ram_block1a0~porta_address_reg0'
+Slack : -1.614
+TNS   : -94.219
+
+Type  : Fast 1200mV 0C Model Recovery 'funky3[0]'
+Slack : -0.837
+TNS   : -0.837
+
+Type  : Fast 1200mV 0C Model Recovery 'clock'
+Slack : -0.125
+TNS   : -35.924
+
+Type  : Fast 1200mV 0C Model Removal 'clock'
+Slack : -0.104
+TNS   : -56.635
+
+Type  : Fast 1200mV 0C Model Removal 'funky3[0]'
+Slack : 0.676
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Removal 'instruction_fetch:u1|inst_mem:u2|altsyncram:altsyncram_component|altsyncram_79s3:auto_generated|ram_block1a0~porta_address_reg0'
+Slack : 0.711
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'clock'
+Slack : -3.000
+TNS   : -640.854
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'clear'
+Slack : -3.000
+TNS   : -3.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'instruction_fetch:u1|inst_mem:u2|altsyncram:altsyncram_component|altsyncram_79s3:auto_generated|ram_block1a0~porta_address_reg0'
+Slack : 0.239
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'funky3[0]'
+Slack : 0.360
+TNS   : 0.000
+
+------------------------------------------------------------

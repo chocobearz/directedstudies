@@ -1,0 +1,105 @@
+# Reading C:/intelFPGA_lite/18.1/modelsim_ase/tcl/vsim/pref.tcl
+# ERROR: No extended dataflow license exists
+# do register_file_run_msim_gate_vhdl.do
+# if {[file exists gate_work]} {
+# 	vdel -lib gate_work -all
+# }
+# vlib gate_work
+# vmap work gate_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work gate_work 
+# Copying C:/intelFPGA_lite/18.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vcom -93 -work work {register_file_7_1200mv_85c_slow.vho}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 00:01:16 on Mar 03,2020
+# vcom -reportprogress 300 -93 -work work register_file_7_1200mv_85c_slow.vho 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package VITAL_Timing
+# -- Loading package VITAL_Primitives
+# -- Loading package cycloneive_atom_pack
+# -- Loading package cycloneive_components
+# -- Compiling entity hard_block
+# -- Compiling architecture structure of hard_block
+# -- Compiling entity register_file
+# -- Compiling architecture structure of register_file
+# End time: 00:01:17 on Mar 03,2020, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# 
+vcom -reportprogress 300 -work work C:/Users/Correy/Desktop/directedStudies/lab3/register_file/simulation/modelsim/register_file_7_1200mv_85c_slow.vho
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 00:01:26 on Mar 03,2020
+# vcom -reportprogress 300 -work work C:/Users/Correy/Desktop/directedStudies/lab3/register_file/simulation/modelsim/register_file_7_1200mv_85c_slow.vho 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package VITAL_Timing
+# -- Loading package VITAL_Primitives
+# -- Loading package cycloneive_atom_pack
+# -- Loading package cycloneive_components
+# -- Compiling entity hard_block
+# -- Compiling architecture structure of hard_block
+# -- Compiling entity register_file
+# -- Compiling architecture structure of register_file
+# End time: 00:01:26 on Mar 03,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vcom -reportprogress 300 -work work C:/Users/Correy/Desktop/directedStudies/lab3/register_file/register_file_tb.vhd
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 00:01:32 on Mar 03,2020
+# vcom -reportprogress 300 -work work C:/Users/Correy/Desktop/directedStudies/lab3/register_file/register_file_tb.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity register_file_tb
+# -- Compiling architecture tb of register_file_tb
+# -- Loading package VITAL_Timing
+# -- Loading package VITAL_Primitives
+# -- Loading package cycloneive_atom_pack
+# -- Loading package cycloneive_components
+# -- Loading entity register_file
+# End time: 00:01:32 on Mar 03,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vsim -gui -l msim_transcript work.register_file_tb -L altera_ver -L cycloneive_ver -sdftyp /UUT=C:/Users/Correy/Desktop/directedStudies/lab3/register_file/simulation/modelsim/register_file_7_1200mv_85c_vhd_slow.sdo
+# vsim -gui -l msim_transcript work.register_file_tb -L altera_ver -L cycloneive_ver -sdftyp /UUT=C:/Users/Correy/Desktop/directedStudies/lab3/register_file/simulation/modelsim/register_file_7_1200mv_85c_vhd_slow.sdo 
+# Start time: 00:02:05 on Mar 03,2020
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.vital_timing(body)
+# Loading ieee.vital_primitives(body)
+# Loading cycloneive.cycloneive_atom_pack(body)
+# Loading cycloneive.cycloneive_components
+# Loading work.register_file_tb(tb)
+# SDF 10.5b Compiler 2016.10 Oct  5 2016
+# 
+# Loading work.register_file(structure)
+# Loading work.hard_block(structure)
+# Loading ieee.std_logic_arith(body)
+# Loading cycloneive.cycloneive_io_obuf(arch)
+# Loading cycloneive.cycloneive_io_ibuf(arch)
+# Loading cycloneive.cycloneive_clkctrl(vital_clkctrl)
+# Loading cycloneive.cycloneive_ena_reg(behave)
+# Loading cycloneive.cycloneive_ram_block(block_arch)
+# Loading cycloneive.cycloneive_ram_register(reg_arch)
+# Loading cycloneive.cycloneive_ram_pulse_generator(pgen_arch)
+# Loading instances from C:/Users/Correy/Desktop/directedStudies/lab3/register_file/simulation/modelsim/register_file_7_1200mv_85c_vhd_slow.sdo
+# Loading timing data from C:/Users/Correy/Desktop/directedStudies/lab3/register_file/simulation/modelsim/register_file_7_1200mv_85c_vhd_slow.sdo
+# ** Warning: Design size of 17431 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Expect performance to be adversely affected.
+# ** Note: (vsim-3587) SDF Backannotation Successfully Completed.
+#    Time: 0 ps  Iteration: 0  Instance: /register_file_tb File: C:/Users/Correy/Desktop/directedStudies/lab3/register_file/register_file_tb.vhd
+add wave sim:/register_file_tb/UUT/*
+run -all
+# ** Error: test failed for third read from non empty reg 2 with simaltaneous write
+#    Time: 100 ns  Iteration: 0  Instance: /register_file_tb
+# ** Error: test failed for write to reg 1, read empty register
+#    Time: 120 ns  Iteration: 0  Instance: /register_file_tb
+# ** Error: test failed for first read from reg 2 with simaltaneous write
+#    Time: 140 ns  Iteration: 0  Instance: /register_file_tb
+# ** Error: test failed for second read from reg 2 deactivate write
+#    Time: 160 ns  Iteration: 0  Instance: /register_file_tb
+# End time: 00:09:51 on Mar 03,2020, Elapsed time: 0:07:46
+# Errors: 4, Warnings: 1

@@ -1,0 +1,68 @@
+---
+title: "Appendix C"
+author: "PaigeT"
+date: "30/04/2020"
+output: 
+  prettydoc::html_pretty:
+  theme : cayman
+highlight : github
+math: katex
+---
+
+```{r}
+branching <- data.frame( "datapath" = c("never", "always", "dynamic"), "cyclesmod" = c(50,54,54), "cyclesmany" = c(123, 57, 61), "cyclesfew" = c(57,126,58), "accuracymod" = c(40,60,20), "accuracymany" = c(29,71,71), "accuracyfew" = c(93,7,93), "complexity" = c("complex", "complex", "most complex") )
+```
+
+```{r}
+performance <- data.frame("datapath" = c("partial", "fully", "never", "always", "dynamic"),"speed" = c(4, 7.5, 7.5, 7.5, 7.5), "throughput" = c(116,64,50,54,54), "complexity" = c("simple", "moderate", "complex", "complex", "most complex") )
+```
+
+```{r}
+knitr::kable(branching)
+knitr::kable(performance)
+```
+```{r}
+library(ggplot2)
+ggplot(branching, aes(x = cyclesmod, y = accuracymod)) +
+    geom_point(aes(color = factor(datapath), shape = factor(complexity)), size = 4)
+```
+
+```{r}
+ggplot(branching, aes(x = cyclesmany, y = accuracymany)) +
+    geom_point(aes(color = factor(datapath), shape = factor(complexity)), size = 4)
+```
+
+```{r}
+ggplot(branching, aes(x = cyclesfew, y = accuracyfew)) +
+    geom_point(aes(color = factor(datapath), shape = factor(complexity)), size = 4)
+```
+```{r}
+ggplot(branching, aes(x = cyclesmod, y = cyclesmany)) +
+    geom_point(aes(color = factor(datapath), shape = factor(complexity)), size = 4)
+```
+
+```{r}
+ggplot(branching, aes(x = cyclesmod, y = cyclesfew)) +
+    geom_point(aes(color = factor(datapath), shape = factor(complexity)), size = 4)
+```
+```{r}
+ggplot(branching, aes(x = accuracymod, y = accuracymany)) +
+    geom_point(aes(color = factor(datapath), shape = factor(complexity)), size = 4)
+```
+
+```{r}
+ggplot(branching, aes(x = accuracymod, y = accuracyfew)) +
+    geom_point(aes(color = factor(datapath), shape = factor(complexity)), size = 4)
+```
+
+```{r}
+ggplot(performance, aes(x = speed, y = throughput)) +
+    geom_point(aes(color = factor(datapath), shape = factor(complexity)), size = 4)
+```
+
+```{r}
+performance.high <- performance[performance$datapath != "partial",]
+ggplot(performance.high, aes(x = speed, y = throughput)) +
+    geom_point(aes(color = factor(datapath), shape = factor(complexity)), size = 4)
+```
+

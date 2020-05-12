@@ -1,0 +1,71 @@
+LIBRARY ieee;
+USE ieee.STD_LOGIC_1164.all;
+
+ENTITY RD_reg IS
+  PORT(
+    clear, clock,branch           : IN  STD_LOGIC;
+	 Data1_in, Data2_in, imm_in    : IN  STD_LOGIC_VECTOR(63 downto 0);
+	 wradd_in                      : IN  STD_LOGIC_VECTOR(4 downto 0);
+	 fun7_in                       : IN  STD_LOGIC_VECTOR(6 downto 0);
+	 fun3_in                       : IN  STD_LOGIC_VECTOR(2 downto 0);
+    Data1_out, Data2_out, imm_out : OUT STD_LOGIC_VECTOR(63 downto 0);
+	 wradd_out                     : OUT STD_LOGIC_VECTOR(4 downto 0);
+	 fun7_out                      : OUT STD_LOGIC_VECTOR(6 downto 0);
+	 fun3_out                      : OUT STD_LOGIC_VECTOR(2 downto 0);
+	 pc_in                         : IN  STD_LOGIC_VECTOR(7 downto 0);
+	 pc_out                        : OUT STD_LOGIC_VECTOR(7 downto 0);
+	 src1_in                       : IN  STD_LOGIC_VECTOR(4 downto 0);
+	 src1_out                      : OUT STD_LOGIC_VECTOR(4 downto 0);
+	 src2_in                       : IN  STD_LOGIC_VECTOR(4 downto 0);
+	 src2_out                      : OUT STD_LOGIC_VECTOR(4 downto 0)
+    );
+END RD_reg;
+
+ARCHITECTURE LogicFunction OF RD_reg IS
+SIGNAL f7_temp                       : STD_LOGIC_VECTOR(6 downto 0);
+SIGNAL f3_temp                       : STD_LOGIC_VECTOR(2 downto 0);
+SIGNAL r1_temp, r2_temp, wraddr_temp : STD_LOGIC_VECTOR(4 downto 0);
+SIGNAL pc_temp                       : STD_LOGIC_VECTOR(7 downto 0);
+BEGIN
+  PROCESS( Clear, Clock)
+  BEGIN
+    IF ( Clear = '1' ) THEN
+      Data1_out <= (OTHERS => '0');
+		Data2_out <= (OTHERS => '0');
+		imm_out	 <= (OTHERS => '0');
+		wradd_out <= (OTHERS => '0');
+		pc_out    <= (OTHERS => '0');
+		fun7_out  <= (OTHERS => '0');
+		fun3_out  <= (OTHERS => '0');
+		src1_out  <= (OTHERS => '0');
+		src2_out  <= (OTHERS => '0');
+		f7_temp   <= (OTHERS => '0');
+		f3_temp   <= (OTHERS => '0');
+		r1_temp   <= (OTHERS => '0');
+		r2_temp   <= (OTHERS => '0');
+		wraddr_temp <= (OTHERS => '0');
+		pc_temp   <= (OTHERS =>'0');
+	 ELSIF rising_edge(clock) THEN
+	   IF (branch = '1') THEN
+	     wraddr_temp <= (OTHERS => '0');
+		  pc_temp   <= (OTHERS =>'0');
+		END IF;
+      Data1_out <= Data1_in;
+		Data2_out <= Data2_in;
+		imm_out	 <= imm_in;
+		--these need an extra cycle to catch up with register reads
+		wraddr_temp <= wradd_in;
+		wradd_out   <= wraddr_temp;
+		pc_temp     <= pc_in;
+		pc_out      <= pc_temp;
+		r1_temp     <= src1_in;
+		src1_out    <= r1_temp; 
+		r2_temp     <= src2_in;
+		src2_out    <= r2_temp;
+		f7_temp     <= fun7_in;
+		fun7_out    <= f7_temp;
+		f3_temp     <= fun3_in;
+		fun3_out    <= f3_temp;
+    END IF;
+  END PROCESS;
+END LogicFunction;

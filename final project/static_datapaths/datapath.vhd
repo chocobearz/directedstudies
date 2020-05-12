@@ -5,15 +5,7 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 ENTITY datapath IS
   PORT(
-    clear, clock, static_type : IN STD_LOGIC;
-    car, zer, bran, increment, stl, ld , haz, prdct, selec: BUFFER STD_LOGIC;
-    writedata,imm      : BUFFER STD_LOGIC_VECTOR(63 downto 0);
-    writeaddr         : BUFFER STD_LOGIC_VECTOR(4 downto 0);
-	 addr,pc  , addr1, test, pctempo, addcheck, pccheck         : BUFFER STD_LOGIC_VECTOR(7 downto 0);
-    rd1, rd2           : BUFFER STD_LOGIC_VECTOR(4 downto 0);
-	 alu1, alu2         : BUFFER STD_LOGIC_VECTOR(63 downto 0);
-	 sel1, sel2  : buffer STD_LOGIC_VECTOR(1 downto 0);
-	 f3 : BUFFER STD_LOGIC_VECTOR( 2 downto 0)
+    clear, clock, static_type : IN STD_LOGIC
     );
 END datapath;
 
@@ -22,11 +14,13 @@ COMPONENT instruction_fetch IS
   PORT (
     addr: IN  STD_LOGIC_VECTOR(7 downto 0);
     inst: OUT STD_LOGIC_VECTOR(31 downto 0);
-    pc, addchecker, pccheck: OUT STD_LOGIC_VECTOR(7 downto 0);
+    pc : OUT STD_LOGIC_VECTOR(7 downto 0);
     ld:   IN  STD_LOGIC := '0';
     clr:  IN  STD_LOGIC := '0';
     inc:  IN  STD_LOGIC := '0';
-    clk:  IN  STD_LOGIC := '0'
+    clk,stall:  IN  STD_LOGIC := '0';
+	 predict : IN STD_LOGIC;
+	 branch : IN STD_LOGIC_VECTOR(6 downto 0)
   );
 END COMPONENT;
 COMPONENT risc_v_decoder IS
@@ -62,7 +56,7 @@ COMPONENT control_unit IS
     Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite : out STD_LOGIC;
     ALUOp                                                 : out  STD_LOGIC_VECTOR(1 downto 0);
     I                                                     : in  STD_LOGIC_VECTOR(6 downto 0);
-    clr,clock                                               : in  STD_LOGIC
+    clr,clock, stall, staystall, morestall                : in  STD_LOGIC
     );
 END COMPONENT;
   COMPONENT ALU_control IS
@@ -78,7 +72,7 @@ END COMPONENT;
     PORT(
       immediate32 : IN  STD_LOGIC_VECTOR(31 downto 0);
       immediate64 : OUT STD_LOGIC_VECTOR(63 downto 0);
-      clr,clk     : IN  STD_LOGIC
+      clr         : IN  STD_LOGIC
       );
   END COMPONENT;
   COMPONENT data_mem IS
@@ -114,26 +108,23 @@ END COMPONENT;
 	   wradd_in                      : IN  STD_LOGIC_VECTOR(4 downto 0);
       Data1_out, Data2_out, imm_out : OUT STD_LOGIC_VECTOR(63 downto 0);
 	   wradd_out                     : OUT STD_LOGIC_VECTOR(4 downto 0);
-	   pc_in                         : IN  STD_LOGIC_VECTOR(7 downto 0);
 		fun7_in                       : IN  STD_LOGIC_VECTOR(6 downto 0);
 		fun7_out                      : OUT STD_LOGIC_VECTOR(6 downto 0);
 		fun3_in                       : IN  STD_LOGIC_VECTOR(2 downto 0);
 		fun3_out                      : OUT STD_LOGIC_VECTOR(2 downto 0);
-	   pc_out                        : OUT STD_LOGIC_VECTOR(7 downto 0);
 	   src1_in                       : IN  STD_LOGIC_VECTOR(4 downto 0);
 	   src1_out                      : OUT STD_LOGIC_VECTOR(4 downto 0);
 	   src2_in                       : IN  STD_LOGIC_VECTOR(4 downto 0);
-	   src2_out                      : OUT STD_LOGIC_VECTOR(4 downto 0);
-		pctemp                        : OUT STD_LOGIC_VECTOR(7 downto 0)
+	   src2_out                      : OUT STD_LOGIC_VECTOR(4 downto 0)
      );
   END COMPONENT;
   COMPONENT control_RD_reg IS
     PORT(
-      clear, clock, ALUSrc_in, RegWrite_in, stall, staystall, morestall : IN  STD_LOGIC;
-      Branch_in, MemRead_in, MemtoReg_in, MemWrite_in  : IN  STD_LOGIC;
+      clear, clock, ALUSrc_in, RegWrite_in, staystall  : IN  STD_LOGIC;
+      MemRead_in, MemtoReg_in, MemWrite_in             : IN  STD_LOGIC;
       ALUOp_in	                                        : IN  STD_LOGIC_VECTOR(1 downto 0);
 	   ALUSrc_out, RegWrite_out, MemWrite_out           : OUT STD_LOGIC;
-      Branch_out, MemRead_out, MemtoReg_out            : OUT STD_LOGIC;
+      MemRead_out, MemtoReg_out                        : OUT STD_LOGIC;
       ALUOp_out	                                     : OUT STD_LOGIC_VECTOR(1 downto 0)
     );
   END COMPONENT;
@@ -165,29 +156,41 @@ END COMPONENT;
     fwdA,fwdB              : OUT STD_LOGIC_VECTOR( 1 downto 0)
   );
   END COMPONENT;
-  COMPONENT hazard_detection_unit IS
-  PORT (clock, clr,branch : IN  STD_LOGIC;
-        predicted, actual : IN  STD_LOGIC_VECTOR(7 downto 0);
-        hazard            : OUT STD_LOGIC);
-  END COMPONENT;
   COMPONENT static_prediction_unit IS
   PORT (static_type, clr, clock: IN  STD_LOGIC;
       predict   : OUT STD_LOGIC);
   END COMPONENT;
+  COMPONENT ALU_branch IS
+  GENERIC(n: INTEGER:= 64);
+  PORT(
+    inputA,inputB: IN  STD_LOGIC_VECTOR(n-1 downto 0);
+    result:        OUT STD_LOGIC_VECTOR(n-1 downto 0);
+	 z,c:           OUT STD_LOGIC;
+	 clr:           IN  STD_LOGIC
+  );
+  END COMPONENT;
+  COMPONENT early_forwarding_unit IS
+  PORT (
+    EXE_wraddr, MEM_wraddr, RD_wraddr : IN  STD_LOGIC_VECTOR( 4 downto 0 );
+	 clr            : IN  STD_LOGIC;
+    src1, src2             : IN  STD_LOGIC_VECTOR( 4 downto 0);
+    fwdA,fwdB              : OUT STD_LOGIC_VECTOR( 1 downto 0)
+  );
+  END COMPONENT;
 SIGNAL lacie, simon                                  : STD_LOGIC_VECTOR(31 downto 0);
 SIGNAL lily,bad,cat, sashay ,away, lipsync, forurlyf : STD_LOGIC_VECTOR(4 downto 0);
-SIGNAL drew, hardy, mystery                          : STD_LOGIC_VECTOR(4 downto 0);
+SIGNAL drew, hardy, mystery, boys, ghost             : STD_LOGIC_VECTOR(4 downto 0);
 SIGNAL penny, abbie, slaayyy,hawt, nancy, frank      : STD_LOGIC_VECTOR(6 downto 0);
-SIGNAL gex, feirce, dog, joe                         : STD_LOGIC_VECTOR(2 downto 0);
-SIGNAL sir, mix, alot, baby, got, back,stall,load    : STD_LOGIC;
-SIGNAL condragulations, incr,sel, help, hazard,halp  : STD_LOGIC;
-SIGNAL kween                                         : STD_LOGIC_VECTOR(1 downto 0);
+SIGNAL gex, feirce, funky3, joe                      : STD_LOGIC_VECTOR(2 downto 0);
+SIGNAL sir, mix, alot, baby, got, back,stall         : STD_LOGIC;
+SIGNAL condragulations,sel, help, halp, z, c         : STD_LOGIC;
+SIGNAL kween, fwdA, fwdB, fwdAA, fwdBB               : STD_LOGIC_VECTOR(1 downto 0);
 SIGNAL banana                                        : STD_LOGIC_VECTOR(3 downto 0);
-SIGNAL punk, rock, lives, hola                       : STD_LOGIC_VECTOR(63 downto 0);
+SIGNAL punk, rock, lives, hola, hippos, hungry, clues: STD_LOGIC_VECTOR(63 downto 0);
 SIGNAL she, done, already, had, herses, detective    : STD_LOGIC_VECTOR(63 downto 0);
 SIGNAL carry, zero, branch, predict, suzy            : STD_LOGIC;
 SIGNAL garbage, werk, another,choice, guess          : STD_LOGIC_VECTOR(7 downto 0);
-SIGNAL more,address, pctemp, nextaddr                : STD_LOGIC_VECTOR(7 downto 0);
+SIGNAL more,address, pctemp, nextaddr,werkit         : STD_LOGIC_VECTOR(7 downto 0);
 --pipeline signals
 SIGNAL its                                           : STD_LOGIC_VECTOR(31 downto 0);
 SIGNAL gunna, take, lots                             : STD_LOGIC_VECTOR(63 downto 0);
@@ -199,17 +202,18 @@ SIGNAL men                                           : STD_LOGIC_VECTOR(4 downto
 SIGNAL ormore, could, ever, do, ibless, therains     : STD_LOGIC;
 SIGNAL down                                          : STD_LOGIC_VECTOR(63 downto 0);
 SIGNAL inafrica                                      : STD_LOGIC_VECTOR(4 downto 0);
-SIGNAL fwdA, fwdB                                    : STD_LOGIC_VECTOR(1 downto 0);
+
 BEGIN 
   u1: instruction_fetch PORT MAP (addr => nextaddr,
+                                  predict => predict,
                                   inst => lacie,
                                   pc => garbage,
-                                  ld   => load,
+                                  ld   => '1',
                                   clr  => clear,
 											 inc => suzy,
                                   clk  => clock,
-											 addchecker => addcheck,
-											 pccheck => pccheck);
+											 branch => penny,
+											 stall => stall);
   u2: risc_v_decoder PORT MAP (instruction    => lacie,
                                rs1            => lily,
                                rs2            => bad,
@@ -230,8 +234,7 @@ BEGIN
 									 clk       => clock);
   u4: imm_gen PORT MAP(immediate32 => simon,
                       immediate64  => lives,
-							 clr          => clear,
-							 clk          => clock);
+							 clr          => clear);
   u5 : ALU_64 PORT MAP(opcode => banana,
                       inputA  => hola,
                       inputB  => she,
@@ -254,7 +257,10 @@ BEGIN
                             ALUOp    => kween,
                             I        => nancy,
 									 clr      => clear,
-									 clock    => clock );
+									 clock    => clock,
+									 stall => stall,
+							       staystall => help,
+							       morestall => halp);
   u8 : ALU_control PORT MAP(Opcode => banana,
                            ALUOp   => nothing,
                            Funct7  => slaayyy,
@@ -264,7 +270,7 @@ BEGIN
                       clock => clock,
 	                   pc_in => garbage,        
 	                   pc_out =>  werk,
-							 stall => hazard,
+							 stall => stall,
 							 staystall => help,
 							 rd1_out => drew,
 							 rd1_in => lily,
@@ -282,33 +288,30 @@ BEGIN
 			             imm_in => lives);
   u10: RD_reg PORT MAP(clear => clear,
                        clock => clock,
+							  stall => stall,
 	                    Data1_in => punk,
 		                 Data2_in => rock,
-		                 imm_in => detective,
+		                 imm_in => clues,
 	                    wradd_in => mystery,
                        Data1_out => gunna,
 	                    Data2_out => take,
 	                    imm_out => lots,
 	                    wradd_out => sashay,
-	                    pc_in  => werk,
-	                    pc_out => todrag,
 							  fun7_in => frank,
 							  fun7_out => slaayyy,
-							  fun3_in => joe,
+							  fun3_in => funky3,
 							  fun3_out => feirce,
-							  src1_in => drew,
+							  src1_in => ghost,
 							  src1_out => lipsync,
-							  src2_in => hardy,
+							  src2_in => boys,
 							  src2_out => forurlyf,
-							  stall => hazard,
-							  pctemp => pctemp,
 							  staystall => help,
 							  morestall => halp);
   u11: control_RD_reg PORT MAP(clear => clear,
                                clock => clock,
+										 staystall => help,
                                ALUSrc_in => baby,
                                RegWrite_in => got,
-                               Branch_in => branch,
                                MemRead_in => sir,
                                MemtoReg_in => mix,
                                MemWrite_in => alot,
@@ -316,13 +319,9 @@ BEGIN
                                ALUSrc_out => meaway,
                                RegWrite_out => back,
                                MemWrite_out => from,
-                               Branch_out => you,
                                MemRead_out => theres,
                                MemtoReg_out => condragulations,
-                               ALUOp_out => nothing,
-										 stall => hazard,
-										 staystall => help,
-										 morestall => halp);
+                               ALUOp_out => nothing);
   u12: EXE_reg PORT MAP(clear => clear,
                         clock => clock,
                         wradd_in => sashay,
@@ -352,16 +351,55 @@ BEGIN
 	                               src2 => forurlyf,
                                   fwdA => fwdA,
 	                               fwdB => fwdB);
-	u16: hazard_detection_unit PORT MAP (clock => clock,
-	                                clr => clear,
-											  branch => you,
-                                   predicted => pctemp,
-											  actual => address,
-                                   hazard => hazard);
-   u17: static_prediction_unit PORT MAP (static_type => static_type,
+   u16: static_prediction_unit PORT MAP (static_type => static_type,
 	                                  clr => clear,
 												 clock => clock,
                                      predict => predict);
+   u17: ALU_branch PORT MAP (inputA => hippos,
+	                          inputB => hungry,
+	                          z => z,
+									  c => c,
+	                          clr => clear);
+	u18: early_forwarding_unit PORT MAP (EXE_wraddr => men,
+	                                 MEM_wraddr => inafrica,
+	                                 RD_wraddr => sashay,
+	                                 clr => clear,
+                                    src1 => ghost,
+	                                 src2 => boys,
+                                    fwdA => fwdAA,
+	                                 fwdB => fwdBB);
+	--forwarding for the branching ALU
+	Branch_ALU_select2 : PROCESS(fwdBB, clear) IS 
+    BEGIN
+      IF clear = '1' THEN
+	     hungry <= (others => '0');
+      ELSIF fwdBB = "00" THEN
+        hungry <= rock;
+	   ELSIF fwdBB = "01" THEN
+	     hungry <= herses;
+	   ELSIF fwdBB = "10" THEN
+	     hungry <=  that;
+      ELSIF fwdBB = "11" THEN
+        hungry <= done;
+      END IF;
+    END PROCESS;
+  
+  Branch_ALU_select1 : PROCESS(fwdAA, clear) IS 
+  BEGIN
+    IF clear = '1' THEN
+	   hippos <= (others => '0');
+    ELSIF fwdAA = "00" THEN
+      hippos <= punk;
+	 ELSIF fwdAA = "01" THEN
+	   hippos <= herses;
+	 ELSIF fwdAA = "10" THEN
+	   hippos <=  that;
+	 ELSIF fwdAA = "11" THEN
+	   hippos <=  done;
+    END IF;
+  END PROCESS;	
+  
+  -- forwarding for the execution ALU
 	ALU_select2 : PROCESS(fwdB, clear) IS 
     BEGIN
       IF clear = '1' THEN
@@ -401,36 +439,27 @@ BEGIN
       herses <= had;
     END IF;
   END PROCESS;
-  
-  addrCalculate: PROCESS(todrag, you, clear)
-  BEGIN
-    IF clear = '1' THEN
-	   choice <= (others => '0');
-	 ELSE
-      choice <= todrag + lots(7 downto 0);
-		more <= todrag + 1;
-	 END IF;
-  END PROCESS;
-  
-branching: PROCESS(you, feirce, clear )
+
+ --brnahcing is now moved up
+branching: PROCESS(funky3, clear, z, c, branch)
   BEGIN
  IF clear = '1' THEN
   sel <= '0'; 
- ELSIF you = ('1') THEN
-   IF (feirce = "000") THEN
-	  IF zero = '1' THEN
+ ELSIF branch = ('1') THEN
+   IF (funky3 = "000") THEN
+	  IF z = '1' THEN
 	    sel <= '1';
 	  ELSE
 	    sel <= '0';
 	  END IF;
-	ELSIF (feirce = "001") THEN
-	  IF zero = '0' THEN
+	ELSIF (funky3 = "001") THEN
+	  IF z = '0' THEN
 	    sel <= '1';
 	  ELSE 
 	    sel <= '0';
 	  END IF;
-	ELSIF (feirce = "100") THEN
-	  IF ( zero = '0' and carry = '0') THEN
+	ELSIF (funky3 = "100") THEN
+	  IF ( z = '0' and c = '0') THEN
 	    sel <= '1';
 	  ELSE
 	    sel <= '0';
@@ -441,6 +470,7 @@ branching: PROCESS(you, feirce, clear )
   END IF;
 END PROCESS;
 
+--choose ext address
 multiplexer: PROCESS(sel, clear)
   BEGIN
     IF clear = '1' THEN
@@ -454,38 +484,27 @@ END PROCESS;
 
 --stall
 
---branch_stall : PROCESS(branch)
-  --BEGIN
-  --IF( hazard = '1') THEN
-    --load <= '0';
-	 --flush
-	 --stall <= '1';
-  --ELSE
-    --load <= '1';
-	 -- universal clear
-	 --stall <= clear;
-  --END IF;
---END PROCESS;
-
-incmultiplexer: PROCESS(hazard)
-BEGIN
-  -- zero hazard means continue as predicted
-  IF hazard = '0' THEN
-    suzy <= predict;
-	 nextaddr <= guess;
- -- else there is a hazard and take the NOT predicted
+branch_stall : PROCESS(clear, branch, static_type)
+ BEGIN
+  IF clear = '1' THEN
+    stall <= '0';
+  ELSIF branch = '1' THEN
+    IF static_type = '0' THEN
+	   stall <= sel;
+	 ELSE
+	   stall <= NOT sel;
+	 END IF;
   ELSE 
-    suzy <= NOT predict;
-	 nextaddr <= address;
+   stall <= '0';
   END IF;
 END PROCESS;
 
-predbranch: PROCESS(lives, garbage, clear)
+predbranch: PROCESS(clear)
 BEGIN
   IF clear = '1' THEN
     guess <= (OTHERS => '0');
   ELSE
-    guess <= lives(7 downto 0) + garbage;
+    guess <= garbage + lives(7 downto 0);
   END IF;
 END PROCESS;
 
@@ -493,34 +512,71 @@ END PROCESS;
 PROCESS(clock)
 BEGIN
  IF rising_edge(clock) THEN
-    help <= hazard;
+    help <= stall;
 	 halp <= help;
  END IF;
 END PROCESS;
 
+address_milti: PROCESS(stall, clear)
+BEGIN
+    IF clear = '1' THEN
+	   nextaddr <= (OTHERS => '0');
+	 ELSIF stall = '1' THEN
+	   nextaddr <= address;
+	 ELSE
+	   nextaddr <= guess;
+    END IF;
+END PROCESS;
+	   
+increment_select: PROCESS(stall, clear)
+BEGIN
+  IF clear = '1' THEN
+    suzy <= '0';
+  -- misprediction take address
+  ELSIF stall = '1' THEN
+    suzy <= '1';
+  ELSIF penny = "1100011" THEN
+    suzy <= predict;
+  ELSE 
+    suzy <= '0';
+  END IF;
+END PROCESS;
 
-car <= carry;
-zer <= zero;
-bran <= you;
-increment <= incr;
-writedata <= herses;
-imm <= lots;
-writeaddr <= inafrica;
-addr <= address;
-pc <= todrag;
-rd1 <= lipsync;
-rd2 <= forurlyf;
-alu1 <= hola;
-alu2 <= she;
-stl <= stall;
-ld <= load;
-sel1 <= fwdA;
-sel2 <= fwdB;
-haz <= hazard;
-prdct <= predict;
-addr1 <= werk;
-test <= garbage;
-pctempo <= pctemp;
-selec <= suzy;
-f3 <= feirce;
+addrCalculate: PROCESS(todrag, you, clear)
+  BEGIN
+    IF clear = '1' THEN
+	   choice <= (others => '0');
+		more <=  (OTHERS => '0');
+	 ELSE
+      choice <= werkit +  clues(7 downto 0);
+		more <= werkit + 1;
+	 END IF;
+END PROCESS;
+	 
+--temp reg for funct 3 so it is times with register outputs for branching
+PROCESS(clock, clear, stall)
+BEGIN
+  IF clear = '1' THEN
+    funky3 <= (OTHERS => '0');
+	 werkit <= (OTHERS => '0');
+	 clues <= (OTHERS => '0');
+	 boys <= (OTHERS => '0');
+	 ghost <= (OTHERS => '0');
+  ELSIF rising_edge(clock) THEN
+    IF  stall = '1' OR help = '1' OR halp = '1' THEN
+	   funky3 <= (OTHERS => '0');
+	   werkit <= (OTHERS => '0');
+	   clues <= (OTHERS => '0');
+	   boys <= (OTHERS => '0');
+	   ghost <= (OTHERS => '0');
+	 ELSE
+      funky3 <= joe;
+	   werkit <= werk;
+	   clues <= detective;
+	   boys <= hardy;
+	   ghost <= drew;
+	END IF;
+  END IF;
+END PROCESS;
+
 END logic_function;

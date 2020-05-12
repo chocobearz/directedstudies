@@ -1,0 +1,136 @@
+$comment
+	File created using the following command:
+		vcd file datapath.msim.vcd -direction
+$end
+$date
+	Fri Apr 17 01:36:09 2020
+$end
+$version
+	ModelSim Version 10.5b
+$end
+$timescale
+	1ps
+$end
+
+$scope module datapath_vhd_vec_tst $end
+$var wire 1 ! clear $end
+$var wire 1 " clock $end
+$var wire 1 # load $end
+
+$scope module i1 $end
+$var wire 1 $ gnd $end
+$var wire 1 % vcc $end
+$var wire 1 & unknown $end
+$var wire 1 ' devoe $end
+$var wire 1 ( devclrn $end
+$var wire 1 ) devpor $end
+$var wire 1 * ww_devoe $end
+$var wire 1 + ww_devclrn $end
+$var wire 1 , ww_devpor $end
+$var wire 1 - ww_load $end
+$var wire 1 . ww_clear $end
+$var wire 1 / ww_clock $end
+$var wire 1 0 \load~input_o\ $end
+$var wire 1 1 \clear~input_o\ $end
+$var wire 1 2 \clock~input_o\ $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+1!
+0"
+1#
+0$
+1%
+x&
+1'
+1(
+1)
+1*
+1+
+1,
+1-
+1.
+0/
+10
+11
+02
+$end
+#20000
+0!
+0.
+01
+#55000
+1"
+1/
+12
+#110000
+0"
+0/
+02
+#165000
+1"
+1/
+12
+#220000
+0"
+0/
+02
+#275000
+1"
+1/
+12
+#330000
+0"
+0/
+02
+#385000
+1"
+1/
+12
+#440000
+0"
+0/
+02
+#495000
+1"
+1/
+12
+#550000
+0"
+0/
+02
+#605000
+1"
+1/
+12
+#660000
+0"
+0/
+02
+#715000
+1"
+1/
+12
+#770000
+0"
+0/
+02
+#825000
+1"
+1/
+12
+#880000
+0"
+0/
+02
+#935000
+1"
+1/
+12
+#990000
+0"
+0/
+02
+#1000000
